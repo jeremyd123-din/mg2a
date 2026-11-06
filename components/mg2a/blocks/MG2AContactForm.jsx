@@ -17,7 +17,7 @@ export default function MG2AContactForm({ data }) {
           <p>{data.description}</p>
           <div className="mg-offices grid [grid-template-columns:repeat(2,_minmax(0,_1fr))] gap-[24px] mt-[40px] [&_.mono]:text-[11px]">
             {data.offices?.filter(Boolean).map((o) => (
-              <OfficeDetails key={o._id} office={o} />
+              <OfficeDetails key={o._key || o._id} office={o} />
             ))}
           </div>
         </div>

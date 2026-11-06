@@ -4,7 +4,7 @@ import { createClient } from "@sanity/client";
 import nextEnv from "@next/env";
 import { pathToFileURL } from "node:url";
 nextEnv.loadEnvConfig(process.cwd());
-const { settings, offices, careers, contact } = await import(
+const { settings, careers, contact } = await import(
   pathToFileURL(path.resolve("lib/mg2a/defaults.js"))
 );
 const client = createClient({
@@ -94,14 +94,22 @@ const homepage = {
   seo_no_index: true,
   page_builder: [...home, careers, contact],
 };
-const seed = await resolve([...offices, ...documents, settings, homepage]);
+const samples = JSON.parse(
+  fs.readFileSync("lib/mg2a/referencePlaceholders.json", "utf8"),
+);
+const jobs = samples.jobs.map((job, index) => ({
+  _id: "mg2a-job-" + job._key,
+  _type: "mg2a_job",
+  title: job.title,
+  location: job.location,
+  href: job.href,
+  status: "open",
+  order: index,
+}));
+const seed = await resolve([...documents, ...jobs, settings, homepage]);
 const transaction = client.transaction();
 for (const document of seed) transaction.createIfNotExists(document);
-transaction.createIfNotExists({
-  _id: "site_settings",
-  _type: "site_settings",
-  disable_indexing: true,
-});
+
 await transaction.commit();
 console.log(
   `Seed complete: ${seed.length} MG2A records (create-if-missing; existing edits preserved).`,

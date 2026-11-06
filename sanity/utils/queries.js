@@ -6,7 +6,7 @@ export async function getPageBySlug(slug) {
   return fetchSanity(
     groq`*[_type == "page" && slug.current == $slug][0]{
     ...,
-    page_builder[]{...,"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...},"offices":offices[]->{...}}
+    page_builder[]{...,"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...},_type == "mg2a_contactForm" => {"offices":*[_id=="mg2a-settings"][0].offices}, _type == "mg2a_careers" => {"jobs":*[_type=="mg2a_job" && status=="open"]|order(order asc,_createdAt asc)}}
 
 }`,
     { slug },
@@ -16,7 +16,8 @@ export async function getPageBySlug(slug) {
         "mg2a_project",
         "mg2a_serviceCategory",
         "mg2a_industry",
-        "mg2a_office",
+        "mg2a_settings",
+        "mg2a_job",
       ],
     },
   );
@@ -119,9 +120,9 @@ export async function getPostsByCategoryCount(categorySlug) {
 
 export async function getSiteSettings() {
   return fetchSanity(
-    groq`*[_type == "site_settings"][0]{disable_indexing,og_image,gtm_id}`,
+    groq`*[_type == "mg2a_settings" && _id == "mg2a-settings"][0]{disable_indexing,og_image,gtm_id}`,
     {},
-    { tags: ["site_settings"] },
+    { tags: ["mg2a_settings"] },
   );
 }
 
@@ -151,8 +152,8 @@ export async function getAllCategorySlugs() {
 
 export async function getMG2ASettings() {
   return fetchSanity(
-    groq`*[_type == "mg2a_settings" && _id in ["mg2a-settings", "drafts.mg2a-settings"]][0]{..., "offices": offices[]->{...}}`,
+    groq`*[_type == "mg2a_settings" && _id in ["mg2a-settings", "drafts.mg2a-settings"]][0]{...}`,
     {},
-    { tags: ["mg2a_settings", "mg2a_office"] },
+    { tags: ["mg2a_settings"] },
   );
 }

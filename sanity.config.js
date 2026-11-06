@@ -14,7 +14,7 @@ import { openInEditorAction } from "./sanity/actions/openInEditorAction";
 import { pastePageJsonAction } from "./sanity/actions/pastePageJsonAction";
 
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
-const singletonTypes = new Set(["site_settings", "mg2a_settings"]);
+const singletonTypes = new Set(["mg2a_settings"]);
 
 export default defineConfig({
   name: "default",

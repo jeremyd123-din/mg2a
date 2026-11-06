@@ -48,7 +48,7 @@ export default function MG2AFooter({ settings }) {
             {settings.footerOfficesTitle}
           </div>
           {settings.offices?.filter(Boolean).map((o) => (
-            <OfficeDetails key={o._id} office={o} />
+            <OfficeDetails key={o._key || o._id} office={o} />
           ))}
         </div>
       </div>

@@ -38,7 +38,7 @@ export default function MG2ACareers({ data }) {
             data.jobs.map((job) => (
               <a
                 className="mg-job flex items-center justify-between gap-[16px] py-[22px] [border-bottom:1px_solid_#ffffff2e] [&_strong]:text-[19px] [&_strong]:font-semibold [&_.mono]:mt-[6px] [&_.mono]:text-[11px] [&_.mono]:[color:#afc1d6]"
-                key={job._key}
+                key={job._id || job._key}
                 href={safeHref(job.href)}
               >
                 <div>

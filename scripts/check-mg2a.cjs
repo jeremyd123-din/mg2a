@@ -49,9 +49,22 @@ async function main() {
       "Renderer missing: " + block._type,
     );
   }
+  const { primaryNavigation, serviceGroups, industryLinks, launchRoutes } = load("lib/mg2a/navigation.js");
+  assert.deepEqual(primaryNavigation.filter(item => item.groups?.length).map(item => item.href), ["/services", "/industries"]);
+  assert.equal(serviceGroups.length, 7);
+  assert.equal(serviceGroups.flatMap(group => group.links).length, 12);
+  assert.equal(industryLinks.length, 9);
+  assert.equal(new Set(launchRoutes.map(item => item.href)).size, launchRoutes.length);
+  assert(!JSON.stringify(serviceGroups).includes("as-built-survey"));
   const pageType = types.find((t) => t.name === "page");
   const members = pageType.fields.find((f) => f.name === "page_builder").of;
   assert.equal(members.length, 11);
+  const fs = require("node:fs");
+  for (const member of members) {
+    const file = `public/mg2a/block-previews/${member.type}.jpg`;
+    assert(fs.statSync(file).size > 1000, "Missing screenshot: " + file);
+    assert.equal(fs.readFileSync(file).subarray(0, 2).toString("hex"), "ffd8");
+  }
   assert(members.every((m) => m.type.startsWith("mg2a_")));
   const mg2aTypes = types.filter(
     (type) => type.name.startsWith("mg2a_") && type.type === "object",
@@ -75,6 +88,8 @@ async function main() {
     "form",
     "formSubmission",
     "HeroVariant01",
+    "mg2a_office",
+    "site_settings",
   ])
     assert(
       !types.some((type) => type.name === removed),
@@ -91,6 +106,29 @@ async function main() {
     ),
   );
   assert.equal(pageStyles({ _id: "other-page" }), "");
+  const site = types.find((type) => type.name === "mg2a_settings");
+  assert(
+    site.fields.some(
+      (field) => field.name === "offices" && field.of[0].type === "object",
+    ),
+  );
+  assert(types.some((type) => type.name === "mg2a_job"));
+  assert(
+    !types
+      .find((type) => type.name === "mg2a_careers")
+      .fields.some((field) => field.name === "jobs"),
+  );
+  assert(
+    !types
+      .find((type) => type.name === "mg2a_contactForm")
+      .fields.some((field) => field.name === "offices"),
+  );
+  assert(
+    members.length === 11 &&
+      pageType.fields
+        .find((field) => field.name === "page_builder")
+        .options.insertMenu.views.some((view) => view.name === "grid"),
+  );
   const hero = types.find((t) => t.name === "mg2a_hero");
   assert(
     hero.fields.some((f) => f.name === "buttonOne" && f.title === "Button one"),
@@ -136,17 +174,17 @@ async function main() {
   assert(
     renderToStaticMarkup(
       React.createElement(Header, { settings: headerData, overlay: true }),
-    ).includes("[background:transparent]"),
+    ).includes("bg-transparent"),
   );
   assert(
     renderToStaticMarkup(
       React.createElement(Header, { settings: headerData, overlay: false }),
-    ).includes("[background:#0b1822]"),
+    ).includes("bg-[#0b1822]"),
   );
   const sourcePath =
     (process.env.MG2A_HANDOFF_DIR ||
       "/Users/parasbokhari/Downloads/mg2a-dev-handoff") + "/pages/index.html";
-  const fs = require("fs");
+
   if (fs.existsSync(sourcePath)) {
     const { parseDocument } = require("htmlparser2");
     const D = require("domutils");

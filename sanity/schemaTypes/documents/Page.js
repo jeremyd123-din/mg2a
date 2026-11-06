@@ -131,7 +131,13 @@ const Page = {
                 .map((block) => block.name),
             },
           ],
-          views: [{ name: "list" }],
+          views: [
+            {
+              name: "grid",
+              previewImageUrl: (type) => `/mg2a/block-previews/${type}.jpg`,
+            },
+            { name: "list" },
+          ],
         },
       },
     }),

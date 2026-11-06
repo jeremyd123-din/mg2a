@@ -1,9 +1,6 @@
 import MG2ASection from "../ui/MG2ASection";
 export default function MG2AMetrics({ data }) {
-  const items = (data.items || []).filter(
-    (item) =>
-      item.value && item.label && !/\[|\]/.test(item.value + item.label),
-  );
+  const items = (data.items || []).filter((item) => item.value && item.label);
   if (!items.length) return null;
   return (
     <MG2ASection

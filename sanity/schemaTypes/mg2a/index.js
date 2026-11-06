@@ -1,3 +1,4 @@
+import { createElement } from "react";
 import { scopedCss } from "../objects/commonFields";
 import generated from "./generated.json";
 import { resolveDefaultAssets } from "@/lib/mg2a/resolveDefaults";
@@ -44,18 +45,55 @@ const links = (name, title) => ({
     },
   ],
 });
+const primaryLinks = links("primaryLinks", "Main navigation");
+primaryLinks.of[0].fields = [
+  ...linkFields,
+  {
+    name: "groups",
+    title: "Subnavigation groups",
+    type: "array",
+    description:
+      "Only Services and Industries have subnavigation. Other navigation entries remain direct links.",
+    hidden: ({ parent }) =>
+      !["/services", "/industries"].includes(parent?.href),
+    of: [
+      {
+        type: "object",
+        name: "navigationGroup",
+        fields: [...linkFields, links("links", "Launch pages")],
+        preview: { select: { title: "label" } },
+      },
+    ],
+  },
+];
 const offices = {
   name: "offices",
   title: "Offices",
   type: "array",
-  of: [{ type: "reference", to: [{ type: "mg2a_office" }] }],
+  of: [
+    {
+      name: "office",
+      type: "object",
+      fields: [
+        string("name", "Office name", {
+          validation: (Rule) => Rule.required(),
+        }),
+        string("street", "Street address"),
+        string("city", "City, state and ZIP"),
+        string("phone", "Display phone"),
+        string("telephone", "Phone link number", {
+          description: "Include the country code, for example +18159394921.",
+        }),
+      ],
+      preview: { select: { title: "name", subtitle: "phone" } },
+    },
+  ],
 };
 const required = (Rule) => Rule.required();
 const contactFields = [
   string("eyebrow", "Eyebrow"),
   string("title", "Heading"),
   text("description", "Introduction"),
-  offices,
   ...["name", "email", "phone", "need", "details"].map((n) =>
     string(n + "Label", n[0].toUpperCase() + n.slice(1) + " field label", {
       validation: required,
@@ -77,6 +115,8 @@ const additional = [
   {
     name: "mg2a_careers",
     title: "MG2A - Careers",
+    description:
+      "Automatically displays published Open Positions with status Open, in display order.",
     type: "object",
     fields: [
       string("eyebrow", "Eyebrow"),
@@ -85,23 +125,6 @@ const additional = [
       link("primaryCta", "Primary button"),
       link("secondaryCta", "Secondary button"),
       string("jobsTitle", "Jobs heading"),
-      {
-        name: "jobs",
-        title: "Confirmed open positions",
-        description: "Only add positions approved by MG2A.",
-        type: "array",
-        of: [
-          {
-            type: "object",
-            name: "job",
-            fields: [
-              string("title", "Title"),
-              string("location", "Location / employment type"),
-              string("href", "Destination"),
-            ],
-          },
-        ],
-      },
       text("emptyMessage", "Message when no positions are listed"),
     ],
   },
@@ -212,6 +235,11 @@ export const mg2aBlocks = [...generated.blocks, ...additional].map((block) => ({
     prepare: ({ title, eyebrow }) => ({
       title: title || block.title,
       subtitle: eyebrow || block.title,
+      media: createElement("img", {
+        src: `/mg2a/block-previews/${block.name}.jpg`,
+        alt: block.title,
+        style: { width: "100%", height: "100%", objectFit: "contain" },
+      }),
     }),
   },
 }));
@@ -239,29 +267,64 @@ export const mg2aDocuments = [
     ),
   })),
   {
-    name: "mg2a_office",
-    title: "MG2A - Office",
+    name: "mg2a_job",
+    title: "Open Position",
     type: "document",
+    initialValue: { status: "open", order: 0 },
     fields: [
-      string("name", "Office name", { validation: required }),
-      string("street", "Street address"),
-      string("city", "City, state and ZIP"),
-      string("phone", "Display phone"),
-      string("telephone", "Phone link number", {
-        description: "Include country code, for example +18159394921.",
+      string("title", "Position title", {
+        validation: (Rule) =>
+          Rule.required().custom(
+            (value) =>
+              !value ||
+              !/[\[\]]/.test(value) ||
+              "Replace the placeholder title before publishing.",
+          ),
       }),
+      string("location", "Location / employment type"),
+      string("href", "Application or detail page link", {
+        description:
+          "Use /careers#apply, or a job page URL once that page is available.",
+        validation: linkFields[1].validation,
+      }),
+      string("status", "Status", {
+        initialValue: "open",
+        options: {
+          list: [
+            { title: "Open", value: "open" },
+            { title: "Closed", value: "closed" },
+          ],
+        },
+        validation: (Rule) => Rule.required(),
+      }),
+      {
+        name: "order",
+        title: "Display order",
+        type: "number",
+        initialValue: 0,
+        validation: (Rule) => Rule.integer().min(0),
+      },
     ],
-    preview: { select: { title: "name", subtitle: "phone" } },
+    orderings: [
+      {
+        title: "Display order",
+        name: "displayOrder",
+        by: [{ field: "order", direction: "asc" }],
+      },
+    ],
+    preview: { select: { title: "title", subtitle: "location" } },
   },
   {
     name: "mg2a_settings",
-    title: "MG2A - Global Header & Footer",
+    title: "MG2A - Site Settings",
     type: "document",
     groups: [
       { name: "header", title: "Header", default: true },
       { name: "footer", title: "Footer" },
       { name: "brand", title: "Brand & themes" },
       { name: "forms", title: "Inquiries" },
+      { name: "offices", title: "Offices" },
+      { name: "seo", title: "SEO & Analytics" },
     ],
     fields: [
       string("title", "Title", { hidden: true }),
@@ -270,7 +333,7 @@ export const mg2aDocuments = [
       string("footerLicense", "Footer license statement", { group: "footer" }),
       { name: "logo", title: "White logo", type: "image", group: "brand" },
       string("license", "License statement", { group: "header" }),
-      { ...links("primaryLinks", "Main navigation"), group: "header" },
+      { ...primaryLinks, group: "header" },
       { ...link("primaryCta", "Primary button"), group: "header" },
       { ...link("secondaryCta", "Secondary button"), group: "header" },
       { ...link("careersLink", "Careers utility link"), group: "header" },
@@ -281,10 +344,10 @@ export const mg2aDocuments = [
         type: "url",
         group: "header",
         description:
-          "Pending client confirmation. Leave blank to hide the link.",
+          "Pending client confirmation. Leave blank to display an inactive Client Access label.",
         validation: (Rule) => Rule.uri({ scheme: ["http", "https"] }),
       },
-      { ...offices, group: "header" },
+      { ...offices, group: "offices" },
       { ...text("description", "Company description"), group: "footer" },
       { ...links("serviceLinks", "Services links"), group: "footer" },
       { ...links("companyLinks", "Company links"), group: "footer" },
@@ -302,6 +365,24 @@ export const mg2aDocuments = [
         group: "brand",
         initialValue: "new",
         options: { list: ["new", "current"] },
+      }),
+      {
+        name: "disable_indexing",
+        title: "Disable search indexing",
+        type: "boolean",
+        group: "seo",
+        initialValue: true,
+      },
+      {
+        name: "og_image",
+        title: "Default social sharing image",
+        type: "image",
+        group: "seo",
+        options: { hotspot: true },
+      },
+      string("gtm_id", "Google Tag Manager ID", {
+        group: "seo",
+        description: "Leave blank to disable analytics.",
       }),
       string("inquiryEmail", "Inquiry recipient", {
         group: "forms",
