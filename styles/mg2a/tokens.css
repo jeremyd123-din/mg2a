@@ -1,0 +1,73 @@
+/* MG2A design tokens, taken from the approved mockups.
+   Theme is set on <html>: data-theme="dark" | "light".
+   The orange shade and service card blue are still open with the client,
+   so they are switchable too: data-orange="orange" | "earth", data-flip="new" | "current". */
+
+:root {
+  --accentHi: var(--onDark);
+  /* Brand */
+  --navy: #1b4f72; /* primary brand blue */
+  --brand-green: #4a7c59; /* tertiary, used sparingly */
+  --brand-yellow: #c8860d; /* tertiary, used sparingly */
+
+  /* Type */
+  --font-sans:
+    "Archivo", system-ui, sans-serif; /* weights 400, 500, 600, 700, 800 */
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, monospace; /* weights 400, 500: eyebrows, labels, captions */
+
+  /* Layout */
+  --content-max: 1280px;
+  --bp-mobile: 980px; /* single breakpoint used in the mockups */
+  --radius-sm: 4px;
+}
+
+/* Orange accent: "orange" is the default in the mockups; "earth" matches the browner orange on the current site */
+html[data-orange="orange"] {
+  --btn: #d0441a;
+  --onDark: #f27a50;
+  --onLight: #c23e14;
+}
+html[data-orange="earth"] {
+  --btn: #a3552a;
+  --onDark: #e39a6a;
+  --onLight: #94491f;
+}
+
+/* Back of the flip cards on the homepage services grid */
+html[data-flip="new"] {
+  --flip: #1b4f72;
+}
+html[data-flip="current"] {
+  --flip: #203d77;
+} /* blue from the current mg2a.com */
+
+/* Themes */
+html[data-theme="dark"] {
+  --bg: #0b1822;
+  --bg2: #0f202c;
+  --panel: #132836;
+  --line: rgba(255, 255, 255, 0.1);
+  --ink: #eef2f4;
+  --muted: #a3b4c0;
+  --water: #7fb3da;
+  --accent: var(--onDark);
+  color-scheme: dark;
+}
+html[data-theme="light"] {
+  --bg: #f5f6f4;
+  --bg2: #e8edf0;
+  --panel: #ffffff;
+  --line: rgba(16, 42, 58, 0.14);
+  --ink: #102a3a;
+  --muted: #4e5f6b;
+  --water: #1b4f72;
+  --accent: var(--onLight);
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}

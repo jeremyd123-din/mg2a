@@ -1,0 +1,422 @@
+[
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/survey",
+    "eyebrow": "9 services",
+    "title": "Survey",
+    "description": "Boundary, topographic, and ALTA/NSPS surveys that give every project an accurate starting point.",
+    "eyebrow2": "Survey",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Boundary Survey"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Topographic Survey"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Land Title (ALTA) Survey"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "As-Built Survey"
+      },
+      {
+        "_key": "entries4",
+        "_type": "entriesItem",
+        "text": "Setting Survey Control"
+      },
+      {
+        "_key": "entries5",
+        "_type": "entriesItem",
+        "text": "Site Analysis"
+      }
+    ],
+    "text": "View all 9 survey services",
+    "_id": "mg2a_serviceCategory-survey",
+    "icon": "survey"
+  },
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/design",
+    "eyebrow": "15 services",
+    "title": "Design",
+    "description": "Site plans, subdivision plats, and engineering plans, from concept sketch to final approval set.",
+    "eyebrow2": "Design",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Concept / Sketch Plan"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Preliminary & Final Site Plans"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Preliminary & Final Engineering Plans"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "Plats of Subdivision"
+      },
+      {
+        "_key": "entries4",
+        "_type": "entriesItem",
+        "text": "Planned Unit Development Plans"
+      },
+      {
+        "_key": "entries5",
+        "_type": "entriesItem",
+        "text": "Off-Site Roadway & Utility Plans"
+      }
+    ],
+    "text": "View all 15 design services",
+    "_id": "mg2a_serviceCategory-design",
+    "icon": "design"
+  },
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/water-resources",
+    "eyebrow": "4 services",
+    "title": "Water Resources",
+    "description": "Stormwater planning and floodplain analysis that protect the site and satisfy reviewers.",
+    "eyebrow2": "Water Resources",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Preliminary Stormwater Planning"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Final Stormwater Management Plan"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Preliminary Floodplain Analysis"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "Existing Floodplain Analysis"
+      }
+    ],
+    "text": "Explore water resources",
+    "_id": "mg2a_serviceCategory-water-resources",
+    "icon": "water"
+  },
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/permitting",
+    "eyebrow": "5 services",
+    "title": "Permitting",
+    "description": "NPDES, SWPPP, and FEMA map revisions handled from application through approval.",
+    "eyebrow2": "Permitting",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "NPDES Permit NOI and SWPPP"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "NPDES Permit BMP Inspection"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "CLOMR Application"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "LOMR Application"
+      },
+      {
+        "_key": "entries4",
+        "_type": "entriesItem",
+        "text": "Permit Application"
+      }
+    ],
+    "text": "Explore permitting",
+    "_id": "mg2a_serviceCategory-permitting",
+    "icon": "permitting"
+  },
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/construction",
+    "eyebrow": "5 services",
+    "title": "Construction",
+    "description": "Staking, observation, and bidding support that keep the build matched to the plan.",
+    "eyebrow2": "Construction",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Construction Staking"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Construction Observation"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Bidding and Contract Assistance"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "Building Foundation Staking"
+      },
+      {
+        "_key": "entries4",
+        "_type": "entriesItem",
+        "text": "Home Foundation Staking"
+      }
+    ],
+    "text": "Explore construction services",
+    "_id": "mg2a_serviceCategory-construction",
+    "icon": "construction"
+  },
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/documentation",
+    "eyebrow": "5 services",
+    "title": "Documentation",
+    "description": "Record drawings, flood elevation certificates, and certifications that close the project out cleanly.",
+    "eyebrow2": "Documentation",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Record Drawings (As-Built Plans)"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Flood Elevation Certification"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Certification of Improvements"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "Bidding and Contract Documents"
+      },
+      {
+        "_key": "entries4",
+        "_type": "entriesItem",
+        "text": "Supporting Documents"
+      }
+    ],
+    "text": "Explore documentation",
+    "_id": "mg2a_serviceCategory-documentation",
+    "icon": "documentation"
+  },
+  {
+    "_type": "mg2a_serviceCategory",
+    "href": "/services/cost-estimation",
+    "eyebrow": "3 services",
+    "title": "Cost Estimation",
+    "description": "Opinions of probable cost at every phase, so budgets hold from planning through bidding.",
+    "eyebrow2": "Cost Estimation",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Planning Estimate"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Preliminary Opinion of Cost"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Engineer's Opinion of Cost"
+      }
+    ],
+    "text": "Explore cost estimation",
+    "_id": "mg2a_serviceCategory-cost-estimation",
+    "icon": "cost"
+  },
+  {
+    "_type": "mg2a_project",
+    "href": "/projects/bradley-commons",
+    "image": {
+      "_localAsset": "bradley-commons-plan.jpg"
+    },
+    "alt": "Site plan for Bradley Commons showing anchor stores, parking and outlots",
+    "eyebrow": "Commercial Site Development",
+    "title": "Bradley Commons Commercial Center",
+    "eyebrow2": "Bradley, IL",
+    "description": "A 75-acre mixed-use commercial center anchored by Walmart, Kohl's and Dick's Sporting Goods. MG2A handled TIF redevelopment through construction phase services.",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "3 new state highway entrances"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "2 new signalized intersections"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "2 miles of water main"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "2 miles of sanitary sewer"
+      }
+    ],
+    "_id": "mg2a_project-bradley-commons-commercial-center"
+  },
+  {
+    "_type": "mg2a_project",
+    "href": "/projects/bourbonnais-parkway",
+    "image": {
+      "_localAsset": "bourbonnais-parkway-aerial.jpg"
+    },
+    "alt": "Aerial view of the I-57 Exit 318 interchange at Bourbonnais Parkway",
+    "eyebrow": "Land Development",
+    "title": "Bourbonnais Parkway Business Park",
+    "eyebrow2": "Bourbonnais, IL \u00b7 I-57 Exit 318",
+    "description": "A proposed 145-acre mixed-use business park beside the new I-57 interchange. MG2A helped Jennings Realty define the site's value with concept plans and site data.",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "Concept site plans"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Site topography"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "Utility snapshot"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "G2X site report"
+      }
+    ],
+    "_id": "mg2a_project-bourbonnais-parkway-business-park"
+  },
+  {
+    "_type": "mg2a_project",
+    "href": "/projects/courtyards-cobblestone",
+    "image": {
+      "_localAsset": "courtyards-cobblestone-plan.jpg"
+    },
+    "alt": "Site plan for The Courtyards at Cobblestone townhome community",
+    "eyebrow": "Residential \u00b7 Floodplain",
+    "title": "The Courtyards at Cobblestone",
+    "eyebrow2": "Bourbonnais, IL",
+    "description": "A planned community of 120 townhomes with a clubhouse, pool and recreational pond, built by Curwick Home Builders.",
+    "entries": [
+      {
+        "_key": "entries0",
+        "_type": "entriesItem",
+        "text": "PUD zoning approvals"
+      },
+      {
+        "_key": "entries1",
+        "_type": "entriesItem",
+        "text": "Floodplain mitigation"
+      },
+      {
+        "_key": "entries2",
+        "_type": "entriesItem",
+        "text": "New roads and utilities"
+      },
+      {
+        "_key": "entries3",
+        "_type": "entriesItem",
+        "text": "IDNR and IEPA permits"
+      }
+    ],
+    "_id": "mg2a_project-the-courtyards-at-cobblestone"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/municipalities",
+    "label": "Municipalities",
+    "_id": "mg2a_industry-municipalities"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/manufacturing",
+    "label": "Manufacturing",
+    "_id": "mg2a_industry-manufacturing"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/commercial-chains",
+    "label": "Commercial Chains",
+    "_id": "mg2a_industry-commercial-chains"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/local-businesses",
+    "label": "Local Businesses",
+    "_id": "mg2a_industry-local-businesses"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/national-builders",
+    "label": "National & Regional Builders",
+    "_id": "mg2a_industry-national-regional-builders"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/local-builders",
+    "label": "Local Builders",
+    "_id": "mg2a_industry-local-builders"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/commercial-real-estate",
+    "label": "Commercial Real Estate",
+    "_id": "mg2a_industry-commercial-real-estate"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/residential-real-estate",
+    "label": "Residential Real Estate",
+    "_id": "mg2a_industry-residential-real-estate"
+  },
+  {
+    "_type": "mg2a_industry",
+    "href": "/industries/attorneys",
+    "label": "Attorneys & Title",
+    "_id": "mg2a_industry-attorneys-title"
+  }
+]

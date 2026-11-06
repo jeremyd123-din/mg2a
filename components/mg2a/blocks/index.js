@@ -1,0 +1,11 @@
+export { default as mg2a_hero } from "./MG2AHero";
+export { default as mg2a_quickPaths } from "./MG2AQuickPaths";
+export { default as mg2a_clients } from "./MG2AClients";
+export { default as mg2a_serviceCategories } from "./MG2AServiceCategories";
+export { default as mg2a_projectLifecycle } from "./MG2AProjectLifecycle";
+export { default as mg2a_featuredProjects } from "./MG2AFeaturedProjects";
+export { default as mg2a_industries } from "./MG2AIndustries";
+export { default as mg2a_whyMG2A } from "./MG2AWhyMG2A";
+export { default as mg2a_careers } from "./MG2ACareers";
+export { default as mg2a_contactForm } from "./MG2AContactForm";
+export { default as mg2a_metrics } from "./MG2AMetrics";

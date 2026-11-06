@@ -1,0 +1,44 @@
+{
+  "mg2a-hero.mp4": {
+    "_type": "file",
+    "asset": {
+      "_type": "reference",
+      "_ref": "file-65ac9ba3d241829d06d88891a34fbcdb43eb29b1-mp4"
+    }
+  },
+  "streets-paving.jpg": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-9b36e8a4f1503829d03d8bc5bae4435d533f44af-1600x589-jpg"
+    }
+  },
+  "bourbonnais-parkway-aerial.jpg": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-40e9a47b4418dbe08a5109267a81d9c2c6e47922-1200x593-jpg"
+    }
+  },
+  "courtyards-cobblestone-plan.jpg": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-550d1812d1983021c7383baf7853fd1bfea48971-600x593-jpg"
+    }
+  },
+  "mg2a-hero-poster.jpg": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-a6041967286469a671e2b8fe84aaafae47d1dd3e-1280x720-jpg"
+    }
+  },
+  "bradley-commons-plan.jpg": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-22c856fa0aa64ba024567831eba6e110c390d5f9-800x535-jpg"
+    }
+  }
+}

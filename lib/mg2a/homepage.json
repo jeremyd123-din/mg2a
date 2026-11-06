@@ -1,0 +1,313 @@
+[
+  {
+    "_key": "hero",
+    "_type": "mg2a_hero",
+    "block_category": "mg2a",
+    "image": {
+      "_localAsset": "mg2a-hero-poster.jpg"
+    },
+    "file": {
+      "_localAsset": "mg2a-hero.mp4"
+    },
+    "eyebrow": "Civil Engineering \u00b7 Surveying \u00b7 Municipal Engineering",
+    "title": "Precision from the ground up.",
+    "description": "Civil engineering, surveying, and infrastructure services for local governments, utilities, builders, and businesses across Illinois and Indiana.",
+    "buttonOne": {
+      "label": "Explore Services",
+      "href": "#services"
+    },
+    "buttonTwo": {
+      "label": "View Our Work",
+      "href": "#projects"
+    },
+    "trustStatement": "Appointed civil engineer for the <strong>Village of Bourbonnais</strong> and the <strong>Village of Bradley</strong>"
+  },
+  {
+    "_key": "quickPaths",
+    "_type": "mg2a_quickPaths",
+    "block_category": "mg2a",
+    "paths": [
+      {
+        "_key": "paths0",
+        "_type": "pathsItem",
+        "href": "/order-a-survey",
+        "eyebrow": "Surveys",
+        "text": "I need a property or site survey",
+        "text2": "Boundary, topographic, ALTA/NSPS, and home surveys.",
+        "text3": "Order a survey"
+      },
+      {
+        "_key": "paths1",
+        "_type": "pathsItem",
+        "href": "#services",
+        "eyebrow": "Development",
+        "text": "I'm planning a site or subdivision",
+        "text2": "Site plans, engineering, stormwater, and permitting.",
+        "text3": "See design services"
+      },
+      {
+        "_key": "paths2",
+        "_type": "pathsItem",
+        "href": "/industries/municipalities",
+        "eyebrow": "Public sector",
+        "text": "I represent a municipality or utility",
+        "text2": "Village engineering, capital projects, and compliance.",
+        "text3": "Municipal engineering"
+      }
+    ]
+  },
+  {
+    "_key": "clients",
+    "_type": "mg2a_clients",
+    "block_category": "mg2a",
+    "eyebrow": "Trusted by",
+    "clients": [
+      {
+        "_key": "clients0",
+        "_type": "clientsItem",
+        "text": "Village of Bourbonnais"
+      },
+      {
+        "_key": "clients1",
+        "_type": "clientsItem",
+        "text": "Village of Bradley"
+      },
+      {
+        "_key": "clients2",
+        "_type": "clientsItem",
+        "text": "Braidwood"
+      },
+      {
+        "_key": "clients3",
+        "_type": "clientsItem",
+        "text": "Manteno"
+      },
+      {
+        "_key": "clients4",
+        "_type": "clientsItem",
+        "text": "Aqua Illinois"
+      },
+      {
+        "_key": "clients5",
+        "_type": "clientsItem",
+        "text": "GPWD"
+      }
+    ]
+  },
+  {
+    "_key": "serviceCategories",
+    "_type": "mg2a_serviceCategories",
+    "block_category": "mg2a",
+    "eyebrow": "01 \u00b7 Services",
+    "title": "Every stage of a site, under one roof.",
+    "description": "Our surveyors and engineers work side by side, from the first boundary line to the final record drawing.",
+    "href": "/services",
+    "label": "All services",
+    "categories": [
+      {
+        "_key": "categories0",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-survey"
+      },
+      {
+        "_key": "categories1",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-design"
+      },
+      {
+        "_key": "categories2",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-water-resources"
+      },
+      {
+        "_key": "categories3",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-permitting"
+      },
+      {
+        "_key": "categories4",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-construction"
+      },
+      {
+        "_key": "categories5",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-documentation"
+      },
+      {
+        "_key": "categories6",
+        "_type": "reference",
+        "_ref": "mg2a_serviceCategory-cost-estimation"
+      }
+    ],
+    "href2": "/#contact",
+    "eyebrow2": "Not sure where to start?",
+    "title2": "Tell us about your site. We'll scope the right services.",
+    "text": "Talk to an engineer"
+  },
+  {
+    "_key": "projectLifecycle",
+    "_type": "mg2a_projectLifecycle",
+    "block_category": "mg2a",
+    "eyebrow": "02 \u00b7 How projects move",
+    "title": "One team from first sketch to closeout.",
+    "stages": [
+      {
+        "_key": "stages0",
+        "_type": "stagesItem",
+        "eyebrow": "Stage 01",
+        "text": "Planning & Feasibility",
+        "text2": "Survey \u00b7 Site Analysis \u00b7 Cost Estimation"
+      },
+      {
+        "_key": "stages1",
+        "_type": "stagesItem",
+        "eyebrow": "Stage 02",
+        "text": "Design & Engineering",
+        "text2": "Design \u00b7 Water Resources"
+      },
+      {
+        "_key": "stages2",
+        "_type": "stagesItem",
+        "eyebrow": "Stage 03",
+        "text": "Permitting & Approval",
+        "text2": "Permitting \u00b7 FEMA Map Revisions"
+      },
+      {
+        "_key": "stages3",
+        "_type": "stagesItem",
+        "eyebrow": "Stage 04",
+        "text": "Construction",
+        "text2": "Staking \u00b7 Observation \u00b7 Bidding Support"
+      },
+      {
+        "_key": "stages4",
+        "_type": "stagesItem",
+        "eyebrow": "Stage 05",
+        "text": "Closeout",
+        "text2": "Record Drawings \u00b7 Certifications"
+      }
+    ]
+  },
+  {
+    "_key": "featuredProjects",
+    "_type": "mg2a_featuredProjects",
+    "block_category": "mg2a",
+    "eyebrow": "03 \u00b7 Featured Work",
+    "title": "Projects across Kankakee and Will Counties.",
+    "href": "/projects",
+    "label": "View all projects",
+    "href2": "/industries/municipalities",
+    "image": {
+      "_localAsset": "streets-paving.jpg"
+    },
+    "alt": "Paving crew resurfacing a residential street",
+    "eyebrow2": "Municipal Engineering \u00b7 Kankakee & Will Counties",
+    "title2": "Local Road Improvements & Street Maintenance",
+    "description": "Annual maintenance and road improvement programs that help public works departments manage their streets. Frequent preventive care costs less than rehabilitation.",
+    "eyebrow3": "Communities served",
+    "description2": "Bradley \u00b7 Bourbonnais \u00b7 Manteno \u00b7 Frankfort \u00b7 Manhattan \u00b7 Herscher \u00b7 Kankakee County \u00b7 Will County",
+    "projects": [
+      {
+        "_key": "projects0",
+        "_type": "reference",
+        "_ref": "mg2a_project-bradley-commons-commercial-center"
+      },
+      {
+        "_key": "projects1",
+        "_type": "reference",
+        "_ref": "mg2a_project-bourbonnais-parkway-business-park"
+      },
+      {
+        "_key": "projects2",
+        "_type": "reference",
+        "_ref": "mg2a_project-the-courtyards-at-cobblestone"
+      }
+    ]
+  },
+  {
+    "_key": "industries",
+    "_type": "mg2a_industries",
+    "block_category": "mg2a",
+    "eyebrow": "04 \u00b7 Industries",
+    "title": "Built for the people who build our communities.",
+    "description": "Local governments, utilities, builders, and businesses each need something different from an engineer. Find the team and services that fit yours.",
+    "industries": [
+      {
+        "_key": "industries0",
+        "_type": "reference",
+        "_ref": "mg2a_industry-municipalities"
+      },
+      {
+        "_key": "industries1",
+        "_type": "reference",
+        "_ref": "mg2a_industry-manufacturing"
+      },
+      {
+        "_key": "industries2",
+        "_type": "reference",
+        "_ref": "mg2a_industry-commercial-chains"
+      },
+      {
+        "_key": "industries3",
+        "_type": "reference",
+        "_ref": "mg2a_industry-local-businesses"
+      },
+      {
+        "_key": "industries4",
+        "_type": "reference",
+        "_ref": "mg2a_industry-national-regional-builders"
+      },
+      {
+        "_key": "industries5",
+        "_type": "reference",
+        "_ref": "mg2a_industry-local-builders"
+      },
+      {
+        "_key": "industries6",
+        "_type": "reference",
+        "_ref": "mg2a_industry-commercial-real-estate"
+      },
+      {
+        "_key": "industries7",
+        "_type": "reference",
+        "_ref": "mg2a_industry-residential-real-estate"
+      },
+      {
+        "_key": "industries8",
+        "_type": "reference",
+        "_ref": "mg2a_industry-attorneys-title"
+      }
+    ]
+  },
+  {
+    "_key": "whyMG2A",
+    "_type": "mg2a_whyMG2A",
+    "block_category": "mg2a",
+    "eyebrow": "05 \u00b7 Why MG2A",
+    "title": "The depth of a regional firm. The attention of a local one.",
+    "reasons": [
+      {
+        "_key": "reasons0",
+        "_type": "reasonsItem",
+        "eyebrow": "01",
+        "text": "Surveyors and engineers under one roof",
+        "description": "Field crews and design engineers coordinate directly, so the plan matches conditions on the ground."
+      },
+      {
+        "_key": "reasons1",
+        "_type": "reasonsItem",
+        "eyebrow": "02",
+        "text": "Trusted by local government",
+        "description": "Appointed civil engineer for the Villages of Bourbonnais and Bradley, with utility and municipal clients across the region."
+      },
+      {
+        "_key": "reasons2",
+        "_type": "reasonsItem",
+        "eyebrow": "03",
+        "text": "Licensed in Illinois and Indiana",
+        "description": "Two offices in Bradley and Manhattan, close to the sites, reviewers, and communities we work with."
+      }
+    ]
+  }
+]

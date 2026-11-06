@@ -1,0 +1,697 @@
+{
+  "blocks": [
+    {
+      "name": "mg2a_hero",
+      "title": "MG2A - Hero",
+      "type": "object",
+      "fields": [
+        {
+          "name": "image",
+          "title": "Video poster",
+          "type": "image",
+          "options": {
+            "hotspot": true
+          },
+          "fields": [
+            {
+              "name": "alt",
+              "title": "Alternative text",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "file",
+          "title": "Background video",
+          "type": "file",
+          "options": {
+            "accept": "video/mp4"
+          }
+        },
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Introduction",
+          "type": "text",
+          "rows": 3
+        },
+        {
+          "name": "buttonOne",
+          "title": "Button one",
+          "type": "object",
+          "fields": [
+            {
+              "name": "label",
+              "title": "Title",
+              "type": "string"
+            },
+            {
+              "name": "href",
+              "title": "Link",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "buttonTwo",
+          "title": "Button two",
+          "type": "object",
+          "fields": [
+            {
+              "name": "label",
+              "title": "Title",
+              "type": "string"
+            },
+            {
+              "name": "href",
+              "title": "Link",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "trustStatement",
+          "title": "Trust statement",
+          "type": "string",
+          "description": "One sentence. Use <strong>text</strong> or <b>text</b> for bold text."
+        }
+      ]
+    },
+    {
+      "name": "mg2a_quickPaths",
+      "title": "MG2A - Quick Paths",
+      "type": "object",
+      "fields": [
+        {
+          "name": "paths",
+          "title": "Quick paths",
+          "type": "array",
+          "of": [
+            {
+              "type": "object",
+              "name": "pathsItem",
+              "fields": [
+                {
+                  "name": "href",
+                  "title": "Link",
+                  "type": "string"
+                },
+                {
+                  "name": "eyebrow",
+                  "title": "Eyebrow",
+                  "type": "string"
+                },
+                {
+                  "name": "text",
+                  "title": "Heading",
+                  "type": "string"
+                },
+                {
+                  "name": "text2",
+                  "title": "Description",
+                  "type": "string"
+                },
+                {
+                  "name": "text3",
+                  "title": "Button title",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "href"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg2a_clients",
+      "title": "MG2A - Clients",
+      "type": "object",
+      "fields": [
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "clients",
+          "title": "Clients",
+          "type": "array",
+          "of": [
+            {
+              "type": "object",
+              "name": "clientsItem",
+              "fields": [
+                {
+                  "name": "text",
+                  "title": "Client name",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "text"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg2a_serviceCategories",
+      "title": "MG2A - Service Categories",
+      "type": "object",
+      "fields": [
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Description",
+          "type": "text",
+          "rows": 3
+        },
+        {
+          "name": "href",
+          "title": "Button link",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "title": "Button title",
+          "type": "string"
+        },
+        {
+          "name": "categories",
+          "title": "Service categories",
+          "type": "array",
+          "of": [
+            {
+              "type": "reference",
+              "to": [
+                {
+                  "type": "mg2a_serviceCategory"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "href2",
+          "title": "Help card link",
+          "type": "string"
+        },
+        {
+          "name": "eyebrow2",
+          "title": "Help card eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title2",
+          "title": "Help card heading",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "title": "Help card button title",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "mg2a_projectLifecycle",
+      "title": "MG2A - Project Lifecycle",
+      "type": "object",
+      "fields": [
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "stages",
+          "title": "Project stages",
+          "type": "array",
+          "of": [
+            {
+              "type": "object",
+              "name": "stagesItem",
+              "fields": [
+                {
+                  "name": "eyebrow",
+                  "title": "Stage label",
+                  "type": "string"
+                },
+                {
+                  "name": "text",
+                  "title": "Stage title",
+                  "type": "string"
+                },
+                {
+                  "name": "text2",
+                  "title": "Services",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "eyebrow"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg2a_featuredProjects",
+      "title": "MG2A - Featured Projects",
+      "type": "object",
+      "fields": [
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "title": "Button link",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "title": "Button title",
+          "type": "string"
+        },
+        {
+          "name": "href2",
+          "title": "Featured project link",
+          "type": "string"
+        },
+        {
+          "name": "image",
+          "title": "Featured project image",
+          "type": "image",
+          "options": {
+            "hotspot": true
+          },
+          "fields": [
+            {
+              "name": "alt",
+              "title": "Alternative text",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "alt",
+          "title": "Featured image description",
+          "type": "string"
+        },
+        {
+          "name": "eyebrow2",
+          "title": "Featured project category",
+          "type": "string"
+        },
+        {
+          "name": "title2",
+          "title": "Featured project heading",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Featured project description",
+          "type": "text",
+          "rows": 3
+        },
+        {
+          "name": "eyebrow3",
+          "title": "Communities label",
+          "type": "string"
+        },
+        {
+          "name": "description2",
+          "title": "Communities served",
+          "type": "string"
+        },
+        {
+          "name": "projects",
+          "title": "Project cards",
+          "type": "array",
+          "of": [
+            {
+              "type": "reference",
+              "to": [
+                {
+                  "type": "mg2a_project"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg2a_industries",
+      "title": "MG2A - Industries",
+      "type": "object",
+      "fields": [
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Description",
+          "type": "text",
+          "rows": 3
+        },
+        {
+          "name": "industries",
+          "title": "Industries",
+          "type": "array",
+          "of": [
+            {
+              "type": "reference",
+              "to": [
+                {
+                  "type": "mg2a_industry"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mg2a_whyMG2A",
+      "title": "MG2A - Why M G2 A",
+      "type": "object",
+      "fields": [
+        {
+          "name": "eyebrow",
+          "title": "Eyebrow",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "reasons",
+          "title": "Reasons to choose MG2A",
+          "type": "array",
+          "of": [
+            {
+              "type": "object",
+              "name": "reasonsItem",
+              "fields": [
+                {
+                  "name": "eyebrow",
+                  "title": "Number",
+                  "type": "string"
+                },
+                {
+                  "name": "text",
+                  "title": "Heading",
+                  "type": "string"
+                },
+                {
+                  "name": "description",
+                  "title": "Description",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "text",
+                  "subtitle": "description"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "metrics",
+          "title": "Statistics",
+          "type": "array",
+          "of": [
+            {
+              "name": "metric",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "value",
+                  "title": "Value",
+                  "type": "string"
+                },
+                {
+                  "name": "label",
+                  "title": "Label",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "value",
+                  "subtitle": "label"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "testimonial",
+          "title": "Testimonial",
+          "type": "object",
+          "fields": [
+            {
+              "name": "quote",
+              "title": "Quote",
+              "type": "text",
+              "rows": 3
+            },
+            {
+              "name": "name",
+              "title": "Name",
+              "type": "string"
+            },
+            {
+              "name": "role",
+              "title": "Title and organization",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "documents": [
+    {
+      "name": "mg2a_serviceCategory",
+      "title": "MG2A - service Category",
+      "type": "document",
+      "fields": [
+        {
+          "name": "href",
+          "title": "Link destination",
+          "type": "string"
+        },
+        {
+          "name": "eyebrow",
+          "title": "Service count",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Description",
+          "type": "string"
+        },
+        {
+          "name": "eyebrow2",
+          "title": "Back-of-card heading",
+          "type": "string"
+        },
+        {
+          "name": "entries",
+          "title": "Services shown on card",
+          "type": "array",
+          "of": [
+            {
+              "type": "object",
+              "name": "entriesItem",
+              "fields": [
+                {
+                  "name": "text",
+                  "title": "Service name",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "text"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "text",
+          "title": "Back-of-card action label",
+          "type": "string"
+        }
+      ],
+      "preview": {
+        "select": {
+          "title": "title"
+        }
+      }
+    },
+    {
+      "name": "mg2a_project",
+      "title": "MG2A - project",
+      "type": "document",
+      "fields": [
+        {
+          "name": "href",
+          "title": "Link destination",
+          "type": "string"
+        },
+        {
+          "name": "image",
+          "title": "Image",
+          "type": "image",
+          "options": {
+            "hotspot": true
+          },
+          "fields": [
+            {
+              "name": "alt",
+              "title": "Alternative text",
+              "type": "string"
+            }
+          ]
+        },
+        {
+          "name": "alt",
+          "title": "Image description",
+          "type": "string"
+        },
+        {
+          "name": "eyebrow",
+          "title": "Category",
+          "type": "string"
+        },
+        {
+          "name": "title",
+          "title": "Heading",
+          "type": "string"
+        },
+        {
+          "name": "eyebrow2",
+          "title": "Location",
+          "type": "string"
+        },
+        {
+          "name": "description",
+          "title": "Description",
+          "type": "text",
+          "rows": 3
+        },
+        {
+          "name": "entries",
+          "title": "Project highlights",
+          "type": "array",
+          "of": [
+            {
+              "type": "object",
+              "name": "entriesItem",
+              "fields": [
+                {
+                  "name": "text",
+                  "title": "Highlight",
+                  "type": "string"
+                }
+              ],
+              "preview": {
+                "select": {
+                  "title": "text"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "preview": {
+        "select": {
+          "title": "title"
+        }
+      }
+    },
+    {
+      "name": "mg2a_industry",
+      "title": "MG2A - industry",
+      "type": "document",
+      "fields": [
+        {
+          "name": "href",
+          "title": "Link",
+          "type": "string"
+        },
+        {
+          "name": "label",
+          "title": "Industry name",
+          "type": "string"
+        }
+      ],
+      "preview": {
+        "select": {
+          "title": "href"
+        }
+      }
+    }
+  ]
+}

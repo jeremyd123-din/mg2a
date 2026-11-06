@@ -1,0 +1,31 @@
+@import "./tokens.css";
+@reference "tailwindcss";
+
+@layer base {
+  body {
+    @apply m-0 antialiased leading-[normal];
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  figure,
+  blockquote {
+    @apply m-0;
+  }
+  svg {
+    @apply inline-block;
+  }
+  a {
+    @apply text-inherit no-underline;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+  button:disabled {
+    @apply cursor-wait opacity-70;
+  }
+  :where(a, button, input, select, textarea):focus-visible {
+    @apply outline-2 outline-offset-[3px] outline-[#E64A19];
+  }
+}

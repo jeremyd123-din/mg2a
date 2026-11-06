@@ -1,0 +1,56 @@
+{
+  "metrics": [
+    {
+      "_key": "years",
+      "_type": "metric",
+      "value": "[XX]",
+      "label": "Years serving the region"
+    },
+    {
+      "_key": "staff",
+      "_type": "metric",
+      "value": "[XX]",
+      "label": "Engineers, surveyors & staff"
+    },
+    {
+      "_key": "licenses",
+      "_type": "metric",
+      "value": "[XX]",
+      "label": "Licensed PEs and PLSs"
+    },
+    {
+      "_key": "communities",
+      "_type": "metric",
+      "value": "[XX]",
+      "label": "Communities served"
+    }
+  ],
+  "testimonial": {
+    "quote": "[Client quote from a municipal or development partner, one or two sentences.]",
+    "name": "[NAME]",
+    "role": "[TITLE, ORGANIZATION]"
+  },
+  "jobs": [
+    {
+      "_key": "project-engineer",
+      "_type": "job",
+      "title": "[Project Engineer, PE]",
+      "location": "Bradley, IL · Full time",
+      "href": "/careers#positions"
+    },
+    {
+      "_key": "engineer-in-training",
+      "_type": "job",
+      "title": "[Engineer in Training]",
+      "location": "Manhattan, IL · Full time",
+      "href": "/careers#positions"
+    },
+    {
+      "_key": "survey-chief",
+      "_type": "job",
+      "title": "[Survey Crew Chief]",
+      "location": "Bradley, IL · Full time",
+      "href": "/careers#positions"
+    }
+  ]
+}
