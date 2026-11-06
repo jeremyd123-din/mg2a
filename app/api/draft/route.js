@@ -11,7 +11,7 @@ const clientWithToken = createClient(clientConfig).withConfig({
 export async function GET(request) {
   const { isValid, redirectTo = "/" } = await validatePreviewUrl(
     clientWithToken,
-    request.url
+    request.url,
   );
 
   if (!isValid) {

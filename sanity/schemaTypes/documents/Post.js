@@ -4,7 +4,7 @@ import { defineField } from "sanity";
 import {
   scopedCss,
   generateRichtextField,
-} from "@/sanity/schemaTypes/blocks/defaultFields.js";
+} from "@/sanity/schemaTypes/objects/commonFields";
 
 const Post = {
   name: "post",

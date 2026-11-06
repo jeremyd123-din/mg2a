@@ -1,4 +1,4 @@
-import { scopedCss } from "../blocks/defaultFields";
+import { scopedCss } from "../objects/commonFields";
 import generated from "./generated.json";
 import { resolveDefaultAssets } from "@/lib/mg2a/resolveDefaults";
 import { careers, contact } from "@/lib/mg2a/defaults";

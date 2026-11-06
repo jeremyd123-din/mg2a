@@ -3,7 +3,7 @@ import { isUniqueAcrossAllDocuments } from "@/sanity/utils/helpers";
 import { defineField, defineArrayMember } from "sanity";
 import { createDocumentArray } from "@/sanity/utils/helpers";
 import pageBuilderBlocks from "../blocks";
-import { scopedCss } from "@/sanity/schemaTypes/blocks/defaultFields";
+import { scopedCss } from "@/sanity/schemaTypes/objects/commonFields";
 
 const Page = {
   name: "page",
@@ -106,7 +106,12 @@ const Page = {
       description:
         "Defaults to dark for the homepage and light for other pages.",
     },
-    defineField(scopedCss),
+    defineField({
+      ...scopedCss,
+      title: "Page CSS",
+      description:
+        "Scoped to this page’s main content. Use section Style controls for individual padding changes.",
+    }),
     defineField({
       name: "page_builder",
       title: "Page Builder",

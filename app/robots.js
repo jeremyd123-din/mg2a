@@ -1,40 +1,14 @@
 import { getSiteSettings } from "@/sanity/utils/queries";
-
 export default async function robots() {
-  const productionUrl = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL;
-  const isVercelPreview = productionUrl && productionUrl.includes("vercel.app");
-  const isJanoovaUi = productionUrl && productionUrl.includes("ui.janoova.com");
-
-  if (isVercelPreview || isJanoovaUi) {
-    return {
-      rules: {
-        userAgent: "*",
-        disallow: "/",
-      },
-    };
-  }
-
-  const siteSettings = await getSiteSettings();
-  const disableIndexing = siteSettings?.disable_indexing;
-
-  if (disableIndexing) {
-    return {
-      rules: {
-        userAgent: "*",
-        disallow: "/",
-      },
-    };
-  }
-
-  const siteUrl = productionUrl
-    ? `https://${productionUrl}`
-    : "https://example.com";
-
+  const settings = await getSiteSettings();
+  const isPreview = process.env.VERCEL_ENV === "preview";
+  if (isPreview || settings?.disable_indexing)
+    return { rules: { userAgent: "*", disallow: "/" } };
+  const url = (
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+  ).replace(/\/$/, "");
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    rules: { userAgent: "*", allow: "/" },
+    sitemap: `${url}/sitemap.xml`,
   };
 }

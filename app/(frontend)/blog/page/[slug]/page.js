@@ -1,4 +1,4 @@
-import TemplateArchiveVariant01 from "@/components/templates/archive/TemplateArchiveVariant01";
+import MG2AArchive from "@/components/mg2a/journal/MG2AArchive";
 import { organization, paginatedItemsPerPage } from "@/lib/constants";
 import { getPaginationContext } from "@/lib/helpers";
 import { getMetaData } from "@/lib/seo";
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 import { generateBlogMetaData } from "@/lib/constants";
 
 export default async function BlogArchivePaginated({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   if (isNaN(parseFloat(slug))) {
     return notFound();
   }
@@ -32,12 +32,12 @@ export default async function BlogArchivePaginated({ params }) {
   const { lastPaginatedPage } = await getPaginationContext(
     getPostsCount(),
     paginatedItemsPerPage,
-    parseFloat(slug)
+    parseFloat(slug),
   );
 
   const heroData = {
-    heading: `Blog - Page ${slug}`,
-    description: `Your single source for expert insights within the digital space.`,
+    heading: `Developer’s Journal — Page ${slug}`,
+    description: `Civil engineering, surveying and infrastructure insights from the MG2A team.`,
     background_theme: `secondary`,
     invert_text_color: true,
     heading_size: `d2`,
@@ -46,7 +46,7 @@ export default async function BlogArchivePaginated({ params }) {
   };
 
   return (
-    <TemplateArchiveVariant01
+    <MG2AArchive
       heroData={heroData}
       bodyData={data}
       prevPageDestination={
@@ -60,7 +60,7 @@ export default async function BlogArchivePaginated({ params }) {
 }
 
 export const generateMetadata = async ({ params }) => {
-  const { slug } = params;
+  const { slug } = await params;
   if (isNaN(parseFloat(slug))) {
     return {};
   }
@@ -73,15 +73,15 @@ export const generateMetadata = async ({ params }) => {
   const { lastPaginatedPage } = await getPaginationContext(
     getPostsCount(),
     paginatedItemsPerPage,
-    parseFloat(slug)
+    parseFloat(slug),
   );
   const staticMetaData = generateBlogMetaData(
-    `Latest Posts | Page ${slug} | ${organization}`
+    `Latest Posts | Page ${slug} | ${organization}`,
   );
   return await getMetaData(
     staticMetaData,
     `blog/page/${slug}`,
     `${slug == "2" ? `blog` : `blog/page/${parseFloat(slug) - 1}`}`,
-    lastPaginatedPage ? null : `blog/page/${parseFloat(slug) + 1}`
+    lastPaginatedPage ? null : `blog/page/${parseFloat(slug) + 1}`,
   );
 };

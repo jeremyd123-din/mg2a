@@ -1,3 +1,4 @@
+import { pageIdentity } from "@/lib/mg2a/scopedStyles";
 import "./globals.css";
 import "@/styles/mg2a/index.css";
 import { headers } from "next/headers";
@@ -80,7 +81,10 @@ export default async function RootLayout({ children }) {
           <GoogleTagManager gtmId={stegaClean(legacySettings.gtm_id)} />
         )}
         <MG2AHeader settings={settings} overlay={pathname === "/"} />
-        <main id="main-content">
+        <main
+          id="main-content"
+          data-mg2a-page={page ? pageIdentity(page) : undefined}
+        >
           {pathname !== "/" && <div className="hdr-space" aria-hidden="true" />}
           {children}
         </main>

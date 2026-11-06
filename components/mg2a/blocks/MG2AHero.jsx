@@ -15,7 +15,7 @@ export default function MG2AHero({ data }) {
         playsInline
         poster={mediaUrl(data.image)}
         aria-hidden="true"
-        className="absolute inset-[0] w-[100%] h-[100%] object-[cover] object-[50%_40%]"
+        className="absolute inset-[0] w-[100%] h-[100%] object-cover object-[50%_40%]"
       >
         <source src={mediaUrl(data.file)} type="video/mp4" />
       </HeroVideo>

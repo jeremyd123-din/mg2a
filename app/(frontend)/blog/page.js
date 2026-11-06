@@ -1,4 +1,4 @@
-import TemplateArchiveVariant01 from "@/components/templates/archive/TemplateArchiveVariant01";
+import MG2AArchive from "@/components/mg2a/journal/MG2AArchive";
 import { paginatedItemsPerPage } from "@/lib/constants";
 import { getPaginationContext } from "@/lib/helpers";
 import { getMetaData } from "@/lib/seo";
@@ -8,13 +8,10 @@ import { generateBlogMetaData } from "@/lib/constants";
 
 export default async function BlogArchive() {
   const data = await getPosts(0, paginatedItemsPerPage);
-  if (!data || !data.length) {
-    return notFound();
-  }
 
   const heroData = {
-    heading: `Blog`,
-    description: `Your single source for expert insights within the digital space.`,
+    heading: `Developer’s Journal`,
+    description: `Civil engineering, surveying and infrastructure insights from the MG2A team.`,
     background_theme: `secondary`,
     invert_text_color: true,
     heading_size: `d2`,
@@ -25,10 +22,10 @@ export default async function BlogArchive() {
   const { lastPaginatedPage } = await getPaginationContext(
     getPostsCount(),
     paginatedItemsPerPage,
-    1
+    1,
   );
   return (
-    <TemplateArchiveVariant01
+    <MG2AArchive
       heroData={heroData}
       bodyData={data}
       nextPageDestination={lastPaginatedPage ? null : `/blog/page/2`}
@@ -43,13 +40,13 @@ export const generateMetadata = async () => {
   const { lastPaginatedPage } = await getPaginationContext(
     getPostsCount(),
     paginatedItemsPerPage,
-    1
+    1,
   );
 
   return await getMetaData(
     staticMetaData,
     `blog`,
     null,
-    lastPaginatedPage ? null : `blog/page/2`
+    lastPaginatedPage ? null : `blog/page/2`,
   );
 };

@@ -1,7 +1,11 @@
-import TemplateArchiveVariant01 from "@/components/templates/archive/TemplateArchiveVariant01";
+import MG2AArchive from "@/components/mg2a/journal/MG2AArchive";
 import { organization } from "@/lib/constants";
 import { getMetaData } from "@/lib/seo";
-import { getPostsByCategory, getCategoryBySlug, getAllCategorySlugs } from "@/sanity/utils/queries";
+import {
+  getPostsByCategory,
+  getCategoryBySlug,
+  getAllCategorySlugs,
+} from "@/sanity/utils/queries";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -11,7 +15,7 @@ export async function generateStaticParams() {
 import { generateBlogMetaData } from "@/lib/constants";
 
 export default async function BlogCategoryArchive({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   const data = await getPostsByCategory(0, 1000, slug);
   const category = await getCategoryBySlug(slug);
   if (!data || !data.length || !category) {
@@ -29,7 +33,7 @@ export default async function BlogCategoryArchive({ params }) {
   };
 
   return (
-    <TemplateArchiveVariant01
+    <MG2AArchive
       heroData={heroData}
       bodyData={data}
       nextPageDestination={null}
@@ -38,7 +42,7 @@ export default async function BlogCategoryArchive({ params }) {
 }
 
 export const generateMetadata = async ({ params }) => {
-  const { slug } = params;
+  const { slug } = await params;
   const data = await getPostsByCategory(0, 1000, slug);
   const category = await getCategoryBySlug(slug);
   if (!data || !data.length || !category) return {};
@@ -46,7 +50,7 @@ export const generateMetadata = async ({ params }) => {
     category.meta_title ||
       `Posts tagged in ${category.title} | ${organization}`,
     category.meta_description,
-    category.featured_image || null
+    category.featured_image || null,
   );
 
   return await getMetaData(staticMetaData, `blog/category/${slug}`, null, null);

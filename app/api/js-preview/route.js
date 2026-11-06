@@ -17,7 +17,9 @@ export async function GET(request) {
   // Must have a configured secret
   const secret = process.env.PREVIEW_SECRET;
   if (!secret) {
-    return new Response("Preview is not configured on this server.", { status: 500 });
+    return new Response("Preview is not configured on this server.", {
+      status: 500,
+    });
   }
 
   // Validate the key
@@ -35,13 +37,13 @@ export async function GET(request) {
       _type,
       "slug": slug.current
     }`,
-    { id }
+    { id },
   );
 
   if (!doc) {
     return new Response(
       "Document not found. Make sure the ID belongs to a page or post.",
-      { status: 404 }
+      { status: 404 },
     );
   }
 

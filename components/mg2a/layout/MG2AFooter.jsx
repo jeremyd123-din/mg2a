@@ -34,8 +34,11 @@ export default function MG2AFooter({ settings }) {
               {link.label}
             </a>
           ))}
-          {settings.clientAccessUrl && (
-            <a href={safeHref(settings.clientAccessUrl)}>
+          {settings.clientAccessLabel && (
+            <a
+              href={safeHref(settings.clientAccessUrl)}
+              aria-disabled={!safeHref(settings.clientAccessUrl)}
+            >
               {settings.clientAccessLabel}
             </a>
           )}

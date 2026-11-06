@@ -108,9 +108,10 @@ export default function MG2AHeader({ settings, overlay = false }) {
                   {o.name} {o.phone}
                 </a>
               ))}
-              {settings.clientAccessUrl && (
+              {settings.clientAccessLabel && (
                 <a
                   href={safeHref(settings.clientAccessUrl)}
+                  aria-disabled={!safeHref(settings.clientAccessUrl)}
                   className="navlink [opacity:0.86] [transition:opacity_0.2s] [&:hover]:[opacity:1]"
                 >
                   {settings.clientAccessLabel}
@@ -219,9 +220,10 @@ export default function MG2AHeader({ settings, overlay = false }) {
             >
               {settings.primaryCta?.label}
             </a>
-            {settings.clientAccessUrl && (
+            {settings.clientAccessLabel && (
               <a
                 href={safeHref(settings.clientAccessUrl)}
+                aria-disabled={!safeHref(settings.clientAccessUrl)}
                 className="navlink [opacity:0.86] [transition:opacity_0.2s] [&:hover]:[opacity:1]"
               >
                 {settings.clientAccessLabel}

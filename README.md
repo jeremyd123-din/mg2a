@@ -1,26 +1,14 @@
-Janoova UI Framework
+# MG2A website
 
-## Installing
+Next.js, Sanity Studio and Tailwind CSS, customized for M Gingerich Gereaux & Associates.
 
-```bash
-# From Source
-git clone https://github.com/janoova/janoova-ui.git
-cd janoova-ui
-```
+- `npm run dev` — local website and embedded Studio at `/studio`
+- `npm run build` — production build
+- `npm run start` — serve the production build
+- `npm run check:mg2a` — schemas, rendering contracts, styling isolation and form checks
+- `npm run seed:mg2a` — create missing MG2A records without overwriting existing edits
+- `/blocks` — preview the MG2A section library
 
-then install dependencies
+Copy `.env.example` to `.env.local` and configure the existing Sanity project/dataset and server-side tokens. Never commit credentials.
 
-```bash
-  npm install
-```
-
-## Extra options
-
-```bash
-# Run a production build, locally
-npm run dev
-
-# Serve a production build, locally
-npm run build
-npm start
-```
+See [the editor and development handoff](docs/mg2a-homepage-handoff.md) for section padding, scoped CSS, page CSS, preview, publishing, and outstanding client information.

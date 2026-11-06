@@ -33,7 +33,7 @@ export default async function sitemap() {
       // Override any caching for sitemap data
       revalidate: 0,
       tags: ["sitemap"],
-    }
+    },
   );
 
   const sitemap = [];

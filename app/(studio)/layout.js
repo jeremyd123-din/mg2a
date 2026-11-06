@@ -1,5 +1,3 @@
-import { getSiteSettings } from "@/sanity/utils/queries";
-import urlFor from "@/lib/imageUrlBuilder";
 import { organization } from "@/lib/constants";
 
 export const metadata = {
@@ -8,7 +6,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const siteSettings = await getSiteSettings();
   return (
     <html lang="en">
       <body>{children}</body>

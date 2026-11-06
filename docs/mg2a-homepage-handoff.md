@@ -17,9 +17,9 @@ The initial content is seeded into the configured `production` dataset. Both sit
 ## Client information still required
 
 - **Final inquiry destination:** currently `parasbokhari@gmail.com` for development, editable in Global Header & Footer → Inquiries.
-- **G2X Client Access URL:** currently blank. Header/footer links remain hidden until supplied.
+- **G2X Client Access URL:** currently blank. The Client Access labels are visible to match the mockup, with navigation disabled until supplied.
 - **Verified sending domain/address:** the endpoint uses `MG2A_INQUIRY_FROM` or the existing Janoova sender `MG2A Inquiries <forms@janoova.com>`. Confirm sender verification and delivery in Resend before launch.
-- Real statistics, approved testimonial and actual open positions. The supplied placeholders are restored in the existing homepage draft and developer section-library preview only; the published homepage retains no placeholder facts. Schema validation prevents publishing bracketed placeholders. The Why MG2A block now includes its original statistics and testimonial fields, and the Careers block includes the original positions array.
+- Real statistics, approved testimonial and actual open positions. At the user’s explicit request, all supplied homepage placeholder statistics, testimonial and job listings are included in both the development homepage and its existing draft to match the mockup. Schema validation prevents publishing bracketed placeholders. The Why MG2A block now includes its original statistics and testimonial fields, and the Careers block includes the original positions array.
 - High-resolution project images and MG2A drone footage. The supplied stock video and low-resolution images are uploaded to Sanity for development.
 - Resolve combined preliminary/final stormwater launch-page grouping before creating service pages. The homepage card currently preserves the four offerings from the supplied homepage; it does not seed dedicated service-page URLs.
 
@@ -49,4 +49,39 @@ Every MG2A section has **Content** and **Style** tabs. Style includes optional t
 
 The hero uses **Button one** and **Button two**, each with Title and Link, and one **Trust statement** string. Editors can use `<strong>` or `<b>` in that string. Rendering discards attributes and executable tags, and removes Sanity preview annotations before parsing. The migration preserves existing published and draft values while retiring the fragmented fields and section toggles. Drafts remain drafts.
 
-The header/footer use the exact inline logo artwork from the supplied homepage, and service icons use its seven exact SVG drawings. Comparison of the original and the developer previews at 1280px desktop and 390px phone widths measured identical heights for all ten homepage sections with the same content. The draft placeholders still need client replacement before publication. Client Access remains hidden as requested until its URL is supplied.
+The header/footer use the exact inline logo artwork from the supplied homepage, and service icons use its seven exact SVG drawings. Comparison of the original and the developer previews at 1280px desktop and 390px phone widths measured identical heights for all ten homepage sections with the same content. The placeholders still need client replacement before launch. Client Access is displayed without an active link until its URL is supplied.
+
+The favicon uses the exact 96×96 PNG supplied by the user from mg2a.com. Project feature/card images and the hero video use the standard Tailwind `object-cover` utility; the earlier invalid `object-[cover]` classes were removed.
+
+## MG2A-only framework cleanup
+
+The inherited Janoova block components/schemas, navigation document, global team/testimonial singletons, generic form/dashboard workflow, theme files, font/theme selectors, demo starters and unused UI wrappers have been removed. The site retains the Next.js/Sanity routing, metadata, sitemap, revalidation and draft-preview infrastructure it uses. Existing Journal routes now use MG2A Tailwind views. No CMS documents were deleted. Legacy static asset folders are retained, but are not used by the MG2A renderer.
+
+Global Header & Footer owns navigation and brand settings. The separate **SEO & Analytics** singleton retains only indexing, default sharing image and GTM settings. `styled-components` remains a dependency because Sanity Studio requires it; the public MG2A UI does not use it.
+
+### Adjust one section’s padding
+
+Open **Homepage → Page Builder → the section → Style → Vertical padding**. Set **Top**, **Bottom**, **Mobile top**, or **Mobile bottom** in pixels. Leave a value blank for the approved default; `0` removes that padding. Mobile values apply at 980px and below. These settings affect only that section instance.
+
+For more detailed changes, use that section’s **Style → Scoped CSS**, for example:
+
+```scss
+h2 {
+  max-width: 650px;
+}
+```
+
+Use the numeric padding controls for the hero and Careers sections: their padding belongs to an inner content container so the photograph/background remains full width. Other section roots can also be adjusted with declarations such as `padding-top: 80px;` in Scoped CSS.
+
+### Adjust several sections on one page
+
+Use **Pages → the page → Style → Page CSS**. This accepts nested CSS/SCSS, compiled under that page’s main-content selector. For example:
+
+```scss
+[data-block-type="mg2a_industries"] {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+```
+
+Page CSS affects that page only. Section-level CSS is the preferred choice for a single block. It remains attached to the block when it is reordered or copied. Neither option changes the global header or footer.

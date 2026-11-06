@@ -6,86 +6,19 @@ export async function getPageBySlug(slug) {
   return fetchSanity(
     groq`*[_type == "page" && slug.current == $slug][0]{
     ...,
-    page_builder[] {
-      ...,
-      repeater[] {
-        ...,
-        image {
-          asset->,
-          hotspot,
-          crop,
-          alt
-        },
-        logo {
-          asset->,
-          hotspot,
-          crop,
-          alt
-        },
-        avatar {
-          asset->,
-          hotspot,
-          crop,
-          alt
-        },
-        background_image {
-          asset->,
-          hotspot,
-          crop,
-          alt
-        },        
-        // ... other image fields
-      },
-      image {
-        asset->,
-        hotspot,
-        crop,
-        alt
-      },
-      logo {
-        asset->,
-        hotspot,
-        crop,
-        alt
-      },
-      avatar {
-        asset->,
-        hotspot,
-        crop,
-        alt
-      },
-      background_image {
-        asset->,
-        hotspot,
-        crop,
-        alt
-      }, 
-      "categories": categories[]->{...},
-      "projects": projects[]->{...},
-      "industries": industries[]->{...},
-      "offices": offices[]->{...},
-      "form": form->,
-      "global_testimonials_ref": global_testimonials_ref->{
-        testimonials[] {
-          ...,
-          avatar {
-            asset->,
-            hotspot,
-            crop,
-            alt
-          },
-          logo {
-            asset->,
-            hotspot,
-            crop,
-            alt
-          }
-        }
-      }
-    }
+    page_builder[]{...,"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...},"offices":offices[]->{...}}
+
 }`,
     { slug },
-    { tags: ["page", "form", "mg2a_project", "mg2a_serviceCategory", "mg2a_industry", "mg2a_office"] }
+    {
+      tags: [
+        "page",
+        "mg2a_project",
+        "mg2a_serviceCategory",
+        "mg2a_industry",
+        "mg2a_office",
+      ],
+    },
   );
 }
 
@@ -112,7 +45,7 @@ export async function getPostBySlug(slug) {
       "primary_category": categories[0]->
     }`,
     { slug },
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
@@ -129,7 +62,7 @@ export async function getPosts(start, end) {
       "excerpt": array::join(string::split((pt::text(content)), "")[0..100], "") + "..."
     }`,
     { start, end },
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
@@ -146,7 +79,7 @@ export async function getPostsByCategory(start, end, categorySlug) {
       "excerpt": array::join(string::split((pt::text(content)), "")[0..100], "") + "..."
     }`,
     { start, end, categorySlug },
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
@@ -164,7 +97,7 @@ export async function getCategoryBySlug(categorySlug) {
       }
     }`,
     { categorySlug },
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
@@ -172,7 +105,7 @@ export async function getPostsCount() {
   return fetchSanity(
     groq`count(*[_type == "post" && ${QUERY_omitDrafts}])`,
     {},
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
@@ -180,51 +113,15 @@ export async function getPostsByCategoryCount(categorySlug) {
   return fetchSanity(
     groq`count(*[_type == "post" && ${QUERY_omitDrafts} && $categorySlug in categories[]->slug.current])`,
     { categorySlug },
-    { tags: ["post"] }
-  );
-}
-
-export async function getNavigationBySlug(slug) {
-  return fetchSanity(
-    groq`*[_type == "navigation" && ${QUERY_omitDrafts} && slug.current == $slug][0]{
-      ...,
-      items[] {
-        ...,
-        "uid": uid.current,
-        links[] {
-          ...,
-          "uid": uid.current,
-          links[] {
-            ...,
-            "uid": uid.current,
-            links[] {
-              ...,
-              "uid": uid.current,
-            }
-          }
-        }
-      }
-    }`,
-    { slug },
-    { tags: ["navigation"] }
+    { tags: ["post"] },
   );
 }
 
 export async function getSiteSettings() {
   return fetchSanity(
-    groq`*[_type == "site_settings"][0]{
-      ...,
-      logo {
-        ... {
-          asset->,
-          hotspot,
-          crop,
-          alt
-        }
-      }
-    }`,
+    groq`*[_type == "site_settings"][0]{disable_indexing,og_image,gtm_id}`,
     {},
-    { tags: ["site_settings"] }
+    { tags: ["site_settings"] },
   );
 }
 
@@ -232,7 +129,7 @@ export async function getAllPageSlugs() {
   return fetchSanity(
     groq`*[_type == "page" && ${QUERY_omitDrafts}]{ "slug": slug.current }`,
     {},
-    { tags: ["page"] }
+    { tags: ["page"] },
   );
 }
 
@@ -240,7 +137,7 @@ export async function getAllPostSlugs() {
   return fetchSanity(
     groq`*[_type == "post" && ${QUERY_omitDrafts}]{ "slug": slug.current }`,
     {},
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
@@ -248,10 +145,14 @@ export async function getAllCategorySlugs() {
   return fetchSanity(
     groq`*[_type == "post_category" && ${QUERY_omitDrafts}]{ "slug": slug.current }`,
     {},
-    { tags: ["post"] }
+    { tags: ["post"] },
   );
 }
 
 export async function getMG2ASettings() {
- return fetchSanity(groq`*[_type == "mg2a_settings" && _id in ["mg2a-settings", "drafts.mg2a-settings"]][0]{..., "offices": offices[]->{...}}`, {}, {tags:["mg2a_settings","mg2a_office"]});
+  return fetchSanity(
+    groq`*[_type == "mg2a_settings" && _id in ["mg2a-settings", "drafts.mg2a-settings"]][0]{..., "offices": offices[]->{...}}`,
+    {},
+    { tags: ["mg2a_settings", "mg2a_office"] },
+  );
 }

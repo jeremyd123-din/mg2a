@@ -68,6 +68,29 @@ async function main() {
       type.fields.some((f) => f.name === "spacing" && f.group === "style"),
     );
   }
+  for (const removed of [
+    "navigation",
+    "global_team",
+    "global_testimonials",
+    "form",
+    "formSubmission",
+    "HeroVariant01",
+  ])
+    assert(
+      !types.some((type) => type.name === removed),
+      "Retired schema still registered: " + removed,
+    );
+  const { pageStyles, pageIdentity } = load("lib/mg2a/scopedStyles.js");
+  assert.equal(pageIdentity({ _id: "drafts.page-home" }), "page-home");
+  assert(
+    /data-mg2a-page=/.test(
+      pageStyles({
+        _id: "page-home",
+        scoped_css: { code: "h2 { color: red; }" },
+      }),
+    ),
+  );
+  assert.equal(pageStyles({ _id: "other-page" }), "");
   const hero = types.find((t) => t.name === "mg2a_hero");
   assert(
     hero.fields.some((f) => f.name === "buttonOne" && f.title === "Button one"),

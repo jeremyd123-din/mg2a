@@ -13,7 +13,6 @@ export async function fetchSanity(query, params, nextOptions = {}) {
     // Outside request scope (e.g. generateStaticParams at build time)
   }
   const preview = isDraftMode;
-  const fetchId = Math.random().toString(36).substring(7);
 
   const config = preview
     ? {
@@ -35,12 +34,6 @@ export async function fetchSanity(query, params, nextOptions = {}) {
           ...nextOptions,
         },
       };
-
-  console.log(`🏷️  [${fetchId}] Cache config:`, {
-    tags: config.next?.tags,
-    revalidate: config.next?.revalidate,
-    preview,
-  });
 
   return createClient(clientConfig).fetch(query, params, config);
 }

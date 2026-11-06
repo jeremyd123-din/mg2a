@@ -1,3 +1,4 @@
+import { pageStyles } from "@/lib/mg2a/scopedStyles";
 import PageBuilder from "@/components/wrappers/PageBuilder";
 import { getMetaData } from "@/lib/seo";
 import { getPageBySlug } from "@/sanity/utils/queries";
@@ -14,9 +15,7 @@ export default async function Page() {
   }
   return (
     <>
-      {data?.scoped_css?.code && (
-        <style dangerouslySetInnerHTML={{ __html: data.scoped_css.code }} />
-      )}
+      {data?.scoped_css?.code && <style>{pageStyles(data)}</style>}
       {data?.page_builder?.map((elem, index) => (
         <PageBuilder
           key={elem._key}

@@ -36,7 +36,7 @@ export default function MG2AFeaturedProjects({ data }) {
           className="proj [&_img]:[transition:transform_0.6s] [&_svg]:[transition:transform_0.6s] [&:hover_.projmedia]:[transform:scale(1.03)] [#projects_&:not(.feat):nth-child(2)_.projmedia]:object-[50%_50%] [#projects_&:not(.feat):nth-child(3)_.projmedia]:object-[50%_70%] [#projects_&:not(.feat):nth-child(2)_>_div:first-child]:[background:#1f2a24] [#projects_&:not(.feat):nth-child(3)_.mono:first-child]:[color:var(--water)] feat [@media(max-width:700px)]:pt-[210px] relative flex flex-col justify-end min-h-[500px] rounded-[6px] overflow-hidden [background:#0f202c] [color:#ffffff]"
         >
           <img
-            className="projmedia [transition:transform_0.6s] motion-reduce:[transition:none] feat-img [@media(max-width:700px)]:h-[280px]! [@media(max-width:700px)]:[bottom:auto]! absolute inset-[0] w-[100%] h-[100%] object-[cover] object-[50%_60%]"
+            className="projmedia [transition:transform_0.6s] motion-reduce:[transition:none] feat-img [@media(max-width:700px)]:h-[280px]! [@media(max-width:700px)]:[bottom:auto]! absolute inset-[0] w-[100%] h-[100%] object-cover object-[50%_60%]"
             src={mediaUrl(data.image)}
             alt={data.alt}
             loading="lazy"
@@ -76,7 +76,7 @@ export default function MG2AFeaturedProjects({ data }) {
             >
               <div className="relative h-[240px] overflow-hidden [background:#0e2c42]">
                 <img
-                  className="projmedia [transition:transform_0.6s] motion-reduce:[transition:none] w-[100%] h-[100%] object-[cover] block"
+                  className="projmedia [transition:transform_0.6s] motion-reduce:[transition:none] w-[100%] h-[100%] object-cover block"
                   src={mediaUrl(item.image)}
                   alt={item.alt}
                   loading="lazy"

@@ -1,5 +1,5 @@
 import MG2ASection from "../ui/MG2ASection";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { safeHref } from "../ui/helpers";
 export default function MG2AIndustries({ data }) {
   return (
     <MG2ASection
@@ -19,15 +19,18 @@ export default function MG2AIndustries({ data }) {
             {data.description}
           </p>
         </div>
-        <div className="mg-industries-grid [&_>_a:nth-child(even)]:pl-[24px] flex-[999_1_560px] min-w-[0] grid [grid-template-columns:repeat(auto-fill,_minmax(240px,_1fr))] [border-top:1px_solid_var(--line)]">
+        <div className="mg-industries-grid gap-x-[32px] flex-[999_1_560px] min-w-[0] grid [grid-template-columns:repeat(auto-fill,_minmax(240px,_1fr))] [border-top:1px_solid_var(--line)]">
           {(data.industries || []).filter(Boolean).map((item, itemIndex) => (
             <a
               key={item._key || item._id || itemIndex}
               href={safeHref(item.href)}
-              className="flex justify-between items-center gap-[12px] min-h-[72px] p-[0_8px_0_0] [border-bottom:1px_solid_var(--line)] text-[18px] font-semibold"
+              className="flex justify-start items-center gap-[10px] min-h-[72px] p-[0_8px_0_0] [border-bottom:1px_solid_var(--line)] text-[18px] font-semibold"
             >
               {item.label}
-              <span aria-hidden="true" className="[color:var(--accent)]">
+              <span
+                aria-hidden="true"
+                className="shrink-0 [color:var(--accent)]"
+              >
                 {"→"}
               </span>
             </a>
