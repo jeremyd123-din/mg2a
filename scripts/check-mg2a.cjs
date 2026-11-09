@@ -203,11 +203,30 @@ async function main() {
   });
   assert.equal(preview.title, "Hero");
   assert.equal(preview.subtitle, "Page heading");
-  assert.equal(
-    hero.preview.prepare({ editorLabel: "Campaign hero", title: "Heading" })
-      .title,
-    "Campaign hero",
+  assert(!hero.fields.some((field) => field.name === "editorLabel"));
+  const { sectionAnchor, sectionAnchorFromPath } = load(
+    "lib/mg2a/sectionAnchors.js",
   );
+  assert.equal(
+    sectionAnchor({ _key: "abc123", title: "Original" }),
+    sectionAnchor({ _key: "abc123", title: "Renamed" }),
+  );
+  assert.equal(
+    sectionAnchorFromPath([
+      "page_builder",
+      { _key: "parent" },
+      "sections",
+      { _key: "child" },
+      "sectionLink",
+    ]),
+    "section-parent_child",
+  );
+  const groups = pageType.fields.find((field) => field.name === "page_builder")
+    .options.insertMenu.groups;
+  assert(groups.some((group) => group.name === "service-overview"));
+  assert(groups.some((group) => group.name === "service-inner"));
+  assert(hero.fields.find((field) => field.name === "sectionLink").readOnly);
+
   const reordered = {
     ...serviceContent,
     sections: [...serviceContent.sections].reverse(),
@@ -223,8 +242,8 @@ async function main() {
     }),
   );
   assert(
-    articleHtml.indexOf('href="#faq"') <
-      articleHtml.indexOf('href="#overview"'),
+    articleHtml.indexOf('href="#section-service-content_faq"') <
+      articleHtml.indexOf('href="#section-service-content_overview"'),
     "Contents must follow section order",
   );
   assert(

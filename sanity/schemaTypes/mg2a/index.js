@@ -1,3 +1,4 @@
+import SectionLinkInput from "@/sanity/components/SectionLinkInput";
 import { serviceBlocks } from "./services";
 import { serviceExamples } from "@/lib/mg2a/serviceDefaults";
 import { createElement } from "react";
@@ -198,30 +199,22 @@ export const mg2aBlocks = [
       initialValue: "mg2a",
     },
     {
-      name: "editorLabel",
-      title: "Module label",
+      name: "sectionLink",
+      title: "Section link",
       type: "string",
-      group: "content",
+      group: "style",
+      readOnly: true,
       description:
-        "Optional name for this module in the page builder. It does not appear on the website.",
+        "Generated automatically and stays the same when this section is renamed or reordered.",
+      components: { input: SectionLinkInput },
     },
     ...enhance(block.fields).map((field) => ({ ...field, group: "content" })),
     ...(serviceBlocks.some((service) => service.name === block.name)
       ? [
           {
             name: "anchor",
-            title: "Section anchor",
             type: "string",
-            group: "style",
-            description:
-              "Optional name for linking to this section, without #.",
-            validation: (Rule) =>
-              Rule.custom(
-                (value) =>
-                  !value ||
-                  /^[a-z][a-z0-9-]*$/.test(value) ||
-                  "Use lowercase letters, numbers and hyphens.",
-              ),
+            hidden: true,
           },
           {
             name: "navigationLabel",
@@ -261,9 +254,9 @@ export const mg2aBlocks = [
     },
   ],
   preview: {
-    select: { editorLabel: "editorLabel", title: "title", eyebrow: "eyebrow" },
-    prepare: ({ editorLabel, title, eyebrow }) => ({
-      title: editorLabel || block.title.replace(/^MG2A - /, ""),
+    select: { title: "title", eyebrow: "eyebrow" },
+    prepare: ({ title, eyebrow }) => ({
+      title: block.title.replace(/^MG2A - /, ""),
       subtitle:
         title ||
         eyebrow ||

@@ -18,7 +18,7 @@ for (const [path, expectedStatus] of [
   if (path === "/services/water-resources/stormwater-management-plans") {
     assert(html.includes("Drainage area mapping"));
     assert(html.includes("Site address or PIN"));
-    assert(html.includes('href="#included"'));
+    assert(html.includes('href="#section-service-content_included"'));
   }
   assert.equal(
     response.status,

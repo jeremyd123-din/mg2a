@@ -1,7 +1,7 @@
 import { PortableText } from "@portabletext/react";
 import { stegaClean } from "next-sanity";
 import MG2ASection from "./MG2ASection";
-import { blockIdentity } from "@/lib/mg2a/blockStyles";
+import { sectionAnchor } from "@/lib/mg2a/sectionAnchors";
 import { safeHref } from "./helpers";
 export const serviceWrap =
   "mx-auto w-full max-w-[1280px] px-[clamp(16px,4vw,56px)]";
@@ -13,8 +13,7 @@ export const articleHeading =
   "text-[clamp(28px,3vw,36px)] leading-[1.1] font-bold tracking-[-.02em]";
 export const headingFor = (data) =>
   data._article ? articleHeading : serviceHeading;
-export const sectionId = (data) =>
-  stegaClean(data.anchor) || blockIdentity(data);
+export const sectionId = sectionAnchor;
 export function Arrow() {
   return (
     <svg

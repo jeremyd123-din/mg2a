@@ -1,3 +1,24 @@
+export const serviceOverviewModuleNames = [
+  "mg2a_serviceHero",
+  "mg2a_projectStage",
+  "mg2a_practiceOverview",
+  "mg2a_serviceCards",
+  "mg2a_processSteps",
+  "mg2a_relatedProjects",
+  "mg2a_faq",
+  "mg2a_ctaBanner",
+];
+export const serviceInnerModuleNames = [
+  "mg2a_serviceHero",
+  "mg2a_serviceContent",
+  "mg2a_practiceOverview",
+  "mg2a_checklist",
+  "mg2a_deliverables",
+  "mg2a_processSteps",
+  "mg2a_faq",
+  "mg2a_relatedServices",
+  "mg2a_scopeForm",
+];
 const string = (name, title, extra = {}) => ({
   name,
   title,

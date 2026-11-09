@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import HeadingTags from "@/components/wrappers/HeadingTags";
 import { pageIdentity } from "@/lib/mg2a/scopedStyles";
 import "./globals.css";
 import "@/styles/mg2a/index.css";
@@ -99,6 +101,9 @@ export default async function RootLayout({ children }) {
         </main>
         <MG2AFooter settings={settings} />
         <VisualEditingControls />
+        <Suspense fallback={null}>
+          <HeadingTags />
+        </Suspense>
       </body>
     </html>
   );

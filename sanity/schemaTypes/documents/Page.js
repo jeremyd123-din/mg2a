@@ -1,4 +1,7 @@
-import PageBuilderInput from "@/sanity/components/PageBuilderInput";
+import {
+  serviceOverviewModuleNames,
+  serviceInnerModuleNames,
+} from "../mg2a/services";
 import { Groups } from "@/sanity/utils/constants";
 import { isUniqueAcrossAllDocuments } from "@/sanity/utils/helpers";
 import { defineField, defineArrayMember } from "sanity";
@@ -115,7 +118,6 @@ const Page = {
     defineField({
       name: "page_builder",
       title: "Page Builder",
-      components: { input: PageBuilderInput },
       type: "array",
       group: "content",
       of: createDocumentArray(
@@ -133,11 +135,14 @@ const Page = {
                 .map((block) => block.name),
             },
             {
-              name: "services",
-              title: "Service pages",
-              of: pageBuilderBlocks
-                .filter((block) => block._libraryGroup === "services")
-                .map((block) => block.name),
+              name: "service-overview",
+              title: "Service overview",
+              of: serviceOverviewModuleNames,
+            },
+            {
+              name: "service-inner",
+              title: "Service inner",
+              of: serviceInnerModuleNames,
             },
           ],
           views: [
