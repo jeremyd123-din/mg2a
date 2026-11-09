@@ -4,7 +4,7 @@ import { defineField, defineArrayMember } from "sanity";
 
 const PostCategory = {
   name: "post_category",
-  title: "Post Categories",
+  title: "Blog Categories",
   type: "document",
   groups: Groups,
   fields: [

@@ -40,12 +40,19 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
     templates: (templates) =>
-      templates.filter(({ schemaType }) => !singletonTypes.has(schemaType)),
+      templates.filter(
+        ({ schemaType }) =>
+          !singletonTypes.has(schemaType) && schemaType !== "formSubmission",
+      ),
   },
   document: {
     // For singleton types, filter out actions that are not explicitly included
     // in the `singletonActions` list defined above
     actions: (input, context) => {
+      // Submissions use a private document path and live editing. Never publish,
+      // duplicate or move them into publicly readable root documents.
+      if (context.schemaType === "formSubmission") return [];
+
       if (singletonTypes.has(context.schemaType)) {
         return input.filter(
           ({ action }) => action && singletonActions.has(action),

@@ -8,7 +8,7 @@ import {
 
 const Post = {
   name: "post",
-  title: "Posts",
+  title: "Blog",
   type: "document",
   groups: Groups,
   fields: [

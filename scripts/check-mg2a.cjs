@@ -49,12 +49,21 @@ async function main() {
       "Renderer missing: " + block._type,
     );
   }
-  const { primaryNavigation, serviceGroups, industryLinks, launchRoutes } = load("lib/mg2a/navigation.js");
-  assert.deepEqual(primaryNavigation.filter(item => item.groups?.length).map(item => item.href), ["/services", "/industries"]);
+  const { primaryNavigation, serviceGroups, industryLinks, launchRoutes } =
+    load("lib/mg2a/navigation.js");
+  assert.deepEqual(
+    primaryNavigation
+      .filter((item) => item.groups?.length)
+      .map((item) => item.href),
+    ["/services", "/industries"],
+  );
   assert.equal(serviceGroups.length, 7);
-  assert.equal(serviceGroups.flatMap(group => group.links).length, 12);
+  assert.equal(serviceGroups.flatMap((group) => group.links).length, 12);
   assert.equal(industryLinks.length, 9);
-  assert.equal(new Set(launchRoutes.map(item => item.href)).size, launchRoutes.length);
+  assert.equal(
+    new Set(launchRoutes.map((item) => item.href)).size,
+    launchRoutes.length,
+  );
   assert(!JSON.stringify(serviceGroups).includes("as-built-survey"));
   const pageType = types.find((t) => t.name === "page");
   const members = pageType.fields.find((f) => f.name === "page_builder").of;
@@ -85,8 +94,6 @@ async function main() {
     "navigation",
     "global_team",
     "global_testimonials",
-    "form",
-    "formSubmission",
     "HeroVariant01",
     "mg2a_office",
     "site_settings",
@@ -226,49 +233,105 @@ async function main() {
       );
     }
   }
-  // Stub delivery services: these checks cannot send email or write to Sanity.
-  let messages = [];
-  let deliveryError = null;
-  const handler = load("app/api/mg2a/inquiry/route.js", {
+  const { parseFields, validateValues } = load("lib/forms/definition.js");
+  const { inquiryForm } = load("lib/forms/defaults.js");
+  const fields = parseFields(inquiryForm.form_fields);
+  assert.throws(() => parseFields({ code: "[{name:'x'}]" }));
+  assert.throws(() =>
+    parseFields(
+      JSON.stringify([{ name: "website", type: "text", label: "Unsafe" }]),
+    ),
+  );
+  assert.throws(() =>
+    validateValues(fields, {
+      name: "A",
+      email: "invalid",
+      need: "A survey",
+      details: "Text",
+    }),
+  );
+  assert.throws(() =>
+    validateValues(fields, {
+      name: "A",
+      email: "a@example.com",
+      need: "Unknown",
+      details: "Text",
+    }),
+  );
+  assert(types.some((type) => type.name === "form"));
+  assert(types.find((type) => type.name === "formSubmission").liveEdit);
+  assert(!site.fields.some((field) => field.name === "inquiryEmail"));
+  assert(
+    types
+      .find((type) => type.name === "mg2a_contactForm")
+      .fields.some((field) => field.name === "form"),
+  );
+  assert.equal(pageType.initialValue.seo_no_index, false);
+  // Stubbed services: no email or Sanity writes can occur in these checks.
+  const docs = new Map();
+  const messages = [];
+  let deliveryError = null,
+    failStorage = false,
+    missingForm = false;
+  const form = { ...inquiryForm, notification_email: "approved@example.com" };
+  const handler = load("app/api/submit-form/route.js", {
     "next/server": {
       NextResponse: {
         json: (body, { status = 200 } = {}) =>
-          new Response(JSON.stringify(body), {
-            status,
-            headers: { "Content-Type": "application/json" },
-          }),
+          new Response(JSON.stringify(body), { status }),
       },
     },
     "@sanity/client": {
       createClient: () => ({
-        fetch: async () => ({ inquiryEmail: "approved@example.com" }),
+        fetch: async (query, params) =>
+          query.includes('_type=="form"')
+            ? missingForm
+              ? null
+              : form
+            : docs.get(params.id),
+        createIfNotExists: async (doc) => {
+          if (failStorage) throw new Error("storage");
+          if (!docs.has(doc._id)) docs.set(doc._id, doc);
+          return docs.get(doc._id);
+        },
+        patch: (id) => ({
+          set: (patch) => ({
+            commit: async () => Object.assign(docs.get(id), patch),
+          }),
+        }),
       }),
     },
     resend: {
       Resend: class {
         emails = {
-          send: async (data) => {
-            messages.push(data);
+          send: async (data, options) => {
+            messages.push({ data, options });
             return { error: deliveryError };
           },
         };
       },
     },
   }).POST;
+  process.env.SANITY_TOKEN = "test-stub-only";
   process.env.RESEND_API_KEY = "test-stub-only";
   const request = (body, origin = "http://localhost:3000") =>
-    new Request("http://localhost:3000/api/mg2a/inquiry", {
+    new Request("http://localhost:3000/api/submit-form", {
       method: "POST",
       headers: { "Content-Type": "application/json", Origin: origin },
       body: JSON.stringify(body),
     });
   const input = {
-    name: "QA Example",
-    email: "qa@example.com",
-    phone: "",
-    need: "A survey",
-    details: "Validation fixture",
-    notificationEmail: "attacker@example.com",
+    formId: form._id,
+    requestId: "12345678-1234-4234-8234-123456789abc",
+    pagePath: "/contact?private=value",
+    notification_email: "attacker@example.com",
+    values: {
+      name: "QA",
+      email: "qa@example.com",
+      phone: "",
+      need: "A survey",
+      details: "Test",
+    },
   };
   assert.equal((await handler(request({}))).status, 400);
   assert.equal(
@@ -276,29 +339,101 @@ async function main() {
     403,
   );
   assert.equal(
-    (await handler(request({ ...input, name: "x".repeat(151) }))).status,
-    400,
+    (await handler(request({ ...input, website: "spam" }))).status,
+    200,
   );
+  assert.equal(docs.size, 0);
   assert.equal(
     (
       await handler(
-        request({ ...input, email: "qa@example.com\r\nBcc:test@example.com" }),
+        request({
+          ...input,
+          values: { ...input.values, name: "x".repeat(151) },
+        }),
       )
     ).status,
     400,
   );
   assert.equal(
-    (await handler(request({ ...input, website: "spam" }))).status,
+    (
+      await handler(
+        request({
+          ...input,
+          values: {
+            ...input.values,
+            email: "qa@example.com\r\nBcc:a@example.com",
+          },
+        }),
+      )
+    ).status,
+    400,
+  );
+  assert.equal((await handler(request(input))).status, 200);
+  assert.deepEqual(messages[0].data.to, ["approved@example.com"]);
+  assert.equal(messages[0].data.replyTo, "qa@example.com");
+  assert.equal(
+    docs.get(`submissions.${input.requestId}`).notification_status,
+    "sent",
+  );
+  assert.equal(docs.get(`submissions.${input.requestId}`).page_url, "/contact");
+  assert.equal((await handler(request(input))).status, 200);
+  assert.equal(
+    messages.length,
+    1,
+    "Network retries must not send a second notification",
+  );
+  deliveryError = { name: "delivery_failure" };
+  const failed = {
+    ...input,
+    requestId: "22345678-1234-4234-8234-123456789abc",
+  };
+  assert.equal((await handler(request(failed))).status, 200);
+  assert.equal(
+    docs.get(`submissions.${failed.requestId}`).notification_status,
+    "failed",
+  );
+  assert(
+    docs.get(`submissions.${failed.requestId}`).fields.length,
+    "Email failure must retain responses",
+  );
+  form.notification_email = "";
+  assert.equal(
+    (
+      await handler(
+        request({
+          ...input,
+          requestId: "32345678-1234-4234-8234-123456789abc",
+        }),
+      )
+    ).status,
     200,
   );
-  assert.equal(messages.length, 0);
-  assert.equal((await handler(request(input))).status, 200);
-  assert.deepEqual(messages[0].to, ["approved@example.com"]);
-  assert.equal(messages[0].replyTo, "qa@example.com");
-  deliveryError = { name: "test_delivery_failure" };
-  assert.equal((await handler(request(input))).status, 502);
+  assert.equal(messages.length, 2);
+  failStorage = true;
+  assert.equal(
+    (
+      await handler(
+        request({
+          ...input,
+          requestId: "42345678-1234-4234-8234-123456789abc",
+        }),
+      )
+    ).status,
+    503,
+  );
+  assert.equal(
+    messages.length,
+    2,
+    "Do not email a submission that failed to save",
+  );
+  missingForm = true;
+  assert.equal((await handler(request(input))).status, 404);
+  assert(
+    [...docs.keys()].every((id) => id.startsWith("submissions.")),
+    "Submission IDs must stay on authenticated-only paths",
+  );
   console.log(
-    "Passed: full Studio schema, all MG2A section registrations, 11-section chooser, exact service SVGs, hero field model, independent spacing/scoped CSS, safe inline bold and form delivery checks. No email sent.",
+    "Passed: Studio schema, MG2A blocks, form references, JSON validation, per-form recipients, private submission IDs, retry deduplication, saved responses after email failure, and storage failure handling. No real email or submissions sent.",
   );
 }
 main().catch((error) => {

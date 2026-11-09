@@ -94,22 +94,15 @@ const contactFields = [
   string("eyebrow", "Eyebrow"),
   string("title", "Heading"),
   text("description", "Introduction"),
-  ...["name", "email", "phone", "need", "details"].map((n) =>
-    string(n + "Label", n[0].toUpperCase() + n.slice(1) + " field label", {
-      validation: required,
-    }),
-  ),
   {
-    name: "options",
-    title: "“I need help with” options",
-    type: "array",
-    of: [{ type: "string" }],
-    validation: (Rule) => Rule.min(1),
+    name: "form",
+    title: "Form",
+    type: "reference",
+    to: [{ type: "form" }],
+    validation: required,
+    description:
+      "Select the form to display. Manage its fields and notification recipients under Forms.",
   },
-  text("note", "Form note"),
-  string("submitLabel", "Submit button", { validation: required }),
-  text("successMessage", "Success message"),
-  text("errorMessage", "Error message"),
 ];
 const additional = [
   {
@@ -142,9 +135,7 @@ const additional = [
       string("title", "Heading"),
       {
         name: "items",
-        title: "Verified metrics",
-        description:
-          "Leave empty until actual figures have been confirmed. Bracketed placeholders cannot be published.",
+        title: "Metrics",
         type: "array",
         of: [
           {
@@ -163,15 +154,6 @@ const additional = [
 function enhance(fields) {
   return fields.map((field) => {
     const result = { ...field };
-    if (field.type === "string" || field.type === "text") {
-      result.validation = (Rule) =>
-        Rule.custom(
-          (value) =>
-            !value ||
-            !/\[[^\]]+\]/.test(value) ||
-            "Replace bracketed placeholder text before publishing.",
-        );
-    }
     if (field.name.startsWith("href"))
       result.validation = linkFields[1].validation;
     if (field.fields) result.fields = enhance(field.fields);
@@ -273,18 +255,11 @@ export const mg2aDocuments = [
     initialValue: { status: "open", order: 0 },
     fields: [
       string("title", "Position title", {
-        validation: (Rule) =>
-          Rule.required().custom(
-            (value) =>
-              !value ||
-              !/[\[\]]/.test(value) ||
-              "Replace the placeholder title before publishing.",
-          ),
+        validation: required,
       }),
       string("location", "Location / employment type"),
       string("href", "Application or detail page link", {
-        description:
-          "Use /careers#apply, or a job page URL once that page is available.",
+        description: "Link to the position details or application page.",
         validation: linkFields[1].validation,
       }),
       string("status", "Status", {
@@ -322,7 +297,6 @@ export const mg2aDocuments = [
       { name: "header", title: "Header", default: true },
       { name: "footer", title: "Footer" },
       { name: "brand", title: "Brand & themes" },
-      { name: "forms", title: "Inquiries" },
       { name: "offices", title: "Offices" },
       { name: "seo", title: "SEO & Analytics" },
     ],
@@ -344,7 +318,7 @@ export const mg2aDocuments = [
         type: "url",
         group: "header",
         description:
-          "Pending client confirmation. Leave blank to display an inactive Client Access label.",
+          "Enter the client portal URL. Leave blank to display the label without a link.",
         validation: (Rule) => Rule.uri({ scheme: ["http", "https"] }),
       },
       { ...offices, group: "offices" },
@@ -383,12 +357,6 @@ export const mg2aDocuments = [
       string("gtm_id", "Google Tag Manager ID", {
         group: "seo",
         description: "Leave blank to disable analytics.",
-      }),
-      string("inquiryEmail", "Inquiry recipient", {
-        group: "forms",
-        description:
-          "Temporary development recipient: parasbokhari@gmail.com. Replace with the client’s approved address before launch.",
-        validation: (Rule) => Rule.required().email(),
       }),
     ],
     preview: { select: { title: "title" } },

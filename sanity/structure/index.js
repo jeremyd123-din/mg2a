@@ -29,6 +29,19 @@ export const structure = (S) =>
       S.documentTypeListItem("mg2a_industry").title("Industries"),
       S.documentTypeListItem("mg2a_job").title("Open Positions"),
       S.divider(),
-      S.documentTypeListItem("post").title("Developer’s Journal"),
-      S.documentTypeListItem("post_category").title("Journal Categories"),
+      S.documentTypeListItem("post").title("Blog"),
+      S.documentTypeListItem("post_category").title("Blog Categories"),
+      S.divider(),
+      S.documentTypeListItem("form").title("Forms"),
+      S.listItem()
+        .title("Form Submissions")
+        .child(
+          S.documentList()
+            .title("Form Submissions")
+            .schemaType("formSubmission")
+            .filter(
+              '_type == "formSubmission" && _id in path("submissions.**")',
+            )
+            .defaultOrdering([{ field: "submitted_at", direction: "desc" }]),
+        ),
     ]);

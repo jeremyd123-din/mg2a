@@ -12,20 +12,20 @@ The November 5 developer handoff is the visual specification. It supersedes the 
 - `/blocks` previews the MG2A section library.
 - `npm run seed:mg2a` uploads supplied media and creates missing records. It preserves existing CMS edits. `MG2A_HANDOFF_DIR` can override the asset source directory. `lib/mg2a/assets.json` records public asset references so inserted sections can start with valid media.
 
-The initial content is seeded into the configured `production` dataset. Both site and homepage indexing are disabled during development. Review and enable indexing at launch.
+The initial content is seeded into the configured `production` dataset. Site-wide indexing is controlled by Site Settings → SEO & Analytics → Disable search indexing. New pages default to allowing indexing; leave the site-wide switch enabled until launch.
 
 ## Client information still required
 
-- **Final inquiry destination:** currently `parasbokhari@gmail.com` for development, editable in Site Settings → Inquiries.
+- **Inquiry notification recipients:** configured on each form under Forms → Notification recipients.
 - **G2X Client Access URL:** currently blank. The Client Access labels are visible to match the mockup, with navigation disabled until supplied.
 - **Verified sending domain/address:** the endpoint uses `MG2A_INQUIRY_FROM` or the existing Janoova sender `MG2A Inquiries <forms@janoova.com>`. Confirm sender verification and delivery in Resend before launch.
-- Real statistics, approved testimonial and actual open positions. At the user’s explicit request, all supplied homepage placeholder statistics, testimonial and job listings are included in both the development homepage and its existing draft to match the mockup. Schema validation prevents publishing bracketed placeholders. The Why MG2A block now includes its original statistics and testimonial fields, and the Careers block fetches the shared Open Positions records.
+- Real statistics, approved testimonial and actual open positions. At the user’s explicit request, all supplied homepage placeholder statistics, testimonial and job listings are included in both the development homepage and its existing draft to match the mockup. Bracketed placeholders are allowed and do not prevent publishing. The Why MG2A block now includes its original statistics and testimonial fields, and the Careers block fetches the shared Open Positions records.
 - High-resolution project images and MG2A drone footage. The supplied stock video and low-resolution images are uploaded to Sanity for development.
 - Resolve combined preliminary/final stormwater launch-page grouping before creating service pages. The homepage card currently preserves the four offerings from the supplied homepage; it does not seed dedicated service-page URLs.
 
 ## Delivery and remaining launch work
 
-The homepage inquiry endpoint validates fixed fields, resolves its recipient from server-side CMS configuration, uses Resend and returns delivery failures. It does not store inquiries in the publicly readable Sanity dataset. Test one real inquiry after confirming the sender; automated checks must not send unsolicited email. Production abuse protection/rate limiting should be configured with the hosting/email setup.
+The shared form endpoint validates submitted values against the published form, saves responses under an authenticated-only Sanity document path, and then sends Resend notifications to that form’s recipients. Email failures retain the responses and appear in the submission’s notification status. Automated checks use stub delivery; live email delivery is not tested.
 
 Only global shell and homepage are implemented. Navigation points to planned canonical URLs; their destination pages are part of later development. Header and footer links can be edited in Sanity. Do not treat this development seed as a launch-ready website.
 
@@ -88,7 +88,7 @@ Page CSS affects that page only. Section-level CSS is the preferred choice for a
 
 ## Studio organization and launch navigation
 
-Homepage is a shortcut to the canonical page document, not a separate schema. It is excluded from the general Pages list. Developer’s Journal contains blog articles; Journal Categories groups those articles. Offices now live inside Site Settings. Open Positions is a shared document list: published records marked Open populate the homepage Careers section, ordered by their display order. Projects and Industries remain shared referenced records. Legacy office/SEO documents were retained in the dataset; no content was deleted.
+Homepage is a shortcut to the canonical page document, not a separate schema. It is excluded from the general Pages list. Blog contains articles; Blog Categories groups those articles. Offices now live inside Site Settings. Open Positions is a shared document list: published records marked Open populate the homepage Careers section, ordered by their display order. Projects and Industries remain shared referenced records. Legacy office/SEO documents were retained in the dataset; no content was deleted.
 
 All 11 MG2A sections have actual browser screenshots in `public/mg2a/block-previews`, used by the insertion grid and block previews. `/blocks/[type]` renders an individual section for preview maintenance.
 
@@ -102,3 +102,24 @@ Edit navigation in Site Settings → Header → Primary links. Submenu groups ap
 Open **Site Settings → Footer**. **Services links** and **Company links** are separate reorderable arrays: expand a row to edit its Label and Destination, add a row for another link, or remove a row. Publish Site Settings to apply changes. Column titles, description and the footer license statement are on the same tab. Addresses/phones are under **Offices**; the shared Client Access label and URL are under **Header**. The footer matches the supplied HTML: seven service links, six company links, then Client Access.
 
 Header spacing matches the original 1280px container and 32px navigation gap at 15px type. Both action buttons display on desktop; the mobile menu breakpoint remains 980px.
+
+
+## Reusable forms and saved submissions
+
+Open **Forms** to create or edit a form. Use **Fields (JSON)** for a strict JSON array, for example:
+
+```json
+[
+  {"name":"name","type":"text","label":"Name","required":true},
+  {"name":"email","type":"email","label":"Email","required":true},
+  {"name":"details","type":"textarea","label":"Project details","required":true,"width":100}
+]
+```
+
+Supported types are text, email, tel, url, number, date, textarea, select, radio, checkbox and hidden. Select/radio options can be strings or `{ "label": "Displayed text", "value": "stored-value" }` objects. `width` is 50 or 100; `isMulti` enables multiple selection on a select. Fields may set a placeholder and maxLength. Hidden fields use a defaultValue from the form definition. JavaScript expressions and executable code are not accepted. File uploads are not part of this field model.
+
+Set notification recipients on the form (comma-separated). Leave blank for storage without email. Publish the form, then choose it under **Homepage/Pages → Contact Form → Form**. Labels, options, button text, note and confirmation/error messages belong to the reusable form; section headings, offices and styling stay with the section. All future form modules should use the same reference and renderer. The homepage’s existing field content has been migrated.
+
+**Form Submissions** lists stored responses, source path, received time and email status. Editors can mark them new, reviewed or archived. Records use `submissions.<UUID>` IDs, which require authenticated access under Sanity’s default document-path permissions. The schema uses live editing and exposes no publishing/duplicate actions or creation templates, so records keep their private IDs. Validate any future custom role changes against this requirement. The API saves before emailing; repeat requests reuse a UUID and do not create duplicate records/notifications. Failed notifications remain visible as Failed (or Pending if the status update could not complete); there is no automatic resend queue.
+
+`node scripts/check-mg2a-submission-access.mjs` creates and removes a non-personal access-check record to verify anonymous reads are denied. `npm run check:mg2a` tests form validation, trusted recipients, idempotency, storage failures and email failures using stubs. `node scripts/migrate-mg2a-forms.mjs` migrates old contact-block fields and moves the former site-wide recipient to reusable forms, with a backup in the temporary directory. Server-side `SANITY_TOKEN` must have permission to create/read/update `submissions.**`; `RESEND_API_KEY` and `MG2A_INQUIRY_FROM` configure email delivery on Vercel.

@@ -1,3 +1,4 @@
+import { inquiryForm } from "../lib/forms/defaults.js";
 import fs from "node:fs";
 import path from "node:path";
 import { createClient } from "@sanity/client";
@@ -81,6 +82,7 @@ for (const document of documents) {
   if (document._type === "mg2a_serviceCategory")
     document.icon = icons[categoryIndex++];
 }
+await client.createIfNotExists(inquiryForm);
 const homepage = {
   _id: "mg2a-homepage",
   _type: "page",
@@ -91,7 +93,7 @@ const homepage = {
   meta_title: "MG2A | Civil Engineering & Surveying in Illinois & Indiana",
   meta_description:
     "Civil engineering, land surveying, water resources and municipal engineering for communities and developments across Illinois and Indiana.",
-  seo_no_index: true,
+  seo_no_index: false,
   page_builder: [...home, careers, contact],
 };
 const samples = JSON.parse(

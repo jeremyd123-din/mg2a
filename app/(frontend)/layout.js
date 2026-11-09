@@ -14,6 +14,10 @@ import VisualEditingControls from "@/components/wrappers/VisualEditingControls";
 import { settings as defaults, offices } from "@/lib/mg2a/defaults";
 import { stegaClean } from "next-sanity";
 
+// The public shell reads headers and draft-preview cookies on every request.
+// Empty generateStaticParams lists must not turn CMS routes into static fallbacks.
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   const settings = await getSiteSettings();
   return {

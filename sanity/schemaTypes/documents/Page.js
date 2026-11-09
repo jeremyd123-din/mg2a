@@ -10,7 +10,7 @@ const Page = {
   title: "Pages",
   type: "document",
   groups: Groups,
-  initialValue: { page_layout: "flexible" },
+  initialValue: { page_layout: "flexible", seo_no_index: false },
   fields: [
     {
       name: "title",
@@ -89,7 +89,7 @@ const Page = {
         list: [{ title: "Flexible Page Builder", value: "flexible" }],
       },
       description:
-        "Add, remove and reorder MG2A sections. Structured service, project and industry layouts will be added in the next phase.",
+        "Add, remove and reorder sections to build this page.",
       validation: (Rule) => Rule.required(),
     },
     {
