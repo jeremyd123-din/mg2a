@@ -6,7 +6,7 @@ export async function getPageBySlug(slug) {
   return fetchSanity(
     groq`*[_type == "page" && slug.current == $slug][0]{
     ...,
-    page_builder[]{...,"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...},_type == "mg2a_contactForm" => {"offices":*[_id=="mg2a-settings"][0].offices,"form":form->{_id,title,form_fields,button_title,note,thankyou_message,error_message}}, _type == "mg2a_careers" => {"jobs":*[_type=="mg2a_job" && status=="open"]|order(order asc,_createdAt asc)}}
+    page_builder[]{...,_type == "mg2a_relatedProjects" => {items[]{...,"project":project->{...}}},_type == "mg2a_serviceContent" => {sections[]{...}},"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...},_type in ["mg2a_contactForm", "mg2a_scopeForm"] => {"offices":*[_id=="mg2a-settings"][0].offices,"form":form->{_id,title,form_fields,button_title,note,thankyou_message,error_message}}, _type == "mg2a_careers" => {"jobs":*[_type=="mg2a_job" && status=="open"]|order(order asc,_createdAt asc)}}
 
 }`,
     { slug },

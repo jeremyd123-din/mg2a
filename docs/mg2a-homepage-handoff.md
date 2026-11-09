@@ -27,7 +27,7 @@ The initial content is seeded into the configured `production` dataset. Site-wid
 
 The shared form endpoint validates submitted values against the published form, saves responses under an authenticated-only Sanity document path, and then sends Resend notifications to that form’s recipients. Email failures retain the responses and appear in the submission’s notification status. Automated checks use stub delivery; live email delivery is not tested.
 
-Only global shell and homepage are implemented. Navigation points to planned canonical URLs; their destination pages are part of later development. Header and footer links can be edited in Sanity. Do not treat this development seed as a launch-ready website.
+The global shell, homepage, Services hub, Water Resources overview and Stormwater Management detail page are implemented. Navigation points to planned canonical URLs; their destination pages are part of later development. Header and footer links can be edited in Sanity. Do not treat this development seed as a launch-ready website.
 
 Configure Sanity CORS for localhost and deployed origins, and a signed webhook pointing to `/api/revalidate` with `{ "_type": _type, "_id": _id }`. Include page, mg2a_settings, mg2a_project, mg2a_serviceCategory, mg2a_industry and mg2a_job. Set the server-only `SANITY_REVALIDATE_SECRET`; the older `NEXT_PUBLIC_SANITY_HOOK` remains a compatibility fallback. All homepage reference types have cache tags. Enable preview using the existing Studio Presentation integration.
 
@@ -35,7 +35,7 @@ Configure Sanity CORS for localhost and deployed origins, and a signed webhook p
 
 - Production build passed.
 - Full schema (including the code-input plugin) compiled without schema errors.
-- All 11 MG2A section types have matching renderers and are available in the insertion menu; the homepage uses 10 sections, with Metrics available when verified figures are supplied.
+- All 24 MG2A section types have matching renderers and are available in the insertion menu; the homepage uses 10 sections, with Metrics available when verified figures are supplied.
 - Checked desktop rendering, 390px mobile overflow, menu opening/Escape dismissal, hero pause/play state and completed shared card lists.
 - Form checks used stubbed delivery: required fields, email/header validation, field lengths, origin checks, honeypot, server-owned recipient, and delivery failure. Live email delivery remains untested.
 - Studio loads its login screen without browser errors. A signed-in editor session is still required to verify editing, drag/drop and publishing in the actual Studio UI. Production webhook delivery is not yet configured or verified.
@@ -90,7 +90,7 @@ Page CSS affects that page only. Section-level CSS is the preferred choice for a
 
 Homepage is a shortcut to the canonical page document, not a separate schema. It is excluded from the general Pages list. Blog contains articles; Blog Categories groups those articles. Offices now live inside Site Settings. Open Positions is a shared document list: published records marked Open populate the homepage Careers section, ordered by their display order. Projects and Industries remain shared referenced records. Legacy office/SEO documents were retained in the dataset; no content was deleted.
 
-All 11 MG2A sections have actual browser screenshots in `public/mg2a/block-previews`, used by the insertion grid and block previews. `/blocks/[type]` renders an individual section for preview maintenance.
+All 24 MG2A sections have actual browser screenshots in `public/mg2a/block-previews`, used by the insertion grid and block previews. `/blocks/[type]` renders an individual section for preview maintenance.
 
 The launch sitemap inventory is in `lib/mg2a/navigation.js`. Only Services and Industries expand, on desktop and mobile. Services includes seven category destinations and 12 launch detail destinations; Industries includes nine destinations. Projects, About and Careers are direct header links. Journal and Service Areas remain in the launch route inventory but are omitted from the header at the user’s request. Contact and Order a Survey are direct actions. Recommended-later service pages and additional counties are excluded. The two launch counties and six projects are catalogued for their future hub pages, with no additional header submenus. Dynamic team, job and article routes and system routes are documented separately in that file. Configured URLs do not create destination page content; those pages remain future development work.
 
@@ -123,3 +123,18 @@ Set notification recipients on the form (comma-separated). Leave blank for stora
 **Form Submissions** lists stored responses, source path, received time and email status. Editors can mark them new, reviewed or archived. Records use `submissions.<UUID>` IDs, which require authenticated access under Sanity’s default document-path permissions. The schema uses live editing and exposes no publishing/duplicate actions or creation templates, so records keep their private IDs. Validate any future custom role changes against this requirement. The API saves before emailing; repeat requests reuse a UUID and do not create duplicate records/notifications. Failed notifications remain visible as Failed (or Pending if the status update could not complete); there is no automatic resend queue.
 
 `node scripts/check-mg2a-submission-access.mjs` creates and removes a non-personal access-check record to verify anonymous reads are denied. `npm run check:mg2a` tests form validation, trusted recipients, idempotency, storage failures and email failures using stubs. `node scripts/migrate-mg2a-forms.mjs` migrates old contact-block fields and moves the former site-wide recipient to reusable forms, with a backup in the temporary directory. Server-side `SANITY_TOKEN` must have permission to create/read/update `submissions.**`; `RESEND_API_KEY` and `MG2A_INQUIRY_FROM` configure email delivery on Vercel.
+
+
+## Service pages and modular editing
+
+Implemented paths: `/services`, `/services/water-resources`, and `/services/water-resources/stormwater-management-plans`. The overview and detail follow the two supplied service HTML mockups. The hub uses the existing category copy and the same service modules. The detail retains the mockup’s Final Stormwater Management Plan title while using the grouped stormwater URL already in the launch navigation. Other service destinations remain planned pages.
+
+In **Pages**, choose **Service overview page** or **Service detail page** when creating a page. Each is a starting arrangement of editable modules, with indexing allowed by default and the site-wide indexing switch still respected. The seed command `node scripts/seed-mg2a-services.mjs` only creates missing records and does not overwrite edits.
+
+A detail page has a separate **Service hero**, **Service content**, and **Service inquiry form**. Open **Service content → Content sections** to add, remove or drag text, checklists, deliverables, process steps, FAQs and related services into order. **Overview text → Text** is a rich-text editor with paragraphs, bold/italic, links and lists. The desktop contents menu is generated from the child sections and follows their order. Its title and extra links are editable on the parent. Child sections may override their **Contents menu label** or **Section anchor** under Style. Related services are omitted from the menu unless given an explicit menu label. On mobile the sidebar is hidden and all content remains in its reading order.
+
+All module rows show the module’s name, followed by its content heading/eyebrow as the description. **Module label** optionally renames one instance in the editor. **Edit visually** opens the Sanity Presentation editor; existing visual-editing attributes now retain nested child section paths. Standard Sanity drag handles, duplicate/remove actions, screenshot selection, and Content/Style tabs remain available. This uses Sanity’s editor and editing capabilities; it is not a pixel-for-pixel recreation of HubSpot’s editor.
+
+Thirteen service modules extend the library to 24 module types. Each has a real screenshot. Child padding and scoped CSS target a parent-and-child instance identity so one nested section does not style another parent’s copy. First-child spacing is normalized to zero unless explicitly set. Service inquiry forms use **Forms** and the existing private submission handler, including per-form recipients. Shared project cards fetch the selected project and allow page-specific descriptions.
+
+The 404 page is dark with generous top padding. The non-homepage header spacer now has explicit desktop/mobile heights; it previously had an unstyled class name. Production route checks cover the three service pages and missing page/blog routes. A signed-in Studio session is still required for end-to-end verification of editing and publishing through the actual editor.

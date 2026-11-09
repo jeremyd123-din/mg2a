@@ -1,3 +1,4 @@
+import { servicePageTemplate } from "./lib/mg2a/serviceDefaults";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
@@ -39,11 +40,24 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
-    templates: (templates) =>
-      templates.filter(
+    templates: (templates) => [
+      ...templates.filter(
         ({ schemaType }) =>
           !singletonTypes.has(schemaType) && schemaType !== "formSubmission",
       ),
+      {
+        id: "mg2a-service-overview",
+        title: "Service overview page",
+        schemaType: "page",
+        value: servicePageTemplate(0),
+      },
+      {
+        id: "mg2a-service-detail",
+        title: "Service detail page",
+        schemaType: "page",
+        value: servicePageTemplate(1),
+      },
+    ],
   },
   document: {
     // For singleton types, filter out actions that are not explicitly included

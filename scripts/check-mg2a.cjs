@@ -67,7 +67,7 @@ async function main() {
   assert(!JSON.stringify(serviceGroups).includes("as-built-survey"));
   const pageType = types.find((t) => t.name === "page");
   const members = pageType.fields.find((f) => f.name === "page_builder").of;
-  assert.equal(members.length, 11);
+  assert.equal(members.length, 24);
   const fs = require("node:fs");
   for (const member of members) {
     const file = `public/mg2a/block-previews/${member.type}.jpg`;
@@ -131,7 +131,7 @@ async function main() {
       .fields.some((field) => field.name === "offices"),
   );
   assert(
-    members.length === 11 &&
+    members.length === 24 &&
       pageType.fields
         .find((field) => field.name === "page_builder")
         .options.insertMenu.views.some((view) => view.name === "grid"),
@@ -165,6 +165,77 @@ async function main() {
   assert.equal(blockStyles({ _key: "second" }), "");
   const React = require("react");
   const { renderToStaticMarkup } = require("react-dom/server");
+  const servicePages = require("../lib/mg2a/servicePages.json");
+  const collect = (blocks) =>
+    blocks.flatMap((block) => [block, ...collect(block.sections || [])]);
+  for (const page of servicePages) {
+    assert.equal(page.seo_no_index, false);
+    for (const section of collect(page.page_builder)) {
+      assert.equal(
+        typeof registry[section._type],
+        "function",
+        `Missing service renderer: ${section._type}`,
+      );
+      assert(types.some((type) => type.name === section._type));
+    }
+  }
+  const serviceContent = servicePages[1].page_builder.find(
+    (block) => block._type === "mg2a_serviceContent",
+  );
+  assert.equal(serviceContent.sections.length, 6);
+  assert.equal(
+    serviceContent.sections.find((block) => block._type === "mg2a_deliverables")
+      .items.length,
+    6,
+  );
+  const contentSchema = types.find(
+    (type) => type.name === "mg2a_serviceContent",
+  );
+  const allowed = contentSchema.fields
+    .find((field) => field.name === "sections")
+    .of.map((member) => member.type);
+  assert(
+    serviceContent.sections.every((section) => allowed.includes(section._type)),
+  );
+  const preview = hero.preview.prepare({
+    title: "Page heading",
+    eyebrow: "Eyebrow",
+  });
+  assert.equal(preview.title, "Hero");
+  assert.equal(preview.subtitle, "Page heading");
+  assert.equal(
+    hero.preview.prepare({ editorLabel: "Campaign hero", title: "Heading" })
+      .title,
+    "Campaign hero",
+  );
+  const reordered = {
+    ...serviceContent,
+    sections: [...serviceContent.sections].reverse(),
+  };
+  const articleHtml = renderToStaticMarkup(
+    React.createElement(registry.mg2a_serviceContent, {
+      data: reordered,
+      editorContext: {
+        docId: "test-page",
+        docType: "page",
+        path: 'page_builder[_key=="service-content"]',
+      },
+    }),
+  );
+  assert(
+    articleHtml.indexOf('href="#faq"') <
+      articleHtml.indexOf('href="#overview"'),
+    "Contents must follow section order",
+  );
+  assert(
+    articleHtml.includes('data-mg2a-block="service-content_overview"'),
+    "Nested style selectors must include parent identity",
+  );
+  assert(
+    articleHtml.includes("sections"),
+    "Nested visual editing must retain its section path",
+  );
+
   const InlineText = load("components/mg2a/ui/InlineText.jsx").default;
   const formatted = renderToStaticMarkup(
     React.createElement(InlineText, {

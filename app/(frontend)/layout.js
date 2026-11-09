@@ -89,7 +89,12 @@ export default async function RootLayout({ children }) {
           id="main-content"
           data-mg2a-page={page ? pageIdentity(page) : undefined}
         >
-          {pathname !== "/" && <div className="hdr-space" aria-hidden="true" />}
+          {pathname !== "/" && (
+            <div
+              className="h-[125px] [@media(max-width:980px)]:h-[84px]"
+              aria-hidden="true"
+            />
+          )}
           {children}
         </main>
         <MG2AFooter settings={settings} />

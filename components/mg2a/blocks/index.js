@@ -9,3 +9,18 @@ export { default as mg2a_whyMG2A } from "./MG2AWhyMG2A";
 export { default as mg2a_careers } from "./MG2ACareers";
 export { default as mg2a_contactForm } from "./MG2AContactForm";
 export { default as mg2a_metrics } from "./MG2AMetrics";
+export { default as mg2a_serviceHero } from "./MG2AServiceHero";
+export { default as mg2a_serviceContent } from "./MG2AServiceContent";
+export { default as mg2a_scopeForm } from "./MG2AScopeForm";
+export {
+  MG2AProjectStage as mg2a_projectStage,
+  MG2APracticeOverview as mg2a_practiceOverview,
+  MG2AServiceCards as mg2a_serviceCards,
+  MG2AProcessSteps as mg2a_processSteps,
+  MG2ARelatedProjects as mg2a_relatedProjects,
+  MG2AFaq as mg2a_faq,
+  MG2ACtaBanner as mg2a_ctaBanner,
+  MG2AChecklist as mg2a_checklist,
+  MG2ADeliverables as mg2a_deliverables,
+  MG2ARelatedServices as mg2a_relatedServices,
+} from "./MG2AServiceSections";

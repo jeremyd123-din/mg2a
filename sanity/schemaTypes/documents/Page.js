@@ -1,3 +1,4 @@
+import PageBuilderInput from "@/sanity/components/PageBuilderInput";
 import { Groups } from "@/sanity/utils/constants";
 import { isUniqueAcrossAllDocuments } from "@/sanity/utils/helpers";
 import { defineField, defineArrayMember } from "sanity";
@@ -88,8 +89,7 @@ const Page = {
       options: {
         list: [{ title: "Flexible Page Builder", value: "flexible" }],
       },
-      description:
-        "Add, remove and reorder sections to build this page.",
+      description: "Add, remove and reorder sections to build this page.",
       validation: (Rule) => Rule.required(),
     },
     {
@@ -115,6 +115,7 @@ const Page = {
     defineField({
       name: "page_builder",
       title: "Page Builder",
+      components: { input: PageBuilderInput },
       type: "array",
       group: "content",
       of: createDocumentArray(
@@ -122,12 +123,20 @@ const Page = {
       ),
       options: {
         insertMenu: {
+          filter: true,
           groups: [
             {
-              name: "mg2a",
-              title: "MG2A Sections",
+              name: "homepage",
+              title: "Homepage & shared",
               of: pageBuilderBlocks
-                .filter((block) => block._menuCategory === "mg2a")
+                .filter((block) => block._libraryGroup === "homepage")
+                .map((block) => block.name),
+            },
+            {
+              name: "services",
+              title: "Service pages",
+              of: pageBuilderBlocks
+                .filter((block) => block._libraryGroup === "services")
                 .map((block) => block.name),
             },
           ],

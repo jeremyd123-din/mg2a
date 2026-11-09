@@ -54,7 +54,8 @@ html[data-theme="dark"] {
   --accent: var(--onDark);
   color-scheme: dark;
 }
-html[data-theme="light"] {
+html[data-theme="light"],
+[data-preview-theme="light"] {
   --bg: #f5f6f4;
   --bg2: #e8edf0;
   --panel: #ffffff;

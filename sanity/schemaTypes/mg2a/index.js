@@ -1,3 +1,5 @@
+import { serviceBlocks } from "./services";
+import { serviceExamples } from "@/lib/mg2a/serviceDefaults";
 import { createElement } from "react";
 import { scopedCss } from "../objects/commonFields";
 import generated from "./generated.json";
@@ -164,10 +166,19 @@ function enhance(fields) {
     return result;
   });
 }
-const initials = [...homepage, careers, contact];
-export const mg2aBlocks = [...generated.blocks, ...additional].map((block) => ({
+const initials = [...homepage, careers, contact, ...serviceExamples];
+export const mg2aBlocks = [
+  ...generated.blocks,
+  ...additional,
+  ...serviceBlocks,
+].map((block) => ({
   ...block,
+  title: block.title.replace(/^MG2A - /, ""),
   _menuCategory: "mg2a",
+  _libraryGroup: serviceBlocks.some((service) => service.name === block.name)
+    ? "services"
+    : "homepage",
+  options: { modal: { type: "dialog", width: 1 } },
   groups: [
     { name: "content", title: "Content", default: true },
     { name: "style", title: "Style" },
@@ -175,6 +186,8 @@ export const mg2aBlocks = [...generated.blocks, ...additional].map((block) => ({
   initialValue: {
     ...resolveDefaultAssets(initials.find((b) => b._type === block.name)),
     _key: undefined,
+    anchor: undefined,
+    navigationLabel: undefined,
     block_category: "mg2a",
   },
   fields: [
@@ -184,7 +197,42 @@ export const mg2aBlocks = [...generated.blocks, ...additional].map((block) => ({
       hidden: true,
       initialValue: "mg2a",
     },
+    {
+      name: "editorLabel",
+      title: "Module label",
+      type: "string",
+      group: "content",
+      description:
+        "Optional name for this module in the page builder. It does not appear on the website.",
+    },
     ...enhance(block.fields).map((field) => ({ ...field, group: "content" })),
+    ...(serviceBlocks.some((service) => service.name === block.name)
+      ? [
+          {
+            name: "anchor",
+            title: "Section anchor",
+            type: "string",
+            group: "style",
+            description:
+              "Optional name for linking to this section, without #.",
+            validation: (Rule) =>
+              Rule.custom(
+                (value) =>
+                  !value ||
+                  /^[a-z][a-z0-9-]*$/.test(value) ||
+                  "Use lowercase letters, numbers and hyphens.",
+              ),
+          },
+          {
+            name: "navigationLabel",
+            title: "Contents menu label",
+            type: "string",
+            group: "style",
+            description:
+              "Optional shorter label for the contents menu. Defaults to the section heading.",
+          },
+        ]
+      : []),
     {
       name: "spacing",
       title: "Vertical padding",
@@ -213,10 +261,14 @@ export const mg2aBlocks = [...generated.blocks, ...additional].map((block) => ({
     },
   ],
   preview: {
-    select: { title: "title", eyebrow: "eyebrow" },
-    prepare: ({ title, eyebrow }) => ({
-      title: title || block.title,
-      subtitle: eyebrow || block.title,
+    select: { editorLabel: "editorLabel", title: "title", eyebrow: "eyebrow" },
+    prepare: ({ editorLabel, title, eyebrow }) => ({
+      title: editorLabel || block.title.replace(/^MG2A - /, ""),
+      subtitle:
+        title ||
+        eyebrow ||
+        block.description ||
+        "Edit module content and style",
       media: createElement("img", {
         src: `/mg2a/block-previews/${block.name}.jpg`,
         alt: block.title,

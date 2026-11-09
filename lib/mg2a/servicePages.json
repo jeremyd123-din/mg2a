@@ -1,0 +1,800 @@
+[
+  {
+    "_type": "page",
+    "page_layout": "flexible",
+    "default_theme": "light",
+    "seo_no_index": false,
+    "meta_title": "Water Resources | MG2A",
+    "meta_description": "Sustainable stormwater management for safe, resilient land development. We model, design, and permit the systems that control runoff and protect your site from flooding.",
+    "_id": "mg2a-water-resources",
+    "title": "Water Resources",
+    "slug": {
+      "_type": "slug",
+      "current": "services/water-resources"
+    },
+    "page_builder": [
+      {
+        "_type": "mg2a_serviceHero",
+        "_key": "image-hero",
+        "block_category": "mg2a",
+        "variant": "image",
+        "title": "Water Resources",
+        "eyebrow": "Services · Design & Engineering",
+        "description": "Sustainable stormwater management for safe, resilient land development. We model, design, and permit the systems that control runoff and protect your site from flooding.",
+        "breadcrumbs": [
+          {
+            "_type": "breadcrumb",
+            "_key": "item0",
+            "label": "Home",
+            "href": "/"
+          },
+          {
+            "_type": "breadcrumb",
+            "_key": "item1",
+            "label": "Services",
+            "href": "/services"
+          },
+          {
+            "_type": "breadcrumb",
+            "_key": "item2",
+            "label": "Water Resources",
+            "href": ""
+          }
+        ],
+        "buttonOne": {
+          "label": "Talk to an engineer",
+          "href": "/#contact"
+        },
+        "buttonTwo": {
+          "label": "See our services",
+          "href": "#services-list"
+        },
+        "image": {
+          "_localAsset": "courtyards-cobblestone-plan.jpg"
+        },
+        "alt": "Site plan showing stormwater detention and floodplain boundaries at The Courtyards at Cobblestone",
+        "caption": "The Courtyards at Cobblestone · Bourbonnais, IL"
+      },
+      {
+        "_type": "mg2a_projectStage",
+        "_key": "stage",
+        "block_category": "mg2a",
+        "title": "Where water resources fits in your project",
+        "activeStage": 2,
+        "activeLabel": "You are here",
+        "stages": [
+          {
+            "_type": "stage",
+            "_key": "item0",
+            "title": "Planning & Feasibility"
+          },
+          {
+            "_type": "stage",
+            "_key": "item1",
+            "title": "Design & Engineering"
+          },
+          {
+            "_type": "stage",
+            "_key": "item2",
+            "title": "Permitting & Approval"
+          },
+          {
+            "_type": "stage",
+            "_key": "item3",
+            "title": "Construction"
+          },
+          {
+            "_type": "stage",
+            "_key": "item4",
+            "title": "Closeout"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_practiceOverview",
+        "_key": "overview",
+        "block_category": "mg2a",
+        "eyebrow": "Overview",
+        "title": "What this practice covers",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s0",
+                "text": "Water resources work is critical to the safety, approval, and long-term value of any development. MG2A handles site drainage, stormwater detention, and floodplain compliance so the land and the improvements built on it are protected.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s1",
+                "text": "We design stormwater systems that manage runoff, reduce downstream impacts, and meet local and county requirements. Every design starts with an analysis of how water moves across your site today and how it will move once the site is built.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p2",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s2",
+                "text": "From early planning through final design, we study the site's topography to find the most cost-effective approach, then carry that design through permitting and construction.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "audienceTitle": "Who we help",
+        "audiences": [
+          "Land developers and builders",
+          "Commercial and industrial owners",
+          "Municipalities and public works",
+          "Property owners in or near a floodplain"
+        ],
+        "audienceLink": {
+          "label": "Industries we serve",
+          "href": "/industries/municipalities"
+        }
+      },
+      {
+        "_type": "mg2a_serviceCards",
+        "_key": "services",
+        "block_category": "mg2a",
+        "anchor": "services-list",
+        "title": "Water resources services",
+        "items": [
+          {
+            "_type": "serviceCard",
+            "_key": "item0",
+            "title": "Preliminary Stormwater Planning",
+            "description": "Early sizing of detention and drainage so your concept plan and budget reflect real stormwater needs before you commit to a layout.",
+            "href": "/services/water-resources/stormwater-management-plans#overview",
+            "featured": false,
+            "label": "Learn more"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "item1",
+            "title": "Final Stormwater Management Plan",
+            "description": "The stamped report, calculations, and plan sheets reviewers need to approve your site's drainage and detention design.",
+            "href": "/services/water-resources/stormwater-management-plans",
+            "featured": true,
+            "label": "Learn more"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "item2",
+            "title": "Preliminary Floodplain Analysis",
+            "description": "Find out early whether a site sits in or near a regulated floodplain and what that means for buildable area, fill, and permits.",
+            "href": "/services/water-resources/floodplain-analysis",
+            "featured": false,
+            "label": "Learn more"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "item3",
+            "title": "Existing Floodplain Analysis",
+            "description": "Model current floodplain conditions to confirm elevations and support permits, map revisions, or insurance decisions.",
+            "href": "/services/water-resources/floodplain-analysis",
+            "featured": false,
+            "label": "Learn more"
+          }
+        ],
+        "pairedTitle": "Often paired with",
+        "pairedLinks": [
+          {
+            "_type": "pairedLink",
+            "_key": "item0",
+            "label": "CLOMR & LOMR Applications",
+            "href": "/services/permitting/clomr-lomr-applications"
+          },
+          {
+            "_type": "pairedLink",
+            "_key": "item1",
+            "label": "NPDES Permit NOI and SWPPP",
+            "href": "/services/permitting/npdes-permitting-inspections"
+          },
+          {
+            "_type": "pairedLink",
+            "_key": "item2",
+            "label": "Flood Elevation Certification",
+            "href": "/services/documentation/flood-elevation-certification"
+          },
+          {
+            "_type": "pairedLink",
+            "_key": "item3",
+            "label": "Topographic Survey",
+            "href": "/services/survey/topographic-survey"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_processSteps",
+        "_key": "process",
+        "block_category": "mg2a",
+        "eyebrow": "How we work",
+        "title": "A disciplined, coordinated approach",
+        "layout": "grid",
+        "steps": [
+          {
+            "_type": "processStep",
+            "_key": "item0",
+            "title": "Scoping & discovery",
+            "description": "We review your site, goals, and regulatory context to define the exact deliverables you need, with no guesswork and no redundant scope."
+          },
+          {
+            "_type": "processStep",
+            "_key": "item1",
+            "title": "Design & coordination",
+            "description": "Our engineers and surveyors work side by side so design intent matches field conditions, which cuts costly surprises later."
+          },
+          {
+            "_type": "processStep",
+            "_key": "item2",
+            "title": "Delivery & certification",
+            "description": "Stamped, signed, and submitted, with clear documentation your reviewers, lenders, and contractors can act on."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_relatedProjects",
+        "_key": "projects",
+        "block_category": "mg2a",
+        "title": "Water resources in the field",
+        "allProjectsLink": {
+          "label": "All projects",
+          "href": "/projects"
+        },
+        "items": [
+          {
+            "_type": "relatedProject",
+            "_key": "item0",
+            "project": {
+              "_type": "reference",
+              "_ref": "mg2a_project-bradley-commons-commercial-center"
+            },
+            "description": "Regional storm sewer and stormwater control facilities for a 75-acre commercial center, permitted through IDOT, IDNR, IEPA, and the local drainage district.",
+            "imagePosition": "50% 50%"
+          },
+          {
+            "_type": "relatedProject",
+            "_key": "item1",
+            "project": {
+              "_type": "reference",
+              "_ref": "mg2a_project-the-courtyards-at-cobblestone"
+            },
+            "description": "Floodplain calculations and mitigation for a 120-townhome community with a recreational pond, permitted through IDNR, IEPA, and the Village of Bourbonnais.",
+            "imagePosition": "50% 70%"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_faq",
+        "_key": "faq",
+        "block_category": "mg2a",
+        "eyebrow": "FAQ",
+        "title": "Common water resources questions",
+        "description": "Clear answers help owners plan, and help search engines and AI assistants recommend us.",
+        "layout": "split",
+        "items": [
+          {
+            "_type": "faqItem",
+            "_key": "item0",
+            "question": "Does my project need a stormwater management plan?",
+            "answer": "Most new development and many redevelopment projects do. Requirements are set by the local municipality and county and usually depend on the size of the site and how much new pavement or roof area you add. We can review your site and tell you what applies before design starts."
+          },
+          {
+            "_type": "faqItem",
+            "_key": "item1",
+            "question": "What is the difference between preliminary and final stormwater work?",
+            "answer": "Preliminary planning sizes detention and drainage early so your site layout and budget are realistic. The final plan is the full design package, with the report, calculations, and plan sheets that reviewers approve before construction."
+          },
+          {
+            "_type": "faqItem",
+            "_key": "item2",
+            "question": "What are a CLOMR and a LOMR?",
+            "answer": "Both are FEMA flood map revisions. A Conditional Letter of Map Revision (CLOMR) is FEMA's review of a proposed project that would change a mapped floodplain. A Letter of Map Revision (LOMR) officially updates the flood map after the work is built."
+          },
+          {
+            "_type": "faqItem",
+            "_key": "item3",
+            "question": "My property is in a floodplain. Can you help?",
+            "answer": "Yes. We analyze existing floodplain conditions, prepare flood elevation certificates, and, when the data supports it, help pursue a map revision through FEMA."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_ctaBanner",
+        "_key": "cta",
+        "block_category": "mg2a",
+        "title": "Ready to move your project forward?",
+        "description": "Tell us about your site and we'll scope the right water resources services for your timeline.",
+        "buttonOne": {
+          "label": "Start a Project",
+          "href": "/#contact"
+        },
+        "buttonTwo": {
+          "label": "Order a Survey",
+          "href": "/order-a-survey"
+        }
+      }
+    ]
+  },
+  {
+    "_type": "page",
+    "page_layout": "flexible",
+    "default_theme": "light",
+    "seo_no_index": false,
+    "meta_title": "Final Stormwater Management Plan | MG2A",
+    "meta_description": "The stamped report, calculations, and plan sheets that show reviewers how your developed site will manage runoff, so drainage and detention can be approved and built.",
+    "_id": "mg2a-stormwater-management",
+    "title": "Final Stormwater Management Plan",
+    "slug": {
+      "_type": "slug",
+      "current": "services/water-resources/stormwater-management-plans"
+    },
+    "page_builder": [
+      {
+        "_type": "mg2a_serviceHero",
+        "_key": "facts-hero",
+        "block_category": "mg2a",
+        "variant": "facts",
+        "title": "Final Stormwater Management Plan",
+        "eyebrow": "Water Resources",
+        "description": "The stamped report, calculations, and plan sheets that show reviewers how your developed site will manage runoff, so drainage and detention can be approved and built.",
+        "breadcrumbs": [
+          {
+            "_type": "breadcrumb",
+            "_key": "item0",
+            "label": "Home",
+            "href": "/"
+          },
+          {
+            "_type": "breadcrumb",
+            "_key": "item1",
+            "label": "Services",
+            "href": "/services"
+          },
+          {
+            "_type": "breadcrumb",
+            "_key": "item2",
+            "label": "Water Resources",
+            "href": "/services/water-resources"
+          },
+          {
+            "_type": "breadcrumb",
+            "_key": "item3",
+            "label": "Final Stormwater Management Plan",
+            "href": ""
+          }
+        ],
+        "buttonOne": {
+          "label": "Get this scoped",
+          "href": "#scope-form"
+        },
+        "buttonTwo": {
+          "label": "Call (815) 939-4921",
+          "href": "tel:18159394921"
+        },
+        "facts": [
+          {
+            "_type": "fact",
+            "_key": "item0",
+            "label": "Stage",
+            "value": "Design & Engineering"
+          },
+          {
+            "_type": "fact",
+            "_key": "item1",
+            "label": "For",
+            "value": "Developers, builders, commercial and industrial owners"
+          },
+          {
+            "_type": "fact",
+            "_key": "item2",
+            "label": "You get",
+            "value": "Stamped report, calculations, and plan sheets"
+          },
+          {
+            "_type": "fact",
+            "_key": "item3",
+            "label": "Timeline",
+            "value": "[Typical range from MG2A]"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_serviceContent",
+        "_key": "service-content",
+        "block_category": "mg2a",
+        "title": "On this page",
+        "sections": [
+          {
+            "_type": "mg2a_practiceOverview",
+            "_key": "overview",
+            "block_category": "mg2a",
+            "anchor": "overview",
+            "navigationLabel": "Overview",
+            "title": "Overview",
+            "body": [
+              {
+                "_type": "block",
+                "_key": "p0",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "s0",
+                    "text": "Every new building, parking lot, or road changes how water leaves a site. A final stormwater management plan shows how your project will control that runoff, so it does not flood neighbors, overload downstream systems, or put your own improvements at risk.",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "p1",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "s1",
+                    "text": "MG2A prepares the full package that municipal and county reviewers need: drainage area mapping, runoff calculations for existing and proposed conditions, detention or retention sizing, outlet control design, and the plan sheets that carry it all into construction.",
+                    "marks": []
+                  }
+                ]
+              },
+              {
+                "_type": "block",
+                "_key": "p2",
+                "style": "normal",
+                "markDefs": [],
+                "children": [
+                  {
+                    "_type": "span",
+                    "_key": "s2",
+                    "text": "Because our surveyors and engineers work together, the plan is built on accurate topography from the start, which means fewer review comments and fewer surprises in the field.",
+                    "marks": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "_type": "mg2a_checklist",
+            "_key": "when",
+            "block_category": "mg2a",
+            "anchor": "when",
+            "navigationLabel": "When you need one",
+            "title": "When you need one",
+            "items": [
+              "A new subdivision, commercial site, or industrial building",
+              "An expansion that adds pavement or roof area",
+              "Final engineering approval or a site development permit",
+              "A site in or near a regulated floodplain or wetland"
+            ]
+          },
+          {
+            "_type": "mg2a_deliverables",
+            "_key": "included",
+            "block_category": "mg2a",
+            "anchor": "included",
+            "navigationLabel": "What's included",
+            "title": "What's included",
+            "items": [
+              {
+                "_type": "deliverable",
+                "_key": "item0",
+                "title": "Drainage area mapping",
+                "description": "Where water comes from, where it goes, and how the site changes that."
+              },
+              {
+                "_type": "deliverable",
+                "_key": "item1",
+                "title": "Runoff calculations",
+                "description": "Existing and proposed conditions for the storm events your reviewer requires."
+              },
+              {
+                "_type": "deliverable",
+                "_key": "item2",
+                "title": "Detention design",
+                "description": "Basin or underground storage sized and graded to fit the site."
+              },
+              {
+                "_type": "deliverable",
+                "_key": "item3",
+                "title": "Outlet control structures",
+                "description": "Release rates designed to protect downstream properties."
+              },
+              {
+                "_type": "deliverable",
+                "_key": "item4",
+                "title": "Stamped report and plans",
+                "description": "A complete, sealed submittal ready for municipal and county review."
+              },
+              {
+                "_type": "deliverable",
+                "_key": "item5",
+                "title": "Review response",
+                "description": "We answer reviewer comments and revise until the plan is approved."
+              }
+            ]
+          },
+          {
+            "_type": "mg2a_processSteps",
+            "_key": "process",
+            "block_category": "mg2a",
+            "anchor": "process",
+            "navigationLabel": "Our process",
+            "title": "Our process",
+            "layout": "list",
+            "steps": [
+              {
+                "_type": "processStep",
+                "_key": "item0",
+                "title": "Site review",
+                "description": "We confirm which ordinances apply, gather existing data, and order any survey the design needs."
+              },
+              {
+                "_type": "processStep",
+                "_key": "item1",
+                "title": "Analysis and design",
+                "description": "We model runoff, size detention, and coordinate grading and utilities with the rest of the site plan."
+              },
+              {
+                "_type": "processStep",
+                "_key": "item2",
+                "title": "Submittal and approval",
+                "description": "We submit the sealed package, respond to review comments, and keep you updated until it is approved."
+              },
+              {
+                "_type": "processStep",
+                "_key": "item3",
+                "title": "Construction support",
+                "description": "Staking, observation, and record drawings confirm the system is built the way it was designed."
+              }
+            ]
+          },
+          {
+            "_type": "mg2a_faq",
+            "_key": "faq",
+            "block_category": "mg2a",
+            "anchor": "faq",
+            "navigationLabel": "FAQ",
+            "title": "Frequently asked questions",
+            "layout": "stacked",
+            "items": [
+              {
+                "_type": "faqItem",
+                "_key": "item0",
+                "question": "How is a final plan different from preliminary stormwater planning?",
+                "answer": "Preliminary planning sizes detention early so your layout and budget are realistic. The final plan is the complete, sealed design that reviewers approve and contractors build from."
+              },
+              {
+                "_type": "faqItem",
+                "_key": "item1",
+                "question": "Who reviews and approves the plan?",
+                "answer": "Usually the municipality's engineer, and sometimes the county or a drainage district, depending on where the site is and where its water drains. We identify every reviewer during site review."
+              },
+              {
+                "_type": "faqItem",
+                "_key": "item2",
+                "question": "How long does it take?",
+                "answer": "Design time depends on site size and complexity, and review time depends on the agency. [MG2A to add typical design and review ranges.]"
+              },
+              {
+                "_type": "faqItem",
+                "_key": "item3",
+                "question": "Do I also need an NPDES permit?",
+                "answer": "Often, yes. Construction that disturbs enough ground typically needs coverage under the state's NPDES construction stormwater permit, with a Notice of Intent and a Stormwater Pollution Prevention Plan. We prepare both alongside your stormwater plan."
+              }
+            ]
+          },
+          {
+            "_type": "mg2a_relatedServices",
+            "_key": "related",
+            "block_category": "mg2a",
+            "title": "Related services",
+            "items": [
+              {
+                "_type": "relatedService",
+                "_key": "item0",
+                "eyebrow": "Water Resources",
+                "title": "Preliminary Stormwater Planning",
+                "href": "/services/water-resources"
+              },
+              {
+                "_type": "relatedService",
+                "_key": "item1",
+                "eyebrow": "Permitting",
+                "title": "NPDES Permit NOI and SWPPP",
+                "href": "/services/permitting/npdes-permitting-inspections"
+              },
+              {
+                "_type": "relatedService",
+                "_key": "item2",
+                "eyebrow": "Construction",
+                "title": "Construction Observation",
+                "href": "/services/construction"
+              }
+            ]
+          }
+        ],
+        "additionalLinks": [
+          {
+            "_key": "scope",
+            "_type": "contentsLink",
+            "label": "Get it scoped",
+            "href": "#scope-form"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_scopeForm",
+        "_key": "scope",
+        "block_category": "mg2a",
+        "anchor": "scope-form",
+        "navigationLabel": "Get it scoped",
+        "eyebrow": "Get it scoped",
+        "title": "Tell us about your site",
+        "description": "An engineer will follow up within one business day with next steps and a scope.",
+        "phone": {
+          "label": "(815) 939-4921",
+          "href": "tel:18159394921"
+        },
+        "form": {
+          "_type": "reference",
+          "_ref": "mg2a-service-scope"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "mg2a-services",
+    "_type": "page",
+    "title": "Services",
+    "slug": {
+      "_type": "slug",
+      "current": "services"
+    },
+    "page_layout": "flexible",
+    "default_theme": "light",
+    "seo_no_index": false,
+    "meta_title": "Civil Engineering & Surveying Services | MG2A",
+    "meta_description": "Our surveyors and engineers work side by side, from the first boundary line to the final record drawing.",
+    "page_builder": [
+      {
+        "_type": "mg2a_serviceHero",
+        "_key": "services-hero",
+        "block_category": "mg2a",
+        "variant": "image",
+        "title": "Every stage of a site, under one roof.",
+        "eyebrow": "Civil engineering · Surveying · Municipal engineering",
+        "description": "Our surveyors and engineers work side by side, from the first boundary line to the final record drawing.",
+        "breadcrumbs": [
+          {
+            "_type": "breadcrumb",
+            "_key": "home",
+            "label": "Home",
+            "href": "/"
+          },
+          {
+            "_type": "breadcrumb",
+            "_key": "services",
+            "label": "Services"
+          }
+        ],
+        "buttonOne": {
+          "label": "Talk to an engineer",
+          "href": "/#contact"
+        },
+        "buttonTwo": {
+          "label": "Explore services",
+          "href": "#services-list"
+        },
+        "image": {
+          "_localAsset": "courtyards-cobblestone-plan.jpg"
+        },
+        "alt": "Site plan showing stormwater detention and floodplain boundaries at The Courtyards at Cobblestone",
+        "caption": "The Courtyards at Cobblestone · Bourbonnais, IL"
+      },
+      {
+        "_type": "mg2a_serviceCards",
+        "_key": "services-list",
+        "block_category": "mg2a",
+        "anchor": "services-list",
+        "title": "Our services",
+        "items": [
+          {
+            "_type": "serviceCard",
+            "_key": "category0",
+            "title": "Survey",
+            "description": "Boundary, topographic, and ALTA/NSPS surveys that give every project an accurate starting point.",
+            "href": "/services/survey",
+            "label": "View services"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "category1",
+            "title": "Design",
+            "description": "Site plans, subdivision plats, and engineering plans, from concept sketch to final approval set.",
+            "href": "/services/design",
+            "label": "View services"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "category2",
+            "title": "Water Resources",
+            "description": "Stormwater planning and floodplain analysis that protect the site and satisfy reviewers.",
+            "href": "/services/water-resources",
+            "label": "View services"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "category3",
+            "title": "Permitting",
+            "description": "NPDES, SWPPP, and FEMA map revisions handled from application through approval.",
+            "href": "/services/permitting",
+            "label": "View services"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "category4",
+            "title": "Construction",
+            "description": "Staking, observation, and bidding support that keep the build matched to the plan.",
+            "href": "/services/construction",
+            "label": "View services"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "category5",
+            "title": "Documentation",
+            "description": "Record drawings, flood elevation certificates, and certifications that close the project out cleanly.",
+            "href": "/services/documentation",
+            "label": "View services"
+          },
+          {
+            "_type": "serviceCard",
+            "_key": "category6",
+            "title": "Cost Estimation",
+            "description": "Opinions of probable cost at every phase, so budgets hold from planning through bidding.",
+            "href": "/services/cost-estimation",
+            "label": "View services"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_ctaBanner",
+        "_key": "cta",
+        "block_category": "mg2a",
+        "title": "Ready to move your project forward?",
+        "description": "Tell us about your site and we’ll scope the right services for your project.",
+        "buttonOne": {
+          "label": "Start a Project",
+          "href": "/#contact"
+        },
+        "buttonTwo": {
+          "label": "Order a Survey",
+          "href": "/order-a-survey"
+        }
+      }
+    ]
+  }
+]
