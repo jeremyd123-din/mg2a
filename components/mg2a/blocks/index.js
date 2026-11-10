@@ -24,3 +24,18 @@ export {
   MG2ADeliverables as mg2a_deliverables,
   MG2ARelatedServices as mg2a_relatedServices,
 } from "./MG2AServiceSections";
+export {
+  MG2APageHero as mg2a_pageHero,
+  MG2AProjectHero as mg2a_projectHero,
+  MG2AProjectFacts as mg2a_projectFacts,
+  MG2AProjectStats as mg2a_projectStats,
+  MG2AProjectStory as mg2a_projectStory,
+  MG2AImageGallery as mg2a_imageGallery,
+  MG2AProjectGrid as mg2a_projectGrid,
+  MG2AIndustryListing as mg2a_industryListing,
+  MG2ACommunityStrip as mg2a_communityStrip,
+  MG2AIndustrySupport as mg2a_industrySupport,
+  MG2AIndustryPrograms as mg2a_industryPrograms,
+  MG2ATestimonialProject as mg2a_testimonialProject,
+  MG2ASurveyForm as mg2a_surveyForm,
+} from "./MG2AExpansion";

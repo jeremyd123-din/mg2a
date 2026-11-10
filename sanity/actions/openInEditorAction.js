@@ -6,7 +6,8 @@ export function openInEditorAction({ type, draft, published }) {
 
   if (!slug) return null;
 
-  const directory = type === "post" ? "/blog" : "";
+  const directory =
+    type === "post" ? "/blog" : type === "mg2a_project" ? "/projects" : "";
   const path = slug === "index" ? "" : `/${slug}`;
   const previewPath = [directory, path].filter(Boolean).join("") || "/";
 

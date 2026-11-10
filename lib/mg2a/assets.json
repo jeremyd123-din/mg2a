@@ -40,5 +40,12 @@
       "_type": "reference",
       "_ref": "image-22c856fa0aa64ba024567831eba6e110c390d5f9-800x535-jpg"
     }
+  },
+  "bradley-commons-plan-original.jpg": {
+    "_type": "image",
+    "asset": {
+      "_type": "reference",
+      "_ref": "image-da1330f3256c7cb92fd672506312e0719f4a7f01-800x535-jpg"
+    }
   }
 }

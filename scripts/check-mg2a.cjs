@@ -67,7 +67,7 @@ async function main() {
   assert(!JSON.stringify(serviceGroups).includes("as-built-survey"));
   const pageType = types.find((t) => t.name === "page");
   const members = pageType.fields.find((f) => f.name === "page_builder").of;
-  assert.equal(members.length, 24);
+  assert.equal(members.length, 37);
   const fs = require("node:fs");
   for (const member of members) {
     const file = `public/mg2a/block-previews/${member.type}.jpg`;
@@ -96,6 +96,7 @@ async function main() {
     "global_testimonials",
     "HeroVariant01",
     "mg2a_office",
+    "mg2a_industry",
     "site_settings",
   ])
     assert(
@@ -131,7 +132,7 @@ async function main() {
       .fields.some((field) => field.name === "offices"),
   );
   assert(
-    members.length === 24 &&
+    members.length === 37 &&
       pageType.fields
         .find((field) => field.name === "page_builder")
         .options.insertMenu.views.some((view) => view.name === "grid"),
@@ -187,6 +188,40 @@ async function main() {
     serviceContent.sections.find((block) => block._type === "mg2a_deliverables")
       .items.length,
     6,
+  );
+  const expansionData = [
+    ...require("../lib/mg2a/expansionPages.json").flatMap(
+      (page) => page.page_builder,
+    ),
+    ...require("../lib/mg2a/projectDetailBlocks.json"),
+  ];
+  for (const section of expansionData) {
+    const type = types.find((type) => type.name === section._type);
+    assert(type, "Missing expansion schema: " + section._type);
+    for (const field of type.fields.filter((field) => field.type === "array"))
+      for (const item of section[field.name] || []) {
+        if (
+          item &&
+          typeof item === "object" &&
+          item._type &&
+          !["block", "reference"].includes(item._type)
+        )
+          assert(
+            field.of.some(
+              (member) => (member.name || member.type) === item._type,
+            ),
+            `Unknown ${section._type}.${field.name} array type ${item._type}`,
+          );
+      }
+  }
+  const projectType = types.find((type) => type.name === "mg2a_project");
+  assert(projectType.fields.some((field) => field.name === "slug"));
+  assert(projectType.fields.some((field) => field.name === "page_builder"));
+  assert.equal(
+    types
+      .find((type) => type.name === "mg2a_industries")
+      .fields.find((field) => field.name === "industries").of[0].to[0].type,
+    "page",
   );
   const contentSchema = types.find(
     (type) => type.name === "mg2a_serviceContent",
@@ -324,6 +359,32 @@ async function main() {
     }
   }
   const { parseFields, validateValues } = load("lib/forms/definition.js");
+  const { prepareAttachments } = load("lib/forms/attachments.js");
+  const fileDefinition = [{ name: "docs", type: "file" }];
+  const upload = new File(["%PDF-1.4 test document"], "test.pdf", {
+    type: "application/pdf",
+  });
+  const prepared = await prepareAttachments(
+    [{ field: "docs", file: upload }],
+    fileDefinition,
+    "submissions.test",
+  );
+  assert(prepared.documents.every((doc) => doc._id.startsWith("submissions.")));
+  assert.equal(prepared.attachments[0].mime, "application/pdf");
+  await assert.rejects(() =>
+    prepareAttachments(
+      [{ field: "docs", file: new File(["not a PDF"], "test.pdf") }],
+      fileDefinition,
+      "submissions.test",
+    ),
+  );
+  await assert.rejects(() =>
+    prepareAttachments(
+      Array(4).fill({ field: "docs", file: upload }),
+      fileDefinition,
+      "submissions.test",
+    ),
+  );
   const { inquiryForm } = load("lib/forms/defaults.js");
   const fields = parseFields(inquiryForm.form_fields);
   assert.throws(() => parseFields({ code: "[{name:'x'}]" }));

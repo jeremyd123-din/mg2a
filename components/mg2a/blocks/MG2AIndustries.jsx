@@ -26,7 +26,7 @@ export default function MG2AIndustries({ data }) {
               href={safeHref(item.href)}
               className="flex justify-start items-center gap-[10px] min-h-[72px] p-[0_8px_0_0] [border-bottom:1px_solid_var(--line)] text-[18px] font-semibold"
             >
-              {item.label}
+              {item.label || item.title}
               <span
                 aria-hidden="true"
                 className="shrink-0 [color:var(--accent)]"

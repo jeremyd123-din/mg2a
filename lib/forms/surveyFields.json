@@ -1,0 +1,152 @@
+[
+  {
+    "name": "address",
+    "type": "text",
+    "label": "Property address",
+    "group": "01 · The property",
+    "width": 100,
+    "required": true
+  },
+  {
+    "name": "city",
+    "type": "text",
+    "label": "City",
+    "group": "01 · The property",
+    "width": 50,
+    "required": true
+  },
+  {
+    "name": "county",
+    "type": "select",
+    "label": "County",
+    "group": "01 · The property",
+    "width": 50,
+    "options": [
+      "Kankakee",
+      "Will",
+      "Other Illinois county",
+      "Indiana"
+    ],
+    "required": false
+  },
+  {
+    "name": "pin",
+    "type": "text",
+    "label": "Parcel number (PIN), if known",
+    "group": "01 · The property",
+    "width": 50,
+    "required": false
+  },
+  {
+    "name": "type",
+    "type": "select",
+    "label": "Survey type",
+    "group": "02 · The survey",
+    "width": 50,
+    "options": [
+      "Not sure yet",
+      "Boundary Survey",
+      "Land Title (ALTA) Survey",
+      "Topographic Survey",
+      "As-Built Survey",
+      "Home Top of Foundation Survey",
+      "Home Finished Grade Survey",
+      "Home Landscape Survey",
+      "Setting Survey Control",
+      "Site Analysis"
+    ],
+    "required": false
+  },
+  {
+    "name": "purpose",
+    "type": "select",
+    "label": "What's it for?",
+    "group": "02 · The survey",
+    "width": 50,
+    "options": [
+      "Buying or selling property",
+      "Refinance or closing",
+      "Fence, addition, or pool",
+      "Building permit",
+      "Boundary question",
+      "Construction or development",
+      "Other"
+    ],
+    "required": false
+  },
+  {
+    "name": "due",
+    "type": "date",
+    "label": "Needed by",
+    "group": "02 · The survey",
+    "width": 50,
+    "required": false
+  },
+  {
+    "name": "docs",
+    "type": "file",
+    "label": "Documents (optional): title commitment, prior survey, or plat",
+    "group": "02 · The survey",
+    "width": 100,
+    "multiple": true,
+    "required": false
+  },
+  {
+    "name": "notes",
+    "type": "textarea",
+    "label": "Anything we should know?",
+    "group": "02 · The survey",
+    "width": 100,
+    "required": false
+  },
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Name",
+    "group": "03 · Your contact info",
+    "width": 50,
+    "required": true
+  },
+  {
+    "name": "company",
+    "type": "text",
+    "label": "Company (optional)",
+    "group": "03 · Your contact info",
+    "width": 50,
+    "required": false
+  },
+  {
+    "name": "email",
+    "type": "email",
+    "label": "Email",
+    "group": "03 · Your contact info",
+    "width": 50,
+    "required": true
+  },
+  {
+    "name": "phone",
+    "type": "tel",
+    "label": "Phone",
+    "group": "03 · Your contact info",
+    "width": 50,
+    "required": false
+  },
+  {
+    "name": "role",
+    "type": "select",
+    "label": "I am a",
+    "group": "03 · Your contact info",
+    "width": 50,
+    "options": [
+      "Property owner",
+      "Buyer",
+      "Attorney",
+      "Title company",
+      "Lender",
+      "Builder",
+      "Developer",
+      "Other"
+    ],
+    "required": false
+  }
+]

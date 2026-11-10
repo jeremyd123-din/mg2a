@@ -1,9 +1,30 @@
+import SubmissionAttachmentsInput from "@/sanity/components/SubmissionAttachmentsInput";
 export default {
   name: "formSubmission",
   title: "Form submission",
   type: "document",
   liveEdit: true,
   fields: [
+    {
+      name: "attachments",
+      title: "Documents",
+      type: "array",
+      readOnly: true,
+      components: { input: SubmissionAttachmentsInput },
+      of: [
+        {
+          name: "submissionAttachment",
+          type: "object",
+          fields: [
+            { name: "name", type: "string" },
+            { name: "mime", type: "string" },
+            { name: "bytes", type: "number" },
+            { name: "field", type: "string" },
+            { name: "chunks", type: "array", of: [{ type: "string" }] },
+          ],
+        },
+      ],
+    },
     { name: "form_title", title: "Form", type: "string", readOnly: true },
     {
       name: "form_id",

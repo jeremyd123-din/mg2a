@@ -26,7 +26,6 @@ export const structure = (S) =>
         "Service Categories",
       ),
       S.documentTypeListItem("mg2a_project").title("Projects"),
-      S.documentTypeListItem("mg2a_industry").title("Industries"),
       S.documentTypeListItem("mg2a_job").title("Open Positions"),
       S.divider(),
       S.documentTypeListItem("post").title("Blog"),

@@ -1,4 +1,5 @@
 "use client";
+import { safeHref } from "./helpers";
 
 import { useState, useId, useRef } from "react";
 import { stegaClean } from "next-sanity";
@@ -23,29 +24,51 @@ export default function InquiryForm({ data, appearance = "panel" }) {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const values = Object.fromEntries(
-      fields.map((field) => [
-        field.name,
-        field.type === "checkbox"
-          ? formData.has(field.name)
-          : field.isMulti
-            ? formData.getAll(field.name)
-            : formData.get(field.name) || "",
-      ]),
+      fields
+        .filter((field) => field.type !== "file")
+        .map((field) => [
+          field.name,
+          field.type === "checkbox"
+            ? formData.has(field.name)
+            : field.isMulti
+              ? formData.getAll(field.name)
+              : formData.get(field.name) || "",
+        ]),
     );
     requestId.current ||= crypto.randomUUID();
     try {
+      const payload = {
+        formId: definition._id,
+        requestId: requestId.current,
+        values,
+        website: formData.get("website"),
+        pagePath: window.location.pathname,
+      };
+      const uploads = fields
+        .filter((field) => field.type === "file")
+        .flatMap((field) =>
+          formData
+            .getAll(field.name)
+            .filter((file) => file.size)
+            .map((file) => ({ field: field.name, file })),
+        );
+      if (
+        uploads.length > 3 ||
+        uploads.reduce((sum, item) => sum + item.file.size, 0) > 3 * 1024 * 1024
+      )
+        throw new Error("Attach up to three documents, totaling 3 MB or less.");
+      const multipart = new FormData();
+      multipart.set("payload", JSON.stringify(payload));
+      for (const upload of uploads)
+        multipart.append("attachment:" + upload.field, upload.file);
       const response = await fetch("/api/submit-form", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          formId: definition._id,
-          requestId: requestId.current,
-          values,
-          website: formData.get("website"),
-          pagePath: window.location.pathname,
-        }),
+        ...(uploads.length
+          ? { body: multipart }
+          : {
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            }),
       });
       const result = await response.json();
       if (!response.ok)
@@ -60,6 +83,120 @@ export default function InquiryForm({ data, appearance = "panel" }) {
       setStatus("error");
     }
   }
+  function renderFields(selected) {
+    return selected.map((field) => {
+      const fieldId = `${id}-${field.name}`;
+      const common = {
+        id: fieldId,
+        name: field.name,
+        required: field.required,
+        placeholder: field.placeholder,
+        maxLength: field.maxLength,
+      };
+      const wide = field.width === 100 ? "[grid-column:1/-1]" : "";
+      if (field.type === "radio")
+        return (
+          <fieldset key={field.name} className={wide}>
+            <legend className="mb-2 text-sm font-semibold">
+              {field.label}
+            </legend>
+            {field.options.map((option, index) => (
+              <label
+                key={option.value}
+                htmlFor={`${fieldId}-${index}`}
+                className="flex-row! items-center mb-2"
+              >
+                <input
+                  id={`${fieldId}-${index}`}
+                  className="w-4! min-h-4!"
+                  type="radio"
+                  name={field.name}
+                  value={option.value}
+                  required={field.required}
+                />
+                {option.label}
+              </label>
+            ))}
+          </fieldset>
+        );
+      if (field.type === "checkbox")
+        return (
+          <label
+            key={field.name}
+            htmlFor={fieldId}
+            className={`flex-row! items-center ${wide}`}
+          >
+            <input {...common} className="w-4! min-h-4!" type="checkbox" />
+            {field.label}
+          </label>
+        );
+      if (field.type === "file")
+        return (
+          <label
+            key={field.name}
+            className="[grid-column:1/-1]"
+            htmlFor={fieldId}
+          >
+            {field.label}
+            <input
+              id={fieldId}
+              name={field.name}
+              type="file"
+              required={field.required}
+              multiple={field.multiple}
+              accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff"
+              className="h-auto! border-dashed! p-3!"
+            />
+            <span className="text-xs font-normal text-[var(--muted)]">
+              Up to 3 documents, 3 MB total.
+            </span>
+          </label>
+        );
+      if (field.type === "hidden")
+        return (
+          <input
+            key={field.name}
+            name={field.name}
+            type="hidden"
+            value={field.defaultValue || ""}
+          />
+        );
+      return (
+        <label key={field.name} htmlFor={fieldId} className={wide}>
+          {field.label}
+          {field.type === "textarea" ? (
+            <textarea {...common} rows={4} />
+          ) : field.type === "select" ? (
+            <select
+              {...common}
+              multiple={field.isMulti}
+              defaultValue={field.isMulti ? [] : undefined}
+            >
+              {field.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              {...common}
+              type={field.type}
+              autoComplete={
+                field.type === "email"
+                  ? "email"
+                  : field.type === "tel"
+                    ? "tel"
+                    : field.name === "name"
+                      ? "name"
+                      : undefined
+              }
+            />
+          )}
+        </label>
+      );
+    });
+  }
   if (!fields)
     return (
       <p role="status">This form is unavailable. Please contact an office.</p>
@@ -67,103 +204,36 @@ export default function InquiryForm({ data, appearance = "panel" }) {
   return (
     <form
       className={
-        (appearance === "plain"
-          ? "border-0! bg-transparent! p-0! gap-[18px]! flex-[999_1_460px]! "
-          : "") +
+        (appearance === "grouped"
+          ? "flex! flex-col! flex-[999_1_600px]! gap-7! border-0! bg-transparent! p-0! "
+          : appearance === "plain"
+            ? "border-0! bg-transparent! p-0! gap-[18px]! flex-[999_1_460px]! "
+            : "") +
         "mg-inquiry flex-[999_1_480px] min-w-[0] grid [grid-template-columns:repeat(auto-fit,_minmax(min(100%,_220px),_1fr))] gap-[20px] p-[36px] [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [&_label]:flex [&_label]:flex-col [&_label]:gap-[8px] [&_label]:text-[14px] [&_label]:font-semibold [&_input]:min-h-[48px] [&_input]:min-w-[0] [&_input]:w-[100%] [&_input]:p-[0_14px] [&_input]:font-[400] [&_input]:[color:var(--ink)] [&_input]:[background:var(--bg)] [&_input]:[border:1px_solid_var(--line)] [&_input]:rounded-[4px] [&_select]:min-h-[48px] [&_select]:min-w-[0] [&_select]:w-[100%] [&_select]:p-[0_14px] [&_select]:font-[400] [&_select]:[color:var(--ink)] [&_select]:[background:var(--bg)] [&_select]:[border:1px_solid_var(--line)] [&_select]:rounded-[4px] [&_textarea]:min-h-[48px] [&_textarea]:min-w-[0] [&_textarea]:w-[100%] [&_textarea]:p-[12px_14px] [&_textarea]:font-[400] [&_textarea]:[color:var(--ink)] [&_textarea]:[background:var(--bg)] [&_textarea]:[border:1px_solid_var(--line)] [&_textarea]:rounded-[4px] [&_textarea]:[resize:vertical] [&_button]:[border:0]"
       }
       onSubmit={submit}
     >
-      {fields.map((field) => {
-        const fieldId = `${id}-${field.name}`;
-        const common = {
-          id: fieldId,
-          name: field.name,
-          required: field.required,
-          placeholder: field.placeholder,
-          maxLength: field.maxLength,
-        };
-        const wide = field.width === 100 ? "[grid-column:1/-1]" : "";
-        if (field.type === "radio")
-          return (
-            <fieldset key={field.name} className={wide}>
-              <legend className="mb-2 text-sm font-semibold">
-                {field.label}
-              </legend>
-              {field.options.map((option, index) => (
-                <label
-                  key={option.value}
-                  htmlFor={`${fieldId}-${index}`}
-                  className="flex-row! items-center mb-2"
-                >
-                  <input
-                    id={`${fieldId}-${index}`}
-                    className="w-4! min-h-4!"
-                    type="radio"
-                    name={field.name}
-                    value={option.value}
-                    required={field.required}
-                  />
-                  {option.label}
-                </label>
-              ))}
-            </fieldset>
-          );
-        if (field.type === "checkbox")
-          return (
-            <label
-              key={field.name}
-              htmlFor={fieldId}
-              className={`flex-row! items-center ${wide}`}
+      {appearance === "grouped"
+        ? [
+            ...new Set(fields.map((field) => field.group || "Your details")),
+          ].map((group) => (
+            <fieldset
+              key={group}
+              className="rounded-md border border-[var(--line)] bg-[var(--panel)] p-[clamp(24px,3vw,34px)]"
             >
-              <input {...common} className="w-4! min-h-4!" type="checkbox" />
-              {field.label}
-            </label>
-          );
-        if (field.type === "hidden")
-          return (
-            <input
-              key={field.name}
-              name={field.name}
-              type="hidden"
-              value={field.defaultValue || ""}
-            />
-          );
-        return (
-          <label key={field.name} htmlFor={fieldId} className={wide}>
-            {field.label}
-            {field.type === "textarea" ? (
-              <textarea {...common} rows={4} />
-            ) : field.type === "select" ? (
-              <select
-                {...common}
-                multiple={field.isMulti}
-                defaultValue={field.isMulti ? [] : undefined}
-              >
-                {field.options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                {...common}
-                type={field.type}
-                autoComplete={
-                  field.type === "email"
-                    ? "email"
-                    : field.type === "tel"
-                      ? "tel"
-                      : field.name === "name"
-                        ? "name"
-                        : undefined
-                }
-              />
-            )}
-          </label>
-        );
-      })}
+              <legend className="float-left mb-5 w-full font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[.14em] text-[var(--accent)]">
+                {group}
+              </legend>
+              <div className="clear-both grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-[18px]">
+                {renderFields(
+                  fields.filter(
+                    (field) => (field.group || "Your details") === group,
+                  ),
+                )}
+              </div>
+            </fieldset>
+          ))
+        : renderFields(fields)}
       <div
         className="mg-honeypot absolute [left:-10000px] w-[1px] h-[1px] overflow-hidden"
         aria-hidden="true"
@@ -173,6 +243,17 @@ export default function InquiryForm({ data, appearance = "panel" }) {
       </div>
       <div className="mg-form-actions flex flex-wrap justify-between items-center gap-[16px] [&_>_span]:text-[13px] [&_>_span]:[color:var(--muted)] [&_>_span]:flex-[1_1_200px] mg-full-width [grid-column:1/-1]">
         {definition.note && <span>{definition.note}</span>}
+        {appearance === "grouped" && data.phone?.label && (
+          <span>
+            Prefer to talk? Call{" "}
+            <a
+              href={safeHref(data.phone.href)}
+              className="font-semibold text-[var(--ink)]"
+            >
+              {data.phone.label}
+            </a>
+          </span>
+        )}
         <button
           type="submit"
           className="btn inline-flex items-center gap-[10px] min-h-[48px] p-[0_22px] rounded-[4px] font-semibold text-[15px] [transition:transform_0.2s,_background-color_0.2s] [&:hover]:[transform:translateY(-1px)] motion-reduce:[transition:none] mg-primary [background:var(--btn)] [color:white]"

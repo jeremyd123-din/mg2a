@@ -1,3 +1,4 @@
+import { expansionExamples } from "@/lib/mg2a/expansionDefaults";
 import { notFound } from "next/navigation";
 import { serviceExamples } from "@/lib/mg2a/serviceDefaults";
 import { blockExamples } from "@/lib/mg2a/blockExamples";
@@ -13,7 +14,9 @@ export default async function BlockPreview({ params }) {
   return (
     <main
       data-preview-theme={
-        serviceExamples.some((block) => block._type === type)
+        [...serviceExamples, ...expansionExamples].some(
+          (block) => block._type === type,
+        )
           ? "light"
           : undefined
       }

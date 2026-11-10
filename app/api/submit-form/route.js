@@ -1,3 +1,4 @@
+import { prepareAttachments, MAX_UPLOAD_BYTES } from "@/lib/forms/attachments";
 import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
 import { Resend } from "resend";
@@ -11,11 +12,29 @@ export async function POST(request) {
   const origin = request.headers.get("origin");
   if (origin && origin !== new URL(request.url).origin)
     return reply("Invalid origin", 403);
-  if (Number(request.headers.get("content-length")) > 40000)
+  const multipart = request.headers
+    .get("content-type")
+    ?.includes("multipart/form-data");
+  if (
+    Number(request.headers.get("content-length")) >
+    (multipart ? MAX_UPLOAD_BYTES + 100000 : 40000)
+  )
     return reply("Request too large", 413);
   let input;
+  const uploads = [];
   try {
-    const raw = await request.text();
+    let raw;
+    if (multipart) {
+      const form = await request.formData();
+      raw = form.get("payload");
+      for (const [name, file] of form.entries())
+        if (
+          name.startsWith("attachment:") &&
+          typeof file !== "string" &&
+          file.size
+        )
+          uploads.push({ field: name.slice(11), file });
+    } else raw = await request.text();
     if (raw.length > 40000) return reply("Request too large", 413);
     input = JSON.parse(raw);
   } catch {
@@ -69,7 +88,13 @@ export async function POST(request) {
       typeof input.pagePath === "string" && /^\/(?!\/)/.test(input.pagePath)
         ? input.pagePath.slice(0, 1000).split("?")[0].split("#")[0]
         : "/";
-    await client.createIfNotExists({
+    let files;
+    try {
+      files = await prepareAttachments(uploads, definition, id);
+    } catch (error) {
+      return reply(error.message);
+    }
+    const submission = {
       _id: id,
       _type: "formSubmission",
       form_id: form._id,
@@ -80,7 +105,14 @@ export async function POST(request) {
       notification_email: recipientsList.join(", "),
       notification_status: recipientsList.length ? "pending" : "disabled",
       fields,
-    });
+      attachments: files.attachments,
+    };
+    if (files.documents.length) {
+      let transaction = client.transaction().createIfNotExists(submission);
+      for (const document of files.documents)
+        transaction = transaction.createIfNotExists(document);
+      await transaction.commit();
+    } else await client.createIfNotExists(submission);
     if (recipientsList.length) {
       let notificationStatus = "failed";
       try {

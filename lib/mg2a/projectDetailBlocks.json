@@ -1,0 +1,196 @@
+[
+  {
+    "_type": "mg2a_projectHero",
+    "_key": "project-hero",
+    "block_category": "mg2a",
+    "eyebrow": "Commercial Site Development · Bradley, IL",
+    "description": "A 75-acre mixed-use commercial center, from TIF redevelopment through construction.",
+    "breadcrumb": "Bradley Commons"
+  },
+  {
+    "_type": "mg2a_projectFacts",
+    "_key": "facts",
+    "block_category": "mg2a",
+    "items": [
+      {
+        "_key": "item0",
+        "_type": "projectFact",
+        "label": "Client",
+        "value": "The Daily Group & Mid America, with the Village of Bradley"
+      },
+      {
+        "_key": "item1",
+        "_type": "projectFact",
+        "label": "Location",
+        "value": "Bradley, Illinois"
+      },
+      {
+        "_key": "item2",
+        "_type": "projectFact",
+        "label": "Size",
+        "value": "75 acres"
+      },
+      {
+        "_key": "item3",
+        "_type": "projectFact",
+        "label": "Market",
+        "value": "Commercial and retail"
+      },
+      {
+        "_key": "item4",
+        "_type": "projectFact",
+        "label": "Completed",
+        "value": "[Year]"
+      }
+    ]
+  },
+  {
+    "_type": "mg2a_projectStats",
+    "_key": "stats",
+    "block_category": "mg2a",
+    "title": "By the numbers",
+    "items": [
+      {
+        "_key": "item0",
+        "_type": "projectStat",
+        "value": "3",
+        "label": "New state highway entrances"
+      },
+      {
+        "_key": "item1",
+        "_type": "projectStat",
+        "value": "2",
+        "label": "New signalized intersections"
+      },
+      {
+        "_key": "item2",
+        "_type": "projectStat",
+        "value": "2 mi",
+        "label": "Of new water main"
+      },
+      {
+        "_key": "item3",
+        "_type": "projectStat",
+        "value": "2 mi",
+        "label": "Of new sanitary sewer"
+      }
+    ]
+  },
+  {
+    "_type": "mg2a_projectStory",
+    "_key": "story",
+    "block_category": "mg2a",
+    "title": "The project",
+    "body": [
+      {
+        "_key": "p0",
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "s0",
+            "text": "The Daily Group and Mid America partnered with the Village of Bradley to develop Bradley Commons, a 75-acre mixed-use commercial center. Anchor stores include Walmart, Kohl's, and Dick's Sporting Goods, joined by in-line, strip center, and frontage lot users such as McDonald's, Buffalo Wild Wings, and Olive Garden.",
+            "marks": []
+          }
+        ]
+      },
+      {
+        "_key": "p1",
+        "_type": "block",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "s1",
+            "text": "MG2A supported the project from start to finish: TIF redevelopment, planning and zoning, subdivision, design, permitting, and construction phase services.",
+            "marks": []
+          }
+        ]
+      }
+    ],
+    "scopeTitle": "Scope of work",
+    "scope": [
+      "Commercial site development and construction",
+      "Major IL Route 50 and Kankakee County Highway 8 improvements",
+      "Three new state highway entrances and two new signalized intersections",
+      "Two miles each of new water main and sanitary sewer",
+      "Regional storm sewer and stormwater control facilities"
+    ],
+    "permitsTitle": "Permits secured",
+    "permits": "Illinois Department of Transportation · Illinois Department of Natural Resources · Illinois EPA · U.S. Army Corps of Engineers · Kankakee County Highway Department · Local drainage district",
+    "servicesTitle": "Services provided",
+    "services": [
+      {
+        "_key": "item0",
+        "_type": "storyLink",
+        "label": "Design",
+        "href": "/services/design"
+      },
+      {
+        "_key": "item1",
+        "_type": "storyLink",
+        "label": "Water Resources",
+        "href": "/services/water-resources"
+      },
+      {
+        "_key": "item2",
+        "_type": "storyLink",
+        "label": "Permitting",
+        "href": "/services/permitting"
+      },
+      {
+        "_key": "item3",
+        "_type": "storyLink",
+        "label": "Construction",
+        "href": "/services/construction"
+      }
+    ],
+    "ctaTitle": "Planning a commercial site?",
+    "ctaText": "We can help from zoning through construction.",
+    "ctaLink": {
+      "label": "Start a Project",
+      "href": "/#contact"
+    }
+  },
+  {
+    "_type": "mg2a_imageGallery",
+    "_key": "gallery",
+    "block_category": "mg2a",
+    "title": "Plans",
+    "items": [
+      {
+        "_key": "item0",
+        "_type": "galleryImage",
+        "image": {
+          "_localAsset": "bradley-commons-plan-original.jpg"
+        },
+        "alt": "Bradley Commons site plan with anchor stores, parking, and outlots",
+        "caption": "Site plan: anchor buildings, parking fields, and frontage lots",
+        "position": "50% 50%"
+      },
+      {
+        "_key": "item1",
+        "_type": "galleryImage",
+        "image": {
+          "_localAsset": "bradley-commons-plan.jpg"
+        },
+        "alt": "Detail of the Bradley Commons site plan",
+        "caption": "Detail: outlot layout and access road",
+        "position": "80% 50%"
+      }
+    ]
+  },
+  {
+    "_type": "mg2a_projectGrid",
+    "_key": "more-projects",
+    "block_category": "mg2a",
+    "title": "More projects",
+    "compact": true,
+    "muted": true,
+    "excludeCurrent": true,
+    "limit": 3
+  }
+]

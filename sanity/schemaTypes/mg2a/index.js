@@ -1,3 +1,8 @@
+import { expansionBlocks, projectEditorFields } from "./expansion";
+import {
+  expansionExamples,
+  projectInitialBlocks,
+} from "@/lib/mg2a/expansionDefaults";
 import SectionLinkInput from "@/sanity/components/SectionLinkInput";
 import { serviceBlocks } from "./services";
 import { serviceExamples } from "@/lib/mg2a/serviceDefaults";
@@ -157,28 +162,45 @@ const additional = [
 function enhance(fields) {
   return fields.map((field) => {
     const result = { ...field };
+    if (field.name === "industries" && field.type === "array")
+      result.of = [
+        {
+          type: "reference",
+          to: [{ type: "page" }],
+          options: { filter: 'page_kind == "industry"' },
+        },
+      ];
     if (field.name.startsWith("href"))
       result.validation = linkFields[1].validation;
     if (field.fields) result.fields = enhance(field.fields);
-    if (field.of)
+    if (field.of && field.name !== "industries")
       result.of = field.of.map((member) =>
         member.fields ? { ...member, fields: enhance(member.fields) } : member,
       );
     return result;
   });
 }
-const initials = [...homepage, careers, contact, ...serviceExamples];
+const initials = [
+  ...homepage,
+  careers,
+  contact,
+  ...serviceExamples,
+  ...expansionExamples,
+];
 export const mg2aBlocks = [
   ...generated.blocks,
   ...additional,
   ...serviceBlocks,
+  ...expansionBlocks,
 ].map((block) => ({
   ...block,
   title: block.title.replace(/^MG2A - /, ""),
   _menuCategory: "mg2a",
-  _libraryGroup: serviceBlocks.some((service) => service.name === block.name)
-    ? "services"
-    : "homepage",
+  _libraryGroup: expansionBlocks.some((item) => item.name === block.name)
+    ? "expansion"
+    : serviceBlocks.some((service) => service.name === block.name)
+      ? "services"
+      : "homepage",
   options: { modal: { type: "dialog", width: 1 } },
   groups: [
     { name: "content", title: "Content", default: true },
@@ -271,28 +293,53 @@ export const mg2aBlocks = [
   },
 }));
 export const mg2aDocuments = [
-  ...generated.documents.map((doc) => ({
-    ...doc,
-    fields: enhance(doc.fields).concat(
-      doc.name === "mg2a_serviceCategory"
-        ? [
-            string("icon", "Icon", {
-              options: {
-                list: [
-                  "survey",
-                  "design",
-                  "water",
-                  "permitting",
-                  "construction",
-                  "documentation",
-                  "cost",
-                ],
+  ...generated.documents
+    .filter((doc) => doc.name !== "mg2a_industry")
+    .map((doc) => ({
+      ...doc,
+      ...(doc.name === "mg2a_project"
+        ? {
+            initialValue: {
+              seo_no_index: false,
+              order: 0,
+              page_builder: projectInitialBlocks,
+            },
+            orderings: [
+              {
+                title: "Display order",
+                name: "displayOrder",
+                by: [{ field: "order", direction: "asc" }],
               },
-            }),
-          ]
-        : [],
-    ),
-  })),
+            ],
+          }
+        : {}),
+      fields: enhance(doc.fields)
+        .map((field) =>
+          doc.name === "mg2a_project" && field.name === "href"
+            ? { ...field, hidden: true }
+            : field,
+        )
+        .concat(...(doc.name === "mg2a_project" ? [projectEditorFields()] : []))
+        .concat(
+          doc.name === "mg2a_serviceCategory"
+            ? [
+                string("icon", "Icon", {
+                  options: {
+                    list: [
+                      "survey",
+                      "design",
+                      "water",
+                      "permitting",
+                      "construction",
+                      "documentation",
+                      "cost",
+                    ],
+                  },
+                }),
+              ]
+            : [],
+        ),
+    })),
   {
     name: "mg2a_job",
     title: "Open Position",

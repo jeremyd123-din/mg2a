@@ -314,6 +314,14 @@ export const serviceBlocks = [
     fields: [
       ...heading,
       text("description", "Introduction"),
+      string("background", "Background", {
+        options: {
+          list: [
+            { title: "Shaded", value: "muted" },
+            { title: "Page background", value: "page" },
+          ],
+        },
+      }),
       string("layout", "Layout", {
         options: {
           list: [

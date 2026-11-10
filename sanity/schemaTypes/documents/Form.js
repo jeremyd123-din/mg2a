@@ -43,7 +43,7 @@ export default {
         languageAlternatives: [{ title: "JSON", value: "json" }],
       },
       description:
-        "Use an array of fields with name, type, label, required, and width (50 or 100). Select and radio fields also need options. Supported types: text, email, tel, url, number, date, textarea, select, radio, checkbox, hidden.",
+        "Use an array of fields with name, type, label, required, and width (50 or 100). Select and radio fields also need options. Supported types: text, email, tel, url, number, date, textarea, select, radio, checkbox, hidden, file. Use group to organize fields into sections. Documents support PDF, JPG, PNG and TIFF, up to 3 files and 3 MB total.",
       validation: (Rule) =>
         Rule.required().custom((value) => {
           try {

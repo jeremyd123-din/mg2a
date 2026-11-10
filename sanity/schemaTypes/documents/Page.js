@@ -1,3 +1,4 @@
+import { projectModuleNames, industryModuleNames } from "../mg2a/expansion";
 import {
   serviceOverviewModuleNames,
   serviceInnerModuleNames,
@@ -16,6 +17,43 @@ const Page = {
   groups: Groups,
   initialValue: { page_layout: "flexible", seo_no_index: false },
   fields: [
+    { name: "label", type: "string", hidden: true },
+    { name: "href", type: "string", hidden: true },
+    {
+      name: "page_kind",
+      title: "Page category",
+      type: "string",
+      group: "content",
+      options: {
+        list: [
+          { title: "Standard", value: "standard" },
+          { title: "Industry", value: "industry" },
+        ],
+      },
+      initialValue: "standard",
+    },
+    {
+      name: "listing_title",
+      title: "Industry listing title",
+      type: "string",
+      group: "content",
+      hidden: ({ document }) => document?.page_kind !== "industry",
+    },
+    {
+      name: "listing_summary",
+      title: "Industry listing description",
+      type: "text",
+      group: "content",
+      rows: 2,
+      hidden: ({ document }) => document?.page_kind !== "industry",
+    },
+    {
+      name: "listing_order",
+      title: "Industry display order",
+      type: "number",
+      group: "content",
+      hidden: ({ document }) => document?.page_kind !== "industry",
+    },
     {
       name: "title",
       title: "Title",
@@ -127,6 +165,17 @@ const Page = {
         insertMenu: {
           filter: true,
           groups: [
+            { name: "projects", title: "Projects", of: projectModuleNames },
+            {
+              name: "industries",
+              title: "Industries",
+              of: industryModuleNames,
+            },
+            {
+              name: "forms",
+              title: "Forms",
+              of: ["mg2a_surveyForm", "mg2a_scopeForm", "mg2a_contactForm"],
+            },
             {
               name: "homepage",
               title: "Homepage & shared",

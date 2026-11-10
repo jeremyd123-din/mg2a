@@ -309,7 +309,7 @@ export function MG2AFaq({ data }) {
       data={data}
       className={
         split
-          ? "border-t border-[var(--line)] bg-[var(--bg2)] py-[88px]"
+          ? (data.background === "page" ? "py-[88px]" : "border-t border-[var(--line)] bg-[var(--bg2)] py-[88px]")
           : "py-24"
       }
     >

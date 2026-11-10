@@ -42,5 +42,8 @@ export const generateMetadata = async ({ params }) => {
   const slugPath = slug.join("/");
   const data = await getPageBySlug(slugPath);
   if (!data) return {};
-  return await getMetaData(data);
+  return await getMetaData(
+    data,
+    data._type === "mg2a_project" ? "projects" : undefined,
+  );
 };

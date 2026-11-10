@@ -1,6 +1,6 @@
 import { revalidateTag } from "next/cache";
 
-const SITEMAP_TYPES = ["page", "post", "post_category"];
+const SITEMAP_TYPES = ["page", "post", "post_category", "mg2a_project"];
 import { NextResponse } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 

@@ -1,0 +1,307 @@
+[
+  {
+    "_id": "mg2a-projects",
+    "_type": "page",
+    "title": "Projects",
+    "slug": {
+      "_type": "slug",
+      "current": "projects"
+    },
+    "default_theme": "light",
+    "page_layout": "flexible",
+    "seo_no_index": false,
+    "meta_title": "Projects | MG2A",
+    "page_builder": [
+      {
+        "_type": "mg2a_pageHero",
+        "_key": "page-hero",
+        "block_category": "mg2a",
+        "title": "Projects across the communities we serve.",
+        "description": "Civil engineering, surveying and infrastructure projects across Illinois and Indiana.",
+        "breadcrumb": "Projects"
+      },
+      {
+        "_type": "mg2a_projectGrid",
+        "_key": "project-list",
+        "block_category": "mg2a",
+        "title": "Our projects"
+      }
+    ]
+  },
+  {
+    "_id": "mg2a-order-survey",
+    "_type": "page",
+    "title": "Order a Survey",
+    "slug": {
+      "_type": "slug",
+      "current": "order-a-survey"
+    },
+    "default_theme": "light",
+    "page_layout": "flexible",
+    "seo_no_index": false,
+    "meta_title": "Order a Survey | MG2A",
+    "page_builder": [
+      {
+        "_type": "mg2a_pageHero",
+        "_key": "page-hero",
+        "block_category": "mg2a",
+        "title": "Order a survey",
+        "description": "Tell us about the property and what you need. A surveyor will confirm scope, timing, and fee, usually within one business day.",
+        "breadcrumb": "Order a Survey"
+      },
+      {
+        "_type": "mg2a_surveyForm",
+        "_key": "survey-form",
+        "block_category": "mg2a",
+        "form": {
+          "_type": "reference",
+          "_ref": "mg2a-survey-request"
+        },
+        "nextTitle": "What happens next",
+        "nextSteps": [
+          "We review your request and any documents you send.",
+          "A surveyor confirms scope, timing, and fee, usually within one business day.",
+          "We schedule fieldwork and deliver your signed survey."
+        ],
+        "helpTitle": "Helpful to have",
+        "helpItems": [
+          "Address or parcel number",
+          "Title commitment, for closings and ALTA surveys",
+          "Any prior survey or recorded plat",
+          "Your closing or permit deadline"
+        ],
+        "clientAccessLabel": "Existing client? Sign in to Client Access",
+        "phone": {
+          "label": "(815) 939-4921",
+          "href": "tel:+18159394921"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "mg2a-industries",
+    "_type": "page",
+    "title": "Industries",
+    "slug": {
+      "_type": "slug",
+      "current": "industries"
+    },
+    "default_theme": "light",
+    "page_layout": "flexible",
+    "seo_no_index": false,
+    "meta_title": "Industries | MG2A",
+    "page_builder": [
+      {
+        "_type": "mg2a_pageHero",
+        "_key": "page-hero",
+        "block_category": "mg2a",
+        "title": "Built for the people who build our communities.",
+        "description": "Find the engineering and surveying services that fit your industry.",
+        "breadcrumb": "Industries"
+      },
+      {
+        "_type": "mg2a_industryListing",
+        "_key": "industry-list",
+        "block_category": "mg2a",
+        "title": "Industries we serve"
+      }
+    ]
+  },
+  {
+    "_id": "mg2a-industry-municipalities",
+    "_type": "page",
+    "title": "Municipalities",
+    "slug": {
+      "_type": "slug",
+      "current": "industries/municipalities"
+    },
+    "default_theme": "light",
+    "page_layout": "flexible",
+    "seo_no_index": false,
+    "meta_title": "Municipalities | MG2A",
+    "page_builder": [
+      {
+        "_type": "mg2a_projectHero",
+        "_key": "industry-hero",
+        "block_category": "mg2a",
+        "variant": "industry",
+        "title": "Engineering support for local government",
+        "eyebrow": "Industries · Municipalities",
+        "description": "We support economic development teams, public works departments, and building and administrative staff, as your appointed village engineer or project by project.",
+        "image": {
+          "_localAsset": "streets-paving.jpg"
+        },
+        "breadcrumb": "Municipalities",
+        "buttonOne": {
+          "label": "Talk to our municipal team",
+          "href": "/#contact"
+        },
+        "buttonTwo": {
+          "label": "See our programs",
+          "href": "#programs"
+        },
+        "trustStatement": "Appointed civil engineer for the <strong>Village of Bourbonnais</strong> and the <strong>Village of Bradley</strong>"
+      },
+      {
+        "_type": "mg2a_communityStrip",
+        "_key": "communities",
+        "block_category": "mg2a",
+        "title": "Communities we've served",
+        "description": "Bradley · Bourbonnais · Braidwood · Manteno · Manhattan · Frankfort · Essex · Godley · Clifton · Herscher · Kankakee County · Will County"
+      },
+      {
+        "_type": "mg2a_industrySupport",
+        "_key": "support",
+        "block_category": "mg2a",
+        "eyebrow": "How we help",
+        "title": "An extension of your staff, for every department",
+        "items": [
+          {
+            "_key": "item0",
+            "_type": "supportCard",
+            "icon": "department0",
+            "title": "Village engineer",
+            "description": "Appointed consulting engineer for development review, capital projects, and day-to-day infrastructure questions."
+          },
+          {
+            "_key": "item1",
+            "_type": "supportCard",
+            "icon": "department1",
+            "title": "Public works",
+            "description": "Street maintenance programs, road improvements, and sewer operation and maintenance planning."
+          },
+          {
+            "_key": "item2",
+            "_type": "supportCard",
+            "icon": "department2",
+            "title": "Economic development",
+            "description": "Site data, concept plans, and utility snapshots that help market development sites to the right users."
+          },
+          {
+            "_key": "item3",
+            "_type": "supportCard",
+            "icon": "department3",
+            "title": "Building & administration",
+            "description": "Technical support for staff, from mapping and records to reviewing plans submitted by developers."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_industryPrograms",
+        "_key": "programs",
+        "block_category": "mg2a",
+        "anchor": "programs",
+        "eyebrow": "Programs",
+        "title": "Programs that keep communities running",
+        "image": {
+          "_localAsset": "streets-paving.jpg"
+        },
+        "alt": "Paving crew resurfacing a residential street",
+        "featureEyebrow": "Streets + maintenance",
+        "featureTitle": "Local road improvements and annual maintenance",
+        "featureText": "We help public works departments plan and deliver street programs, including Motor Fuel Tax work. Frequent preventive care costs less than rehabilitation.",
+        "facts": [
+          {
+            "_key": "item0",
+            "_type": "programFact",
+            "label": "Annual",
+            "value": "Bradley, Braidwood, Essex"
+          },
+          {
+            "_key": "item1",
+            "_type": "programFact",
+            "label": "Improvements",
+            "value": "Bradley, Bourbonnais, Manteno, Frankfort, Manhattan, Herscher, Kankakee County, Will County"
+          }
+        ],
+        "items": [
+          {
+            "_key": "item0",
+            "_type": "programCard",
+            "icon": "program0",
+            "eyebrow": "Sewer operation + maintenance",
+            "title": "CMOM and sewer system evaluation",
+            "description": "With the Villages of Bradley and Bourbonnais and the City of Braidwood, we assessed sanitary sewer capacity, management, and maintenance practices, mapped the system in GIS, and recommended an improvement schedule and budget."
+          },
+          {
+            "_key": "item1",
+            "_type": "programCard",
+            "icon": "program1",
+            "eyebrow": "GIS for local government",
+            "title": "Mapping your infrastructure",
+            "description": "Digital maps of utilities, streets, and other assets so staff can locate infrastructure, track condition, and plan future work."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_testimonialProject",
+        "_key": "proof",
+        "block_category": "mg2a",
+        "quote": "[Quote from a village administrator or public works director about working with MG2A.]",
+        "attribution": "[Name], [Title, Village]",
+        "project": {
+          "_type": "reference",
+          "_ref": "mg2a_project-bourbonnais-parkway-business-park"
+        },
+        "description": "Concept plans, topography, and a utility snapshot to help market a 145-acre site at I-57 Exit 318.",
+        "eyebrow": "Economic development"
+      },
+      {
+        "_type": "mg2a_faq",
+        "_key": "industry-faq",
+        "block_category": "mg2a",
+        "layout": "split",
+        "background": "page",
+        "eyebrow": "FAQ",
+        "title": "Questions from municipal clients",
+        "items": [
+          {
+            "_key": "item0",
+            "_type": "faqItem",
+            "question": "What does an appointed village engineer do?",
+            "answer": "A village engineer acts as the community's engineering department. That usually includes reviewing development plans against local codes, managing capital projects, advising the board and staff on infrastructure, and overseeing construction of public improvements."
+          },
+          {
+            "_key": "item1",
+            "_type": "faqItem",
+            "question": "Can you help on a single project instead of an ongoing role?",
+            "answer": "Yes. We serve some communities as appointed engineer and others project by project, from a single street program to a sewer system evaluation."
+          },
+          {
+            "_key": "item2",
+            "_type": "faqItem",
+            "question": "Do you help with Motor Fuel Tax street programs?",
+            "answer": "Yes. We help communities plan and deliver annual maintenance and road improvement programs, including work funded through Illinois Motor Fuel Tax."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_industryListing",
+        "_key": "other-industries",
+        "block_category": "mg2a",
+        "title": "Other industries we serve",
+        "compact": true,
+        "excludeCurrent": true
+      },
+      {
+        "_type": "mg2a_ctaBanner",
+        "_key": "industry-cta",
+        "block_category": "mg2a",
+        "title": "Need an engineering partner for your community?",
+        "description": "Tell us what your staff is working on. We'll follow up within one business day.",
+        "buttonOne": {
+          "label": "Start a conversation",
+          "href": "/#contact"
+        },
+        "buttonTwo": {
+          "label": "(815) 939-4921",
+          "href": "tel:18159394921"
+        }
+      }
+    ],
+    "page_kind": "industry",
+    "listing_title": "Municipalities",
+    "listing_summary": "We support economic development teams, public works departments, and building and administrative staff, as your appointed village engineer or project by project.",
+    "listing_order": 0
+  }
+]

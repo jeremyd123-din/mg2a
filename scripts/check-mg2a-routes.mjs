@@ -6,6 +6,12 @@ const origin = process.env.MG2A_TEST_ORIGIN || "http://localhost:3002";
 for (const [path, expectedStatus] of [
   ["/", 200],
   ["/services", 200],
+  ["/projects", 200],
+  ["/projects/bradley-commons", 200],
+  ["/order-a-survey", 200],
+  ["/industries", 200],
+  ["/industries/municipalities", 200],
+  ["/industries/manufacturing", 200],
   ["/services/water-resources", 200],
   ["/services/water-resources/stormwater-management-plans", 200],
   ["/a", 404],

@@ -72,7 +72,7 @@ export default defineConfig({
           ({ action }) => action && singletonActions.has(action),
         );
       }
-      if (["page", "post"].includes(context.schemaType)) {
+      if (["page", "post", "mg2a_project"].includes(context.schemaType)) {
         return [
           ...input,
           viewPageAction,

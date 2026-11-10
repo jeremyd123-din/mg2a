@@ -4,10 +4,16 @@ import { Button, Flex, TextInput } from "@sanity/ui";
 import { CopyIcon } from "@sanity/icons";
 import { sectionAnchorFromPath } from "@/lib/mg2a/sectionAnchors";
 export default function SectionLinkInput(props) {
+  const type = useFormValue(["_type"]);
   const slug = useFormValue(["slug", "current"]);
   const [copied, setCopied] = useState(false);
   const anchor = sectionAnchorFromPath(props.path);
-  const path = slug === "index" ? "/" : slug ? "/" + slug : "";
+  const path =
+    slug === "index" && type !== "mg2a_project"
+      ? "/"
+      : slug
+        ? "/" + (type === "mg2a_project" ? "projects/" : "") + slug
+        : "";
   const link = anchor ? `${path}#${anchor}` : "";
   return (
     <Flex gap={2}>

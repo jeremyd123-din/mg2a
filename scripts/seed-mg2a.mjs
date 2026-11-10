@@ -119,3 +119,6 @@ console.log(
 console.log(
   "Homepage: mg2a-homepage. No website deployment performed. Indexing remains disabled during development.",
 );
+
+// Complete dynamic project pages and migrate industry links into Pages.
+await import("./seed-mg2a-expansion.mjs");

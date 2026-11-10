@@ -4,9 +4,12 @@ import { QUERY_omitDrafts } from "./constants";
 
 export async function getPageBySlug(slug) {
   return fetchSanity(
-    groq`*[_type == "page" && slug.current == $slug][0]{
+    groq`*[(_type == "page" && slug.current == $slug) || (_type=="mg2a_project" && "projects/"+slug.current==$slug)][0]{
     ...,
-    page_builder[]{...,_type == "mg2a_relatedProjects" => {items[]{...,"project":project->{...}}},_type == "mg2a_serviceContent" => {sections[]{...}},"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...},_type in ["mg2a_contactForm", "mg2a_scopeForm"] => {"offices":*[_id=="mg2a-settings"][0].offices,"form":form->{_id,title,form_fields,button_title,note,thankyou_message,error_message}}, _type == "mg2a_careers" => {"jobs":*[_type=="mg2a_job" && status=="open"]|order(order asc,_createdAt asc)}}
+    page_builder[]{...,
+    _type=="mg2a_projectHero" => {"title":coalesce(title,^.title),"image":coalesce(image,^.image),"eyebrow":coalesce(eyebrow,^.eyebrow),"description":coalesce(description,^.description)},
+    _type=="mg2a_testimonialProject" => {"project":project->{...,"href":coalesce("/projects/"+slug.current,href)}},_type == "mg2a_relatedProjects" => {items[]{...,"project":project->{...}}},_type == "mg2a_serviceContent" => {sections[]{...}},"categories":categories[]->{...},"projects":projects[]->{...},"industries":industries[]->{...,"label":coalesce(listing_title,title,label),"href":coalesce("/"+slug.current,href)},_type in ["mg2a_contactForm", "mg2a_scopeForm", "mg2a_surveyForm"] => {"clientAccessUrl":*[_id=="mg2a-settings"][0].clientAccessUrl,"offices":*[_id=="mg2a-settings"][0].offices,"form":form->{_id,title,form_fields,button_title,note,thankyou_message,error_message}}, _type == "mg2a_careers" => {"jobs":*[_type=="mg2a_job" && status=="open"]|order(order asc,_createdAt asc)},_type=="mg2a_projectGrid" => {"projects":*[_type=="mg2a_project" && defined(slug.current) && (!coalesce(^.excludeCurrent,false) || "projects/"+slug.current!=$slug)]|order(order asc,title asc){...,"href":"/projects/"+slug.current}},
+    _type=="mg2a_industryListing" => {"industries":*[_type=="page" && page_kind=="industry" && (!coalesce(^.excludeCurrent,false) || slug.current!=$slug)]|order(listing_order asc,title asc){_id,title,listing_summary,"label":coalesce(listing_title,title),"href":"/"+slug.current}}}
 
 }`,
     { slug },
@@ -129,7 +132,7 @@ export async function getSiteSettings() {
 
 export async function getAllPageSlugs() {
   return fetchSanity(
-    groq`*[_type == "page" && ${QUERY_omitDrafts}]{ "slug": slug.current }`,
+    groq`*[_type in ["page","mg2a_project"] && ${QUERY_omitDrafts}]{ "slug":select(_type=="mg2a_project"=>"projects/"+slug.current,slug.current) }`,
     {},
     { tags: ["page"] },
   );
