@@ -124,3 +124,4 @@ console.log(
 await import("./seed-mg2a-expansion.mjs");
 
 await import("./seed-mg2a-company.mjs");
+await import("./seed-mg2a-industry-summaries.mjs");

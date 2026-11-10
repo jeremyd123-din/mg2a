@@ -8,7 +8,7 @@ export default async function robots() {
     process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
   ).replace(/\/$/, "");
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: { userAgent: "*", allow: "/", disallow: ["/studio", "/api"] },
     sitemap: `${url}/sitemap.xml`,
   };
 }

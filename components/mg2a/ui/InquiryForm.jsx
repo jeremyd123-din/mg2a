@@ -3,8 +3,62 @@ import { safeHref } from "./helpers";
 
 import { useState, useId, useRef } from "react";
 import { stegaClean } from "next-sanity";
+import {
+  MAX_UPLOAD_FILES,
+  MAX_UPLOAD_MB,
+  MAX_UPLOAD_BYTES,
+} from "@/lib/forms/uploadLimits";
 import FormCombobox from "./FormCombobox";
 import { parseFields, validateValues } from "@/lib/forms/definition";
+export function FieldLabel({ field }) {
+  return (
+    <span>
+      {field.label}
+      {field.required && (
+        <span aria-hidden="true" className="ml-1 text-[var(--accent)]">
+          *
+        </span>
+      )}
+    </span>
+  );
+}
+export function SubmitIcon({ sending }) {
+  return sending ? (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-4 w-4 shrink-0 animate-spin motion-reduce:animate-none"
+      fill="none"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeWidth="3"
+        opacity=".25"
+      />
+      <path
+        d="M21 12a9 9 0 0 0-9-9"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </svg>
+  ) : (
+    <svg
+      aria-hidden="true"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    >
+      <path d="M3 8H13M9 4L13 8L9 12" />
+    </svg>
+  );
+}
 export default function InquiryForm({ data, appearance = "panel" }) {
   const [resetKey, setResetKey] = useState(0);
   const [status, setStatus] = useState("idle");
@@ -57,10 +111,13 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             .map((file) => ({ field: field.name, file })),
         );
       if (
-        uploads.length > 3 ||
-        uploads.reduce((sum, item) => sum + item.file.size, 0) > 3 * 1024 * 1024
+        uploads.length > MAX_UPLOAD_FILES ||
+        uploads.reduce((sum, item) => sum + item.file.size, 0) >
+          MAX_UPLOAD_BYTES
       )
-        throw new Error("Attach up to three documents, totaling 3 MB or less.");
+        throw new Error(
+          `Attach up to ${MAX_UPLOAD_FILES} documents, totaling ${MAX_UPLOAD_MB} MB or less.`,
+        );
       const multipart = new FormData();
       multipart.set("payload", JSON.stringify(payload));
       for (const upload of uploads)
@@ -103,7 +160,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
         return (
           <fieldset key={field.name} className={wide}>
             <legend className="mb-2 text-sm font-semibold">
-              {field.label}
+              <FieldLabel field={field} />
             </legend>
             {field.options.map((option, index) => (
               <label
@@ -132,7 +189,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             className={`flex-row! items-center ${wide}`}
           >
             <input {...common} className="w-4! min-h-4!" type="checkbox" />
-            {field.label}
+            <FieldLabel field={field} />
           </label>
         );
       if (field.type === "file")
@@ -142,7 +199,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             className="[grid-column:1/-1]"
             htmlFor={fieldId}
           >
-            {field.label}
+            <FieldLabel field={field} />
             <input
               id={fieldId}
               name={field.name}
@@ -153,7 +210,9 @@ export default function InquiryForm({ data, appearance = "panel" }) {
               className="h-auto! border-dashed! p-3! text-[var(--muted)]! file:mr-3.5 file:cursor-pointer file:rounded file:border-0 file:bg-[#1b4f72] file:px-[18px] file:py-2.5 file:font-[family-name:var(--font-sans)] file:text-sm file:font-semibold file:text-white hover:file:bg-[#153f5b]"
             />
             <span className="text-xs font-normal text-[var(--muted)]">
-              Up to 3 documents, 3 MB total.
+              {field.multiple
+                ? `Up to ${MAX_UPLOAD_FILES} documents, ${MAX_UPLOAD_MB} MB total.`
+                : `One document, up to ${MAX_UPLOAD_MB} MB.`}
             </span>
           </label>
         );
@@ -172,7 +231,9 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             key={field.name}
             className={"flex min-w-0 flex-col gap-2 " + wide}
           >
-            <label htmlFor={fieldId}>{field.label}</label>
+            <label htmlFor={fieldId}>
+              <FieldLabel field={field} />
+            </label>
             <FormCombobox
               key={`${resetKey}-${field.name}`}
               field={field}
@@ -182,7 +243,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
         );
       return (
         <label key={field.name} htmlFor={fieldId} className={wide}>
-          {field.label}
+          <FieldLabel field={field} />
           {field.type === "textarea" ? (
             <textarea {...common} rows={4} />
           ) : (
@@ -265,19 +326,10 @@ export default function InquiryForm({ data, appearance = "panel" }) {
           type="submit"
           className="btn inline-flex items-center gap-[10px] min-h-[48px] p-[0_22px] rounded-[4px] font-semibold text-[15px] [transition:transform_0.2s,_background-color_0.2s] [&:hover]:[transform:translateY(-1px)] motion-reduce:[transition:none] mg-primary [background:var(--btn)] [color:white]"
           disabled={status === "sending"}
+          aria-busy={status === "sending"}
         >
           {status === "sending" ? "Sending…" : definition.button_title}
-          <svg
-            aria-hidden="true"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          >
-            <path d="M3 8H13M9 4L13 8L9 12" />
-          </svg>
+          <SubmitIcon sending={status === "sending"} />
         </button>
       </div>
       {(status === "success" || status === "error") && (

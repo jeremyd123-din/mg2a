@@ -1,3 +1,5 @@
+import SubmissionResponsesInput from "@/sanity/components/SubmissionResponsesInput";
+import { submissionIdentity } from "@/lib/forms/submissionIdentity";
 import SubmissionAttachmentsInput from "@/sanity/components/SubmissionAttachmentsInput";
 export default {
   name: "formSubmission",
@@ -5,6 +7,27 @@ export default {
   type: "document",
   liveEdit: true,
   fields: [
+    {
+      name: "fields",
+      title: "Responses",
+      type: "array",
+      components: { input: SubmissionResponsesInput },
+      readOnly: true,
+      of: [
+        {
+          type: "object",
+          name: "submittedField",
+          fields: [
+            { name: "name", title: "Field name", type: "string" },
+            { name: "label", title: "Label", type: "string" },
+            { name: "value", title: "Response", type: "text" },
+          ],
+          preview: { select: { title: "label", subtitle: "value" } },
+        },
+      ],
+    },
+    { name: "submitter_name", type: "string", hidden: true, readOnly: true },
+    { name: "submitter_email", type: "string", hidden: true, readOnly: true },
     {
       name: "attachments",
       title: "Documents",
@@ -66,33 +89,31 @@ export default {
         ],
       },
     },
-    {
-      name: "fields",
-      title: "Responses",
-      type: "array",
-      readOnly: true,
-      of: [
-        {
-          type: "object",
-          name: "submittedField",
-          fields: [
-            { name: "name", title: "Field name", type: "string" },
-            { name: "label", title: "Label", type: "string" },
-            { name: "value", title: "Response", type: "text" },
-          ],
-          preview: { select: { title: "label", subtitle: "value" } },
-        },
-      ],
-    },
   ],
   preview: {
-    select: { title: "form_title", date: "submitted_at", status: "status" },
-    prepare: ({ title, date, status }) => ({
-      title: title || "Submission",
-      subtitle: [date ? new Date(date).toLocaleString() : null, status]
-        .filter(Boolean)
-        .join(" · "),
-    }),
+    select: {
+      form: "form_title",
+      name: "submitter_name",
+      email: "submitter_email",
+      responses: "fields",
+      date: "submitted_at",
+      status: "status",
+    },
+    prepare: ({ form, name, email, responses, date, status }) => {
+      const identity = submissionIdentity(responses);
+      return {
+        title:
+          name ||
+          identity.name ||
+          email ||
+          identity.email ||
+          form ||
+          "Submission",
+        subtitle: [form, date ? new Date(date).toLocaleString() : null, status]
+          .filter(Boolean)
+          .join(" · "),
+      };
+    },
   },
   orderings: [
     {

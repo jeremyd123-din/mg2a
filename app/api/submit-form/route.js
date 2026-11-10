@@ -1,3 +1,5 @@
+import { submissionIdentity } from "@/lib/forms/submissionIdentity";
+import { storeSubmission } from "@/lib/forms/storeSubmission";
 import { prepareAttachments, MAX_UPLOAD_BYTES } from "@/lib/forms/attachments";
 import { NextResponse } from "next/server";
 import { createClient } from "@sanity/client";
@@ -120,7 +122,10 @@ export async function POST(request) {
     } catch (error) {
       return reply(error.message);
     }
+    const identity = submissionIdentity(fields);
     const submission = {
+      submitter_name: identity.name,
+      submitter_email: identity.email,
       _id: id,
       _type: "formSubmission",
       form_id: form._id,
@@ -133,12 +138,7 @@ export async function POST(request) {
       fields,
       attachments: files.attachments,
     };
-    if (files.documents.length) {
-      let transaction = client.transaction().createIfNotExists(submission);
-      for (const document of files.documents)
-        transaction = transaction.createIfNotExists(document);
-      await transaction.commit();
-    } else await client.createIfNotExists(submission);
+    await storeSubmission(client, submission, files.documents);
     if (recipientsList.length) {
       let notificationStatus = "failed";
       try {

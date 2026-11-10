@@ -1,3 +1,5 @@
+import FormSubmissions from "./sanity/tools/FormSubmissions";
+import { DocumentsIcon } from "@sanity/icons";
 import { servicePageTemplate } from "./lib/mg2a/serviceDefaults";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
@@ -37,6 +39,14 @@ export default defineConfig({
     visionTool(),
     codeInput(),
     media(),
+  ],
+  tools: [
+    {
+      name: "form-submissions",
+      title: "Form submissions",
+      icon: DocumentsIcon,
+      component: FormSubmissions,
+    },
   ],
   schema: {
     types: schemaTypes,

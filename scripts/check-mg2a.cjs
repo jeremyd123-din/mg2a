@@ -80,7 +80,14 @@ async function main() {
     }),
   );
   assert(cardsHtml.includes("Facilities and infrastructure."));
-  assert(!cardsHtml.includes("→"), "Industry cards must not show arrows");
+  assert(
+    cardsHtml.includes("View Industry"),
+    "Industry cards must use the requested button text",
+  );
+  assert(
+    cardsHtml.includes("min-h-[260px]"),
+    "Industry cards must share the service card layout",
+  );
   const Combo = load("components/mg2a/ui/FormCombobox.jsx").default;
   const comboMarkup = renderCompany(
     ReactCompany.createElement(Combo, {
@@ -422,9 +429,118 @@ async function main() {
       );
     }
   }
+  const responsesType = types.find((type) => type.name === "formSubmission");
+  assert(
+    responsesType.fields.find((field) => field.name === "fields").components
+      .input,
+  );
+  assert.equal(
+    responsesType.preview.prepare({
+      form: "Survey request",
+      responses: [{ name: "name", label: "Name", value: "Jane Example" }],
+      date: "2026-11-10T12:00:00Z",
+      status: "new",
+    }).title,
+    "Jane Example",
+  );
+  assert.equal(
+    responsesType.preview.prepare({
+      form: "Survey request",
+      email: "jane@example.com",
+    }).title,
+    "jane@example.com",
+  );
+  const { submissionIdentity } = load("lib/forms/submissionIdentity.js");
+  assert.equal(
+    submissionIdentity([
+      { name: "first_name", value: "Jane" },
+      { name: "last_name", value: "Example" },
+    ]).name,
+    "Jane Example",
+  );
+  assert.deepEqual(submissionIdentity(null), { name: "", email: "" });
+  const { ThemeProvider, studioTheme } = require("@sanity/ui");
+  const Responses = load(
+    "sanity/components/SubmissionResponsesInput.jsx",
+  ).default;
+  const tableHtml = renderCompany(
+    ReactCompany.createElement(
+      ThemeProvider,
+      { theme: studioTheme },
+      ReactCompany.createElement(Responses, {
+        value: [
+          { _key: "name", label: "Full name", value: "Jane Example" },
+          {
+            _key: "details",
+            label: "Details",
+            value: "Line one\n<script>safe text</script>",
+          },
+        ],
+      }),
+    ),
+  );
+  assert(tableHtml.includes('<table aria-label="Submitted responses"'));
+  assert(tableHtml.includes("Jane Example"));
+  assert(tableHtml.includes("&lt;script&gt;"));
+  assert(!tableHtml.includes("<script>safe"));
+  const { SubmissionsTable } = load("sanity/tools/FormSubmissions.jsx");
+  const listTable = renderCompany(
+    ReactCompany.createElement(
+      ThemeProvider,
+      { theme: studioTheme },
+      ReactCompany.createElement(SubmissionsTable, {
+        items: [
+          {
+            _id: "submissions.test",
+            submitter_name: "Jane Example",
+            form_title: "Survey request",
+            status: "new",
+          },
+        ],
+        onOpen: () => {},
+      }),
+    ),
+  );
+  assert(
+    listTable.includes("Jane Example") && listTable.includes("Survey request"),
+  );
+  const { submissionQueryParams, submissionsQuery } = load(
+    "lib/forms/submissionQueries.js",
+  );
+  assert(submissionsQuery.includes('_id in path("submissions.**")'));
+  assert.deepEqual(
+    submissionQueryParams({
+      search: "  Jane*?  ",
+      status: "invalid",
+      page: -1,
+    }),
+    { pattern: "*Jane*", formId: "", status: "", start: 0, end: 25 },
+  );
+  const { FieldLabel, SubmitIcon } = load("components/mg2a/ui/InquiryForm.jsx");
+  const requiredLabel = renderCompany(
+    ReactCompany.createElement(FieldLabel, {
+      field: { label: "Email", required: true },
+    }),
+  );
+  assert(requiredLabel.includes("*"));
+  assert(
+    !renderCompany(
+      ReactCompany.createElement(FieldLabel, { field: { label: "Phone" } }),
+    ).includes("*"),
+  );
+  assert(
+    renderCompany(
+      ReactCompany.createElement(SubmitIcon, { sending: true }),
+    ).includes("animate-spin"),
+  );
+  assert(
+    !renderCompany(
+      ReactCompany.createElement(SubmitIcon, { sending: false }),
+    ).includes("animate-spin"),
+  );
   const { parseFields, validateValues } = load("lib/forms/definition.js");
   const { prepareAttachments } = load("lib/forms/attachments.js");
-  const fileDefinition = [{ name: "docs", type: "file" }];
+  const fileDefinition = [{ name: "docs", type: "file", multiple: true }];
   const upload = new File(["%PDF-1.4 test document"], "test.pdf", {
     type: "application/pdf",
   });
@@ -444,10 +560,111 @@ async function main() {
   );
   await assert.rejects(() =>
     prepareAttachments(
-      Array(4).fill({ field: "docs", file: upload }),
+      Array(11).fill({ field: "docs", file: upload }),
       fileDefinition,
       "submissions.test",
     ),
+  );
+  const { MAX_UPLOAD_BYTES, MAX_UPLOAD_FILES } = load(
+    "lib/forms/uploadLimits.js",
+  );
+  assert.equal(MAX_UPLOAD_FILES, 10);
+  const ten = await prepareAttachments(
+    Array(10).fill({ field: "docs", file: upload }),
+    fileDefinition,
+    "submissions.ten",
+  );
+  assert.equal(ten.attachments.length, 10);
+  const maxPdf = Buffer.alloc(MAX_UPLOAD_BYTES, 32);
+  maxPdf.write("%PDF-1.4");
+  const large = await prepareAttachments(
+    [{ field: "docs", file: new File([maxPdf], "large.pdf") }],
+    fileDefinition,
+    "submissions.large",
+  );
+  await assert.rejects(() =>
+    prepareAttachments(
+      [
+        {
+          field: "docs",
+          file: new File([maxPdf, Buffer.from("x")], "too-large.pdf"),
+        },
+      ],
+      fileDefinition,
+      "submissions.large",
+    ),
+  );
+  const changed = await prepareAttachments(
+    [{ field: "docs", file: new File(["%PDF-1.4 different"], "test.pdf") }],
+    fileDefinition,
+    "submissions.test",
+  );
+  assert.notEqual(
+    changed.documents[0]._id,
+    prepared.documents[0]._id,
+    "Retrying with different bytes must never reuse an old chunk",
+  );
+  const { storeSubmission, submissionBatches, MAX_MUTATION_BYTES } = load(
+    "lib/forms/storeSubmission.js",
+  );
+  const largeSubmission = {
+    _id: "submissions.large",
+    _type: "formSubmission",
+    attachments: large.attachments,
+  };
+  const batches = submissionBatches(largeSubmission, large.documents);
+  assert(batches.length > 1);
+  assert.equal(batches.at(-1).at(-1), largeSubmission);
+  assert(
+    batches.every(
+      (batch) =>
+        Buffer.byteLength(
+          JSON.stringify({
+            mutations: batch.map((document) => ({
+              createIfNotExists: document,
+            })),
+          }),
+        ) < MAX_MUTATION_BYTES,
+    ),
+  );
+  const storedChunks = new Map();
+  let batchNumber = 0,
+    breakBatch = 2;
+  const storageClient = {
+    transaction() {
+      const queued = [];
+      return {
+        createIfNotExists(doc) {
+          queued.push(doc);
+          return this;
+        },
+        async commit() {
+          batchNumber++;
+          if (batchNumber === breakBatch)
+            throw new Error("Storage unavailable");
+          for (const doc of queued)
+            if (!storedChunks.has(doc._id)) storedChunks.set(doc._id, doc);
+        },
+      };
+    },
+  };
+  await assert.rejects(() =>
+    storeSubmission(storageClient, largeSubmission, large.documents),
+  );
+  assert(
+    !storedChunks.has(largeSubmission._id),
+    "Failed attachment batches must not expose an incomplete submission",
+  );
+  breakBatch = -1;
+  await storeSubmission(storageClient, largeSubmission, large.documents);
+  assert(storedChunks.has(largeSubmission._id));
+  assert.equal(
+    Buffer.concat(
+      large.attachments[0].chunks.map((id) =>
+        Buffer.from(storedChunks.get(id).data, "base64"),
+      ),
+    ).compare(maxPdf),
+    0,
   );
   const resumeFields = parseFields(
     JSON.stringify([
@@ -656,6 +873,7 @@ async function main() {
     "sent",
   );
   assert.equal(docs.get(`submissions.${input.requestId}`).page_url, "/contact");
+  assert.equal(docs.get(`submissions.${input.requestId}`).submitter_name, "QA");
   assert.equal((await handler(request(input))).status, 200);
   assert.equal(
     messages.length,

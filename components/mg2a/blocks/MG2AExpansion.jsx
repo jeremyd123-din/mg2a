@@ -1,3 +1,4 @@
+import ServiceCard from "../ui/ServiceCard";
 import { Fragment } from "react";
 import { stegaClean } from "next-sanity";
 import {
@@ -342,30 +343,33 @@ export function MG2AIndustryListing({ data }) {
       </h2>
       <div
         className={
-          "grid items-start gap-x-8 " +
-          (data.compact
-            ? "grid-cols-[repeat(auto-fill,minmax(min(100%,240px),1fr))]"
-            : "grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-y-5")
+          data.compact
+            ? "grid grid-cols-[repeat(auto-fill,minmax(min(100%,240px),1fr))] gap-x-8"
+            : "grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-4"
         }
       >
-        {data.industries?.map((item) => (
-          <a
-            key={item._id}
-            href={safeHref(item.href)}
-            className={
-              data.compact
-                ? "flex min-h-16 items-center gap-3 border-b border-[var(--line)] text-[17px] font-semibold"
-                : "rounded-md border border-[var(--line)] bg-[var(--panel)] p-7"
-            }
-          >
-            <h3 className="text-lg font-semibold">{item.label}</h3>
-            {!data.compact && item.listing_summary && (
-              <p className="mt-3 text-[15px] leading-[1.6] text-[var(--muted)]">
-                {item.listing_summary}
-              </p>
-            )}
-          </a>
-        ))}
+        {data.industries?.map((item, index) =>
+          data.compact ? (
+            <a
+              key={item._id}
+              href={safeHref(item.href)}
+              className="flex min-h-16 items-center gap-3 border-b border-[var(--line)] text-[17px] font-semibold"
+            >
+              <h3 className="text-lg font-semibold">{item.label}</h3>
+            </a>
+          ) : (
+            <ServiceCard
+              key={item._id}
+              index={index}
+              item={{
+                title: item.label,
+                description: item.listing_summary,
+                href: item.href,
+                label: "View Industry",
+              }}
+            />
+          ),
+        )}
       </div>
     </ServiceFrame>
   );

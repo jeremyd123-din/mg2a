@@ -1,3 +1,4 @@
+import ServiceCard from "../ui/ServiceCard";
 import { stegaClean } from "next-sanity";
 import {
   mono,
@@ -121,46 +122,7 @@ export function MG2AServiceCards({ data }) {
       <h2 className={headingFor(data) + " mb-8"}>{data.title}</h2>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-4">
         {data.items?.map((item, index) => (
-          <a
-            key={item._key}
-            href={safeHref(item.href)}
-            className={
-              "flex min-h-[260px] flex-col gap-3.5 rounded-md p-7 transition-transform hover:-translate-y-[3px] motion-reduce:transition-none " +
-              (item.featured
-                ? "bg-[var(--flip)] text-white"
-                : "border border-[var(--line)] bg-[var(--panel)]")
-            }
-          >
-            <span
-              className={
-                mono +
-                " text-[11px] " +
-                (item.featured ? "text-white/80" : "text-[var(--water)]")
-              }
-            >
-              {number(index)}
-            </span>
-            <h3 className="text-[22px] leading-[1.2] font-bold">
-              {item.title}
-            </h3>
-            <p
-              className={
-                "flex-1 text-[15px] leading-[1.6] " +
-                (item.featured ? "text-white/85" : "text-[var(--muted)]")
-              }
-            >
-              {item.description}
-            </p>
-            <span
-              className={
-                "flex items-center gap-2 text-[15px] font-semibold " +
-                (item.featured ? "" : "text-[var(--accent)]")
-              }
-            >
-              {item.label || "Learn more"}
-              <Arrow />
-            </span>
-          </a>
+          <ServiceCard key={item._key || index} item={item} index={index} />
         ))}
       </div>
       {!!data.pairedLinks?.length && (
@@ -309,7 +271,9 @@ export function MG2AFaq({ data }) {
       data={data}
       className={
         split
-          ? (data.background === "page" ? "py-[88px]" : "border-t border-[var(--line)] bg-[var(--bg2)] py-[88px]")
+          ? data.background === "page"
+            ? "py-[88px]"
+            : "border-t border-[var(--line)] bg-[var(--bg2)] py-[88px]"
           : "py-24"
       }
     >
