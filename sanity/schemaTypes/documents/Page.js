@@ -1,3 +1,4 @@
+import { aboutModuleNames, careersModuleNames } from "../mg2a/company";
 import { projectModuleNames, industryModuleNames } from "../mg2a/expansion";
 import {
   serviceOverviewModuleNames,
@@ -165,6 +166,12 @@ const Page = {
         insertMenu: {
           filter: true,
           groups: [
+            { name: "about", title: "About & Team", of: aboutModuleNames },
+            {
+              name: "careers",
+              title: "Careers & Jobs",
+              of: careersModuleNames,
+            },
             { name: "projects", title: "Projects", of: projectModuleNames },
             {
               name: "industries",
@@ -174,7 +181,12 @@ const Page = {
             {
               name: "forms",
               title: "Forms",
-              of: ["mg2a_surveyForm", "mg2a_scopeForm", "mg2a_contactForm"],
+              of: [
+                "mg2a_surveyForm",
+                "mg2a_scopeForm",
+                "mg2a_contactForm",
+                "mg2a_jobApplication",
+              ],
             },
             {
               name: "homepage",

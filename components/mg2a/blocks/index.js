@@ -39,3 +39,16 @@ export {
   MG2ATestimonialProject as mg2a_testimonialProject,
   MG2ASurveyForm as mg2a_surveyForm,
 } from "./MG2AExpansion";
+export {
+  MG2ACompanyHero as mg2a_companyHero,
+  MG2ACompanyStory as mg2a_companyStory,
+  MG2ACompanyFeatures as mg2a_companyFeatures,
+  MG2ATeamGrid as mg2a_teamGrid,
+  MG2AClientList as mg2a_clientList,
+  MG2AOffices as mg2a_offices,
+  MG2ABenefits as mg2a_benefits,
+  MG2AJobList as mg2a_jobList,
+  MG2AGraduateCta as mg2a_graduateCta,
+  MG2AMemberProfile as mg2a_memberProfile,
+  MG2AJobApplication as mg2a_jobApplication,
+} from "./MG2ACompany";

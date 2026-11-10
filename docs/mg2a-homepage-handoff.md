@@ -40,7 +40,6 @@ Configure Sanity CORS for localhost and deployed origins, and a signed webhook p
 - Form checks used stubbed delivery: required fields, email/header validation, field lengths, origin checks, honeypot, server-owned recipient, and delivery failure. Live email delivery remains untested.
 - Studio loads its login screen without browser errors. A signed-in editor session is still required to verify editing, drag/drop and publishing in the actual Studio UI. Production webhook delivery is not yet configured or verified.
 
-
 ## Tailwind and per-section editing update
 
 All MG2A header, footer, section, form and UI styles now use literal Tailwind utilities, including responsive and interaction states. The former numbered generated CSS rules have been removed. Shared brand/theme variables remain in `styles/mg2a/tokens.css`; `styles/mg2a/index.css` only imports tokens and applies Tailwind base utilities. The inherited generic Janoova components have been removed.
@@ -96,13 +95,11 @@ The launch sitemap inventory is in `lib/mg2a/navigation.js`. Only Services and I
 
 Edit navigation in Site Settings → Header → Primary links. Submenu groups appear only for `/services` and `/industries`. `node --env-file=.env.local scripts/seed-mg2a-navigation.mjs` applies the launch menu with revision checks and a local backup; `scripts/migrate-mg2a-editor-model.mjs` is the one-time offices/jobs/settings migration.
 
-
 ### Edit footer navigation
 
 Open **Site Settings → Footer**. **Services links** and **Company links** are separate reorderable arrays: expand a row to edit its Label and Destination, add a row for another link, or remove a row. Publish Site Settings to apply changes. Column titles, description and the footer license statement are on the same tab. Addresses/phones are under **Offices**; the shared Client Access label and URL are under **Header**. The footer matches the supplied HTML: seven service links, six company links, then Client Access.
 
 Header spacing matches the original 1280px container and 32px navigation gap at 15px type. Both action buttons display on desktop; the mobile menu breakpoint remains 980px.
-
 
 ## Reusable forms and saved submissions
 
@@ -110,9 +107,15 @@ Open **Forms** to create or edit a form. Use **Fields (JSON)** for a strict JSON
 
 ```json
 [
-  {"name":"name","type":"text","label":"Name","required":true},
-  {"name":"email","type":"email","label":"Email","required":true},
-  {"name":"details","type":"textarea","label":"Project details","required":true,"width":100}
+  { "name": "name", "type": "text", "label": "Name", "required": true },
+  { "name": "email", "type": "email", "label": "Email", "required": true },
+  {
+    "name": "details",
+    "type": "textarea",
+    "label": "Project details",
+    "required": true,
+    "width": 100
+  }
 ]
 ```
 
@@ -123,7 +126,6 @@ Set notification recipients on the form (comma-separated). Leave blank for stora
 **Form Submissions** lists stored responses, source path, received time and email status. Editors can mark them new, reviewed or archived. Records use `submissions.<UUID>` IDs, which require authenticated access under Sanity’s default document-path permissions. The schema uses live editing and exposes no publishing/duplicate actions or creation templates, so records keep their private IDs. Validate any future custom role changes against this requirement. The API saves before emailing; repeat requests reuse a UUID and do not create duplicate records/notifications. Failed notifications remain visible as Failed (or Pending if the status update could not complete); there is no automatic resend queue.
 
 `node scripts/check-mg2a-submission-access.mjs` creates and removes a non-personal access-check record to verify anonymous reads are denied. `npm run check:mg2a` tests form validation, trusted recipients, idempotency, storage failures and email failures using stubs. `node scripts/migrate-mg2a-forms.mjs` migrates old contact-block fields and moves the former site-wide recipient to reusable forms, with a backup in the temporary directory. Server-side `SANITY_TOKEN` must have permission to create/read/update `submissions.**`; `RESEND_API_KEY` and `MG2A_INQUIRY_FROM` configure email delivery on Vercel.
-
 
 ## Service pages and modular editing
 
@@ -139,7 +141,6 @@ Thirteen service modules extended the service library to 24 module types (now 37
 
 The 404 page is dark with generous top padding. The non-homepage header spacer now has explicit desktop/mobile heights; it previously had an unstyled class name. Production route checks cover the three service pages and missing page/blog routes. A signed-in Studio session is still required for end-to-end verification of editing and publishing through the actual editor.
 
-
 ## Editor simplification and heading inspection
 
 The module-label field and extra Page modules instructions have been removed. The insertion library has **Homepage & shared**, **Service overview**, and **Service inner** groups; shared service layouts appear in both relevant groups. The standard editor actions remain available.
@@ -147,7 +148,6 @@ The module-label field and extra Page modules instructions have been removed. Th
 Every section receives a stable `section-<key>` anchor. Nested anchors include their parent’s key so copies in different parents remain distinct. **Style → Section link** shows the generated page/fragment link with a Copy link button; no editable anchor value is needed. Renaming or reordering a section leaves its fragment unchanged. Older named anchors remain as invisible compatibility targets, including the existing navigation links. The retired anchor field is hidden to preserve those legacy links; removed module-label metadata can be cleaned with `node scripts/migrate-mg2a-module-editor.mjs`.
 
 Append `?show_heading_tags=true` to a public page URL to display red `[H1]`–`[H6]` labels beside every heading. Normal URLs display none. The client helper also labels headings added after navigation and removes its labels when the option is disabled; it does not change CMS content or stored headings.
-
 
 ## Projects, industries and survey requests
 
@@ -160,3 +160,23 @@ New module groups include **Projects**, **Industries**, and **Forms**. The libra
 **Order a Survey** is a modular page using its supplied three-group form. Its JSON form is editable under **Forms → Survey request**, including group labels, fields/options, confirmation text and notification recipients. `group` organizes fields into labeled fieldsets. Optional document fields use type `file` and `multiple: true`. PDF, JPEG, PNG and TIFF files are accepted, up to three files and 3 MB total. Client and server validate the limit; the server also checks file signatures. Submissions and document chunks commit together under authenticated-only `submissions.*` IDs. Documents never enter public Sanity file/image assets. Authenticated editors download them from **Form Submissions → Documents**. The Client Access link uses the existing global URL and remains inactive when blank.
 
 `node scripts/check-mg2a-expansion.mjs` verifies dynamic publishing and multipart/private storage using temporary non-personal fixtures, with notifications disabled and cleanup in a finally block. It checks that anonymous API users cannot read the response or document chunks and that downloaded chunks reconstruct the original bytes. No live email is sent. A signed-in Studio session is still required to exercise the actual editor download button. Enable project/page revalidation webhook events for production caches; project types are included in sitemap revalidation.
+
+## About, Team, Careers and job pages (2026-11-10)
+
+About and Careers follow their supplied HTML layouts using Tailwind modules. New library groups are **About & Team** and **Careers & Jobs**. All eleven new modules have screenshot previews, Content/Style controls, stable section links, desktop/mobile padding and scoped CSS. Existing page-builder conventions remain unchanged.
+
+**Team** is a document type with a name, slug, role, portrait, biography, optional contact details, display order, SEO and flexible page builder. URLs are `/about/{slug}` per the user’s request. Published Team records populate About automatically. Eight starter records reflect the handoff’s grid; bracketed names, titles and biographies need client content.
+
+**Open Positions** retains existing records and adds slugs, introductions, rich-text job descriptions, SEO and a flexible page builder. URLs are `/careers/{slug}`. Publishing an open position adds it to the Careers overview and homepage Careers block. Closing it removes it from those lists and sitemap, displays a closed message on its detail page and refuses new applications server-side. Careers itself has no form. Its graduate CTA leads to the current openings.
+
+The reusable **Job application** Form selects **Submission type → Job application**. Notification recipients live on that Form. Applications require a published open position that references that form; the server records the verified position title. Resume fields use `"accept": "resume"` in the JSON definition to allow PDF, DOC or DOCX. Other document fields retain PDF/image formats. The same private submission/chunk storage applies to resumes; no public Sanity assets are created. The limit remains three documents / 3 MB total. The starter application requires one resume. Email notifications contain responses; resume downloads remain in authenticated Form Submissions.
+
+`seed-mg2a-company.mjs` backs up current records and creates missing pages, starter Team records and the application Form. It fills only missing job editor fields, preserves draft/published state and updates legacy job links to canonical detail URLs. The normal MG2A seed includes this migration. New pages inherit index-enabled defaults; Site Settings retains the global noindex switch.
+
+Team and jobs are integrated with Presentation, View Page, Open in Editor, sitemap and revalidation tags. Publishing webhooks must include `mg2a_team` and `mg2a_job`, in addition to the existing page/project/form types. Signed webhook and private application storage checks are in `scripts/check-mg2a-company.mjs`; these use disposable synthetic records with email disabled and remove them afterward.
+
+The fixed-header spacer and document background are navy, preventing a light strip while the header shrinks over light pages. Industry/project detail heroes include their linked parent breadcrumb, including starter pages that use the simple Page hero. Industry listing cards contain only a heading and optional description; they have no arrows and use natural card heights.
+
+The current missing-route count and content-completion tasks are tracked in [mg2a-remaining-pages.md](./mg2a-remaining-pages.md). Refresh it with `node scripts/report-mg2a-pages.mjs` after building additional pages.
+
+Shared form select fields now use a searchable combobox built with Radix Popover and cmdk (the shadcn composition). The form still stores the JSON option values, supports `isMulti`, keeps the previous first-option default and restores defaults after a successful submission. Search, arrow keys, Enter, Escape, outside-click dismissal and selected indicators are supported. File inputs use the handoff’s dashed container and blue native file-picker button, retaining filename display and private upload behavior.

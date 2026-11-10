@@ -2,12 +2,14 @@ import { DocumentLocationResolver } from "sanity/presentation";
 import { map } from "rxjs";
 
 export const locations: DocumentLocationResolver = (params, context) => {
-  if (
-    ["mg2a_settings", "mg2a_job", "mg2a_serviceCategory"].includes(params.type)
-  ) {
+  if (["mg2a_settings", "mg2a_serviceCategory"].includes(params.type)) {
     return { locations: [{ title: "Homepage", href: "/" }] };
   }
-  if (["page", "post", "mg2a_project"].includes(params.type)) {
+  if (
+    ["page", "post", "mg2a_project", "mg2a_team", "mg2a_job"].includes(
+      params.type,
+    )
+  ) {
     const doc$ = context.documentStore.listenQuery(
       `*[_id == $id][0]{title,slug}`,
       params,
@@ -19,11 +21,14 @@ export const locations: DocumentLocationResolver = (params, context) => {
         if (!doc?.slug?.current) return null;
 
         const directory =
-          params.type === "post"
-            ? "/blog"
-            : params.type === "mg2a_project"
-              ? "/projects"
-              : "";
+          (
+            {
+              post: "/blog",
+              mg2a_project: "/projects",
+              mg2a_team: "/about",
+              mg2a_job: "/careers",
+            } as Record<string, string>
+          )[params.type] || "";
         const slug = doc.slug.current;
         const path = slug === "index" ? "/" : `/${slug}`;
 

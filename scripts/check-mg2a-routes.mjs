@@ -6,6 +6,10 @@ const origin = process.env.MG2A_TEST_ORIGIN || "http://localhost:3002";
 for (const [path, expectedStatus] of [
   ["/", 200],
   ["/services", 200],
+  ["/about", 200],
+  ["/about/jacob-gingerich", 200],
+  ["/careers", 200],
+  ["/careers/project-engineer-pe", 200],
   ["/projects", 200],
   ["/projects/bradley-commons", 200],
   ["/order-a-survey", 200],
@@ -26,6 +30,34 @@ for (const [path, expectedStatus] of [
     assert(html.includes("Site address or PIN"));
     assert(html.includes('href="#section-service-content_included"'));
   }
+  if (
+    [
+      "/industries/manufacturing",
+      "/industries/municipalities",
+      "/projects/bradley-commons",
+    ].includes(path)
+  ) {
+    const breadcrumb =
+      html.match(
+        /<nav[^>]*aria-label="Breadcrumb"[^>]*>([\s\S]*?)<\/nav>/,
+      )?.[1] || "";
+    const parent = path.startsWith("/industries/")
+      ? "/industries"
+      : "/projects";
+    assert(
+      breadcrumb.includes(`href="${parent}"`),
+      `${path}: missing parent breadcrumb`,
+    );
+  }
+  if (path === "/careers") {
+    assert(!html.includes('name="resume"'));
+    assert(html.includes('href="/careers/project-engineer-pe"'));
+  }
+  if (path === "/careers/project-engineer-pe") {
+    assert(html.includes('name="resume"'));
+    assert(html.includes(".pdf,.doc,.docx"));
+  }
+  if (path === "/about") assert(html.includes('href="/about/jacob-gingerich"'));
   assert.equal(
     response.status,
     expectedStatus,

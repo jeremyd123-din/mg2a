@@ -1,3 +1,10 @@
+import {
+  companyBlocks,
+  teamDocument,
+  profileFields,
+  jobInitialBlocks,
+} from "./company";
+import companyPages from "@/lib/mg2a/companyPages.json";
 import { expansionBlocks, projectEditorFields } from "./expansion";
 import {
   expansionExamples,
@@ -186,21 +193,25 @@ const initials = [
   contact,
   ...serviceExamples,
   ...expansionExamples,
+  ...companyPages.flatMap((p) => p.page_builder),
 ];
 export const mg2aBlocks = [
   ...generated.blocks,
   ...additional,
   ...serviceBlocks,
   ...expansionBlocks,
+  ...companyBlocks,
 ].map((block) => ({
   ...block,
   title: block.title.replace(/^MG2A - /, ""),
   _menuCategory: "mg2a",
-  _libraryGroup: expansionBlocks.some((item) => item.name === block.name)
-    ? "expansion"
-    : serviceBlocks.some((service) => service.name === block.name)
-      ? "services"
-      : "homepage",
+  _libraryGroup: companyBlocks.some((item) => item.name === block.name)
+    ? "company"
+    : expansionBlocks.some((item) => item.name === block.name)
+      ? "expansion"
+      : serviceBlocks.some((service) => service.name === block.name)
+        ? "services"
+        : "homepage",
   options: { modal: { type: "dialog", width: 1 } },
   groups: [
     { name: "content", title: "Content", default: true },
@@ -293,6 +304,7 @@ export const mg2aBlocks = [
   },
 }));
 export const mg2aDocuments = [
+  teamDocument,
   ...generated.documents
     .filter((doc) => doc.name !== "mg2a_industry")
     .map((doc) => ({
@@ -344,16 +356,19 @@ export const mg2aDocuments = [
     name: "mg2a_job",
     title: "Open Position",
     type: "document",
-    initialValue: { status: "open", order: 0 },
+    initialValue: {
+      status: "open",
+      order: 0,
+      seo_no_index: false,
+      page_builder: jobInitialBlocks,
+    },
     fields: [
       string("title", "Position title", {
         validation: required,
       }),
       string("location", "Location / employment type"),
-      string("href", "Application or detail page link", {
-        description: "Link to the position details or application page.",
-        validation: linkFields[1].validation,
-      }),
+      string("href", "Legacy link", { hidden: true }),
+      ...profileFields("job"),
       string("status", "Status", {
         initialValue: "open",
         options: {

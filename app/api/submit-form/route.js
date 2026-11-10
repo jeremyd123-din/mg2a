@@ -79,6 +79,32 @@ export async function POST(request) {
     } catch (error) {
       return reply(error.message);
     }
+    if (form.purpose === "job") {
+      if (
+        typeof input.contextId !== "string" ||
+        !/^[a-zA-Z0-9_-]{1,128}$/.test(input.contextId)
+      )
+        return reply("Choose an open position before applying.");
+      const job = await client.fetch(
+        '*[_type=="mg2a_job" && _id==$id && status=="open" && defined(slug.current)][0]{title,slug,page_builder}',
+        { id: input.contextId },
+      );
+      if (
+        !job ||
+        !job.page_builder?.some(
+          (block) =>
+            block._type === "mg2a_jobApplication" &&
+            block.form?._ref === form._id,
+        )
+      )
+        return reply("This position is not accepting applications.", 409);
+      fields.unshift({
+        _key: "job_position",
+        name: "job_position",
+        label: "Position",
+        value: job.title,
+      });
+    }
     const existing = await client.fetch("*[_id==$id][0]{form_id}", { id });
     if (existing)
       return existing.form_id === form._id

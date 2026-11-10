@@ -1,0 +1,272 @@
+[
+  {
+    "_id": "mg2a-about",
+    "_type": "page",
+    "title": "About",
+    "slug": {
+      "_type": "slug",
+      "current": "about"
+    },
+    "page_kind": "standard",
+    "page_layout": "flexible",
+    "default_theme": "light",
+    "meta_title": "About | MG2A",
+    "meta_description": "M Gingerich Gereaux & Associates is a civil engineering and surveying firm licensed in Illinois and Indiana, with offices in Bradley and Manhattan.",
+    "seo_no_index": false,
+    "page_builder": [
+      {
+        "_type": "mg2a_companyHero",
+        "_key": "hero",
+        "variant": "about",
+        "breadcrumb": "About",
+        "eyebrow": "About MG2A",
+        "title": "Civil engineers and surveyors who know this ground.",
+        "description": "M Gingerich Gereaux & Associates is a civil engineering and surveying firm licensed in Illinois and Indiana, with offices in Bradley and Manhattan.",
+        "image": {
+          "_localAsset": "mg2a-hero-poster.jpg"
+        }
+      },
+      {
+        "_type": "mg2a_companyStory",
+        "_key": "purpose",
+        "eyebrow": "Our purpose",
+        "title": "We help others build strong communities.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s",
+                "text": "MG2A provides professional services for local governments, utilities, builders, and businesses who are making our communities strong.",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s",
+                "text": "[Company history: founding year, founders, and how the firm has grown. Two or three short paragraphs from MG2A.]",
+                "marks": []
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p2",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "s",
+                "text": "Today our surveyors and engineers work side by side from two offices, serving clients from single home sites to 145-acre business parks.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "items": [
+          {
+            "_key": "n0",
+            "value": "[XX]",
+            "title": "Years serving the region"
+          },
+          {
+            "_key": "n1",
+            "value": "[XX]",
+            "title": "Engineers, surveyors & staff"
+          },
+          {
+            "_key": "n2",
+            "value": "[XX]",
+            "title": "Licensed PEs and PLSs"
+          },
+          {
+            "_key": "n3",
+            "value": "2",
+            "title": "Offices in Bradley and Manhattan"
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_companyFeatures",
+        "_key": "features",
+        "title": "The depth of a regional firm. The attention of a local one.",
+        "variant": "columns",
+        "items": [
+          {
+            "_key": "card0",
+            "title": "Surveyors and engineers under one roof",
+            "description": "Field crews and design engineers coordinate directly, so the plan matches conditions on the ground."
+          },
+          {
+            "_key": "card1",
+            "title": "Trusted by local government",
+            "description": "Appointed civil engineer for the Villages of Bourbonnais and Bradley, with municipal and utility clients across the region."
+          },
+          {
+            "_key": "card2",
+            "title": "Licensed in Illinois and Indiana",
+            "description": "Close to the sites, reviewers, and communities we work with every day."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_teamGrid",
+        "_key": "team",
+        "eyebrow": "Our team",
+        "title": "The people behind the plans",
+        "link": {
+          "label": "Join the team",
+          "href": "/careers"
+        }
+      },
+      {
+        "_type": "mg2a_clientList",
+        "_key": "clients",
+        "eyebrow": "Selected clients",
+        "title": "From village halls to national brands",
+        "items": [
+          "Village of Bourbonnais",
+          "Village of Bradley",
+          "Aqua Illinois",
+          "CSL Behring",
+          "Nucor Steel",
+          "IKO",
+          "Peddinghaus",
+          "Kohl’s",
+          "Menards",
+          "Curwick Home Builders",
+          "Jennings Realty",
+          "Kankakee County"
+        ]
+      },
+      {
+        "_type": "mg2a_offices",
+        "_key": "offices",
+        "eyebrow": "Offices",
+        "title": "Two offices, close to your site"
+      },
+      {
+        "_type": "mg2a_ctaBanner",
+        "_key": "careers",
+        "title": "Build the communities you know.",
+        "description": "We're hiring civil engineers, surveyors, and recent graduates.",
+        "buttonOne": {
+          "label": "See open positions",
+          "href": "/careers"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "mg2a-careers",
+    "_type": "page",
+    "title": "Careers",
+    "slug": {
+      "_type": "slug",
+      "current": "careers"
+    },
+    "page_kind": "standard",
+    "page_layout": "flexible",
+    "default_theme": "light",
+    "meta_title": "Careers | MG2A",
+    "meta_description": "Civil engineering and surveying careers in Illinois, on projects your neighbors use every day. Licensed PEs, EITs, surveyors, and recent graduates are welcome.",
+    "seo_no_index": false,
+    "page_builder": [
+      {
+        "_type": "mg2a_companyHero",
+        "_key": "hero",
+        "variant": "careers",
+        "breadcrumb": "Careers",
+        "eyebrow": "Careers at MG2A",
+        "title": "Build the communities you know.",
+        "description": "Civil engineering and surveying careers in Illinois, on projects your neighbors use every day. Licensed PEs, EITs, surveyors, and recent graduates are welcome.",
+        "buttonOne": {
+          "label": "View open positions",
+          "href": "#section-positions"
+        },
+        "asideTitle": "Who we're hiring",
+        "asideItems": [
+          "Professional Engineers (PE)",
+          "Engineers in Training (EIT)",
+          "Professional Land Surveyors (PLS)",
+          "Survey field crew",
+          "Civil engineering graduates"
+        ]
+      },
+      {
+        "_type": "mg2a_companyFeatures",
+        "_key": "features",
+        "title": "Big-firm projects, small-firm attention",
+        "eyebrow": "Why MG2A",
+        "variant": "cards",
+        "items": [
+          {
+            "_key": "card0",
+            "title": "See the whole project",
+            "description": "Surveyors and engineers work side by side, so you learn how a site goes from first boundary line to final record drawing."
+          },
+          {
+            "_key": "card1",
+            "title": "Work close to home",
+            "description": "Offices in Bradley and Manhattan, with projects across Kankakee and Will Counties."
+          },
+          {
+            "_key": "card2",
+            "title": "Grow toward your license",
+            "description": "Work under licensed PEs and PLSs on real projects. [MG2A to describe mentoring and exam support.]"
+          },
+          {
+            "_key": "card3",
+            "title": "Work you can drive past",
+            "description": "Village streets, sewer systems, neighborhoods, and business parks in the communities where you live."
+          }
+        ]
+      },
+      {
+        "_type": "mg2a_benefits",
+        "_key": "benefits",
+        "eyebrow": "Benefits",
+        "title": "What you get",
+        "description": "Benefit details to be confirmed by MG2A.",
+        "items": [
+          "[Health, dental, and vision]",
+          "[Retirement plan]",
+          "[Paid time off]",
+          "[License and exam support]",
+          "[Continuing education]",
+          "[Schedule flexibility]"
+        ]
+      },
+      {
+        "_type": "mg2a_jobList",
+        "_key": "positions",
+        "eyebrow": "Open positions",
+        "title": "Current openings",
+        "emptyMessage": "There are no open positions at the moment. Please check back soon."
+      },
+      {
+        "_type": "mg2a_graduateCta",
+        "_key": "graduates",
+        "eyebrow": "Students and new grads",
+        "title": "Finishing a civil engineering degree?",
+        "description": "Start your career on real projects with engineers and surveyors who will help you work toward your PE. [Internship details, if offered.]",
+        "link": {
+          "label": "View graduate opportunities",
+          "href": "#section-positions"
+        }
+      }
+    ]
+  }
+]

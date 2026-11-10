@@ -49,6 +49,70 @@ async function main() {
       "Renderer missing: " + block._type,
     );
   }
+  const { renderToStaticMarkup: renderCompany } = require("react-dom/server");
+  const ReactCompany = require("react");
+  const breadcrumbHtml = renderCompany(
+    ReactCompany.createElement(registry.mg2a_pageHero, {
+      data: {
+        _type: "mg2a_pageHero",
+        _key: "hero",
+        title: "Manufacturing",
+        breadcrumbParent: { label: "Industries", href: "/industries" },
+      },
+    }),
+  );
+  assert(breadcrumbHtml.includes('href="/industries"'));
+  const cardsHtml = renderCompany(
+    ReactCompany.createElement(registry.mg2a_industryListing, {
+      data: {
+        _type: "mg2a_industryListing",
+        _key: "industries",
+        title: "Industries",
+        industries: [
+          {
+            _id: "industry",
+            label: "Manufacturing",
+            href: "/industries/manufacturing",
+            listing_summary: "Facilities and infrastructure.",
+          },
+        ],
+      },
+    }),
+  );
+  assert(cardsHtml.includes("Facilities and infrastructure."));
+  assert(!cardsHtml.includes("→"), "Industry cards must not show arrows");
+  const Combo = load("components/mg2a/ui/FormCombobox.jsx").default;
+  const comboMarkup = renderCompany(
+    ReactCompany.createElement(Combo, {
+      id: "survey-type",
+      field: {
+        name: "type",
+        label: "Survey type",
+        options: [
+          { label: "Not sure yet", value: "unsure" },
+          { label: "Boundary Survey", value: "boundary" },
+        ],
+      },
+    }),
+  );
+  assert(comboMarkup.includes('role="combobox"'));
+  assert(comboMarkup.includes('name="type" value="unsure"'));
+  assert(!comboMarkup.includes("<select"));
+  const multiMarkup = renderCompany(
+    ReactCompany.createElement(Combo, {
+      id: "multi",
+      field: {
+        name: "types",
+        label: "Services",
+        isMulti: true,
+        options: [{ label: "Boundary", value: "boundary" }],
+      },
+    }),
+  );
+  assert(
+    !multiMarkup.includes('name="types" value=""'),
+    "Empty multiple selections must serialize as an empty array",
+  );
   const { primaryNavigation, serviceGroups, industryLinks, launchRoutes } =
     load("lib/mg2a/navigation.js");
   assert.deepEqual(
@@ -67,7 +131,7 @@ async function main() {
   assert(!JSON.stringify(serviceGroups).includes("as-built-survey"));
   const pageType = types.find((t) => t.name === "page");
   const members = pageType.fields.find((f) => f.name === "page_builder").of;
-  assert.equal(members.length, 37);
+  assert.equal(members.length, 48);
   const fs = require("node:fs");
   for (const member of members) {
     const file = `public/mg2a/block-previews/${member.type}.jpg`;
@@ -132,7 +196,7 @@ async function main() {
       .fields.some((field) => field.name === "offices"),
   );
   assert(
-    members.length === 37 &&
+    members.length === 48 &&
       pageType.fields
         .find((field) => field.name === "page_builder")
         .options.insertMenu.views.some((view) => view.name === "grid"),
@@ -385,6 +449,71 @@ async function main() {
       "submissions.test",
     ),
   );
+  const resumeFields = parseFields(
+    JSON.stringify([
+      {
+        name: "resume",
+        label: "Resume",
+        type: "file",
+        required: true,
+        accept: "resume",
+      },
+    ]),
+  );
+  const resumeUpload = async (bytes, name) =>
+    prepareAttachments(
+      [{ field: "resume", file: new File([bytes], name) }],
+      resumeFields,
+      "submissions.resume",
+    );
+  assert.equal(
+    (await resumeUpload(Buffer.from("%PDF-1.4 resume"), "resume.pdf"))
+      .attachments[0].mime,
+    "application/pdf",
+  );
+  const legacy = Buffer.concat([
+    Buffer.from([208, 207, 17, 224, 161, 177, 26, 225]),
+    Buffer.from("WordDocument", "utf16le"),
+  ]);
+  assert.equal(
+    (await resumeUpload(legacy, "resume.doc")).attachments[0].mime,
+    "application/msword",
+  );
+  const directory = (names) =>
+    Buffer.concat([
+      Buffer.from([80, 75, 3, 4]),
+      ...names.map((name) => {
+        const head = Buffer.alloc(46);
+        head.writeUInt32LE(0x02014b50);
+        head.writeUInt16LE(Buffer.byteLength(name), 28);
+        return Buffer.concat([head, Buffer.from(name)]);
+      }),
+    ]);
+  assert.equal(
+    (
+      await resumeUpload(
+        directory(["[Content_Types].xml", "word/document.xml"]),
+        "resume.docx",
+      )
+    ).attachments[0].mime,
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  );
+  await assert.rejects(() =>
+    resumeUpload(directory(["xl/workbook.xml"]), "resume.docx"),
+  );
+  await assert.rejects(() =>
+    resumeUpload(Buffer.from("not Word"), "resume.doc"),
+  );
+  await assert.rejects(() =>
+    prepareAttachments(
+      [{ field: "docs", file: new File([legacy], "resume.doc") }],
+      fileDefinition,
+      "submissions.resume",
+    ),
+  );
+  await assert.rejects(() =>
+    prepareAttachments([], resumeFields, "submissions.resume"),
+  );
   const { inquiryForm } = load("lib/forms/defaults.js");
   const fields = parseFields(inquiryForm.form_fields);
   assert.throws(() => parseFields({ code: "[{name:'x'}]" }));
@@ -577,6 +706,29 @@ async function main() {
     2,
     "Do not email a submission that failed to save",
   );
+  failStorage = false;
+  form.purpose = "job";
+  const application = {
+    ...input,
+    requestId: "52345678-1234-4234-8234-123456789abc",
+    contextId: "mg2a-test-job",
+  };
+  assert.equal(
+    (await handler(request({ ...application, contextId: undefined }))).status,
+    400,
+  );
+  assert.equal((await handler(request(application))).status, 409);
+  docs.set("mg2a-test-job", {
+    title: "Approved position",
+    page_builder: [{ _type: "mg2a_jobApplication", form: { _ref: form._id } }],
+  });
+  assert.equal((await handler(request(application))).status, 200);
+  assert.equal(
+    docs.get(`submissions.${application.requestId}`).fields[0].value,
+    "Approved position",
+  );
+  docs.delete("mg2a-test-job");
+  form.purpose = "general";
   missingForm = true;
   assert.equal((await handler(request(input))).status, 404);
   assert(

@@ -3,8 +3,10 @@ import { safeHref } from "./helpers";
 
 import { useState, useId, useRef } from "react";
 import { stegaClean } from "next-sanity";
-import { parseFields } from "@/lib/forms/definition";
+import FormCombobox from "./FormCombobox";
+import { parseFields, validateValues } from "@/lib/forms/definition";
 export default function InquiryForm({ data, appearance = "panel" }) {
+  const [resetKey, setResetKey] = useState(0);
   const [status, setStatus] = useState("idle");
   const id = useId();
   const requestId = useRef(null);
@@ -37,8 +39,10 @@ export default function InquiryForm({ data, appearance = "panel" }) {
     );
     requestId.current ||= crypto.randomUUID();
     try {
+      validateValues(fields, values);
       const payload = {
         formId: definition._id,
+        contextId: stegaClean(data.contextId),
         requestId: requestId.current,
         values,
         website: formData.get("website"),
@@ -77,6 +81,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
         );
       setStatus("success");
       form.reset();
+      setResetKey((key) => key + 1);
       requestId.current = null;
     } catch (error) {
       setErrorMessage(error.message);
@@ -144,8 +149,8 @@ export default function InquiryForm({ data, appearance = "panel" }) {
               type="file"
               required={field.required}
               multiple={field.multiple}
-              accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff"
-              className="h-auto! border-dashed! p-3!"
+              accept={field.accept}
+              className="h-auto! border-dashed! p-3! text-[var(--muted)]! file:mr-3.5 file:cursor-pointer file:rounded file:border-0 file:bg-[#1b4f72] file:px-[18px] file:py-2.5 file:font-[family-name:var(--font-sans)] file:text-sm file:font-semibold file:text-white hover:file:bg-[#153f5b]"
             />
             <span className="text-xs font-normal text-[var(--muted)]">
               Up to 3 documents, 3 MB total.
@@ -161,23 +166,25 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             value={field.defaultValue || ""}
           />
         );
+      if (field.type === "select")
+        return (
+          <div
+            key={field.name}
+            className={"flex min-w-0 flex-col gap-2 " + wide}
+          >
+            <label htmlFor={fieldId}>{field.label}</label>
+            <FormCombobox
+              key={`${resetKey}-${field.name}`}
+              field={field}
+              id={fieldId}
+            />
+          </div>
+        );
       return (
         <label key={field.name} htmlFor={fieldId} className={wide}>
           {field.label}
           {field.type === "textarea" ? (
             <textarea {...common} rows={4} />
-          ) : field.type === "select" ? (
-            <select
-              {...common}
-              multiple={field.isMulti}
-              defaultValue={field.isMulti ? [] : undefined}
-            >
-              {field.options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
           ) : (
             <input
               {...common}
@@ -209,7 +216,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
           : appearance === "plain"
             ? "border-0! bg-transparent! p-0! gap-[18px]! flex-[999_1_460px]! "
             : "") +
-        "mg-inquiry flex-[999_1_480px] min-w-[0] grid [grid-template-columns:repeat(auto-fit,_minmax(min(100%,_220px),_1fr))] gap-[20px] p-[36px] [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [&_label]:flex [&_label]:flex-col [&_label]:gap-[8px] [&_label]:text-[14px] [&_label]:font-semibold [&_input]:min-h-[48px] [&_input]:min-w-[0] [&_input]:w-[100%] [&_input]:p-[0_14px] [&_input]:font-[400] [&_input]:[color:var(--ink)] [&_input]:[background:var(--bg)] [&_input]:[border:1px_solid_var(--line)] [&_input]:rounded-[4px] [&_select]:min-h-[48px] [&_select]:min-w-[0] [&_select]:w-[100%] [&_select]:p-[0_14px] [&_select]:font-[400] [&_select]:[color:var(--ink)] [&_select]:[background:var(--bg)] [&_select]:[border:1px_solid_var(--line)] [&_select]:rounded-[4px] [&_textarea]:min-h-[48px] [&_textarea]:min-w-[0] [&_textarea]:w-[100%] [&_textarea]:p-[12px_14px] [&_textarea]:font-[400] [&_textarea]:[color:var(--ink)] [&_textarea]:[background:var(--bg)] [&_textarea]:[border:1px_solid_var(--line)] [&_textarea]:rounded-[4px] [&_textarea]:[resize:vertical] [&_button]:[border:0]"
+        "mg-inquiry flex-[999_1_480px] min-w-[0] grid [grid-template-columns:repeat(auto-fit,_minmax(min(100%,_220px),_1fr))] gap-[20px] p-[36px] [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [&_label]:flex [&_label]:flex-col [&_label]:gap-[8px] [&_label]:text-[14px] [&_label]:font-semibold [&_input]:min-h-[48px] [&_input]:min-w-[0] [&_input]:w-[100%] [&_input]:p-[0_14px] [&_input]:font-[400] [&_input]:[color:var(--ink)] [&_input]:[background:var(--bg)] [&_input]:[border:1px_solid_var(--line)] [&_input]:rounded-[4px] [&_select]:min-h-[48px] [&_select]:min-w-[0] [&_select]:w-[100%] [&_select]:p-[0_14px] [&_select]:font-[400] [&_select]:[color:var(--ink)] [&_select]:[background:var(--bg)] [&_select]:[border:1px_solid_var(--line)] [&_select]:rounded-[4px] [&_textarea]:min-h-[48px] [&_textarea]:min-w-[0] [&_textarea]:w-[100%] [&_textarea]:p-[12px_14px] [&_textarea]:font-[400] [&_textarea]:[color:var(--ink)] [&_textarea]:[background:var(--bg)] [&_textarea]:[border:1px_solid_var(--line)] [&_textarea]:rounded-[4px] [&_textarea]:[resize:vertical]"
       }
       onSubmit={submit}
     >

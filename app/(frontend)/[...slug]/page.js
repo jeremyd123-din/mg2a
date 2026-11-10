@@ -44,6 +44,8 @@ export const generateMetadata = async ({ params }) => {
   if (!data) return {};
   return await getMetaData(
     data,
-    data._type === "mg2a_project" ? "projects" : undefined,
+    { mg2a_project: "projects", mg2a_team: "about", mg2a_job: "careers" }[
+      data._type
+    ],
   );
 };

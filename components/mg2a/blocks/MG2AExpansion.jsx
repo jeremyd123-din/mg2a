@@ -23,20 +23,32 @@ function Icon({ name }) {
     />
   ) : null;
 }
+function HeroBreadcrumb({ data, parent }) {
+  const ancestor = data.breadcrumbParent || parent;
+  return (
+    <nav
+      aria-label="Breadcrumb"
+      className={mono + " flex flex-wrap gap-2.5 text-[11px] text-[#b4c2cc]"}
+    >
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      {ancestor && (
+        <>
+          <a href={safeHref(ancestor.href)}>{ancestor.label}</a>
+          <span aria-hidden="true">/</span>
+        </>
+      )}
+      <span aria-current="page">{data.breadcrumb || data.title}</span>
+    </nav>
+  );
+}
 export function MG2APageHero({ data }) {
   return (
     <ServiceFrame
       data={data}
       className="bg-[#0b1822] text-[#f1efea] pt-14 pb-16"
     >
-      <nav
-        aria-label="Breadcrumb"
-        className={mono + " flex gap-2.5 text-[11px] text-[#9fb0bc]"}
-      >
-        <a href="/">Home</a>
-        <span>/</span>
-        <span aria-current="page">{data.breadcrumb || data.title}</span>
-      </nav>
+      <HeroBreadcrumb data={data} />
       <h1 className="mt-9 text-[clamp(40px,5vw,66px)] leading-[1.03] font-bold tracking-[-.025em]">
         {data.title}
       </h1>
@@ -73,20 +85,14 @@ export function MG2AProjectHero({ data }) {
         }
       />
       <div className={serviceWrap + " relative pt-12 pb-14"}>
-        <nav
-          aria-label="Breadcrumb"
-          className={
-            mono + " flex flex-wrap gap-2.5 text-[11px] text-[#c2d0da]"
+        <HeroBreadcrumb
+          data={data}
+          parent={
+            industry
+              ? { label: "Industries", href: "/industries" }
+              : { label: "Projects", href: "/projects" }
           }
-        >
-          <a href="/">Home</a>
-          <span>/</span>
-          <a href={industry ? "/industries" : "/projects"}>
-            {industry ? "Industries" : "Projects"}
-          </a>
-          <span>/</span>
-          <span aria-current="page">{data.breadcrumb || data.title}</span>
-        </nav>
+        />
         <div
           className={
             mono +
@@ -336,7 +342,7 @@ export function MG2AIndustryListing({ data }) {
       </h2>
       <div
         className={
-          "grid gap-x-8 " +
+          "grid items-start gap-x-8 " +
           (data.compact
             ? "grid-cols-[repeat(auto-fill,minmax(min(100%,240px),1fr))]"
             : "grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-y-5")
@@ -358,9 +364,6 @@ export function MG2AIndustryListing({ data }) {
                 {item.listing_summary}
               </p>
             )}
-            <span aria-hidden="true" className="text-[var(--accent)]">
-              →
-            </span>
           </a>
         ))}
       </div>

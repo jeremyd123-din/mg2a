@@ -122,3 +122,5 @@ console.log(
 
 // Complete dynamic project pages and migrate industry links into Pages.
 await import("./seed-mg2a-expansion.mjs");
+
+await import("./seed-mg2a-company.mjs");

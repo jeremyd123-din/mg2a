@@ -58,7 +58,7 @@ export default async function RootLayout({ children }) {
   };
   return (
     <html
-      className="scroll-pt-[84px] scroll-smooth motion-reduce:scroll-auto"
+      className="bg-[#0b1822] scroll-pt-[84px] scroll-smooth motion-reduce:scroll-auto"
       lang="en"
       data-theme={theme}
       data-orange={stegaClean(settings.orange) || "orange"}
@@ -93,7 +93,7 @@ export default async function RootLayout({ children }) {
         >
           {pathname !== "/" && (
             <div
-              className="h-[125px] [@media(max-width:980px)]:h-[84px]"
+              className="bg-[#0b1822] h-[125px] [@media(max-width:980px)]:h-[84px]"
               aria-hidden="true"
             />
           )}

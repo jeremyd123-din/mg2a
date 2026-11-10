@@ -12,7 +12,13 @@ export default function SectionLinkInput(props) {
     slug === "index" && type !== "mg2a_project"
       ? "/"
       : slug
-        ? "/" + (type === "mg2a_project" ? "projects/" : "") + slug
+        ? "/" +
+          ({
+            mg2a_project: "projects/",
+            mg2a_team: "about/",
+            mg2a_job: "careers/",
+          }[type] || "") +
+          slug
         : "";
   const link = anchor ? `${path}#${anchor}` : "";
   return (

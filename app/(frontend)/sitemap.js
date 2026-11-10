@@ -11,10 +11,10 @@ export default async function sitemap() {
   const allPages = await fetchSanity(
     groq`{
         'pages': *[
-            _type in ['page','mg2a_project'] &&
-            seo_no_index != true && ${QUERY_omitDrafts} 
+            _type in ['page','mg2a_project','mg2a_team','mg2a_job'] &&
+            (_type != "mg2a_job" || status == "open") && defined(slug.current) && seo_no_index != true && ${QUERY_omitDrafts}
         ]|order(slug.current){
-            'slug': select(_type=='mg2a_project'=>'projects/'+slug.current,slug.current),
+            'slug': select(_type=='mg2a_project'=>'projects/'+slug.current,_type=='mg2a_team'=>'about/'+slug.current,_type=='mg2a_job'=>'careers/'+slug.current,slug.current),
             'lastModified': _updatedAt,
         },
         'posts': *[_type == 'post' && seo_no_index != true && ${QUERY_omitDrafts}]|order(_updatedAt desc){
