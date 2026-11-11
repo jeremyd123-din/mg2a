@@ -1,12 +1,10 @@
 # MG2A remaining pages
 
-Updated 2026-11-10. **27 routes remain to build**: 8 core/system pages, 17 service pages and 2 project pages. Recommended-later sitemap destinations are excluded.
+Updated 2026-11-11. **25 routes remain to build**: 6 core/system pages, 17 service pages and 2 project pages. Recommended-later sitemap destinations are excluded.
 
-## Core and system pages (8)
+## Core and system pages (6)
 
 - [ ] Service Areas — `/locations`
-- [ ] Contact — `/contact`
-- [ ] Privacy Policy — `/privacy-policy`
 - [ ] Kankakee County — `/locations/kankakee-county`
 - [ ] Will County — `/locations/will-county`
 - [ ] project-inquiry — `/thank-you/project-inquiry`

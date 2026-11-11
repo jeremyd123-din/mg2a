@@ -14,11 +14,11 @@
     "description": "Civil engineering, surveying, and infrastructure services for local governments, utilities, builders, and businesses across Illinois and Indiana.",
     "buttonOne": {
       "label": "Explore Services",
-      "href": "#services"
+      "href": "/services"
     },
     "buttonTwo": {
       "label": "View Our Work",
-      "href": "#projects"
+      "href": "/projects"
     },
     "trustStatement": "Appointed civil engineer for the <strong>Village of Bourbonnais</strong> and the <strong>Village of Bradley</strong>"
   },
@@ -39,7 +39,7 @@
       {
         "_key": "paths1",
         "_type": "pathsItem",
-        "href": "#services",
+        "href": "/services#services-list",
         "eyebrow": "Development",
         "text": "I'm planning a site or subdivision",
         "text2": "Site plans, engineering, stormwater, and permitting.",
@@ -140,7 +140,7 @@
         "_ref": "mg2a_serviceCategory-cost-estimation"
       }
     ],
-    "href2": "/#contact",
+    "href2": "/contact",
     "eyebrow2": "Not sure where to start?",
     "title2": "Tell us about your site. We'll scope the right services.",
     "text": "Talk to an engineer"
@@ -197,7 +197,7 @@
     "title": "Projects across Kankakee and Will Counties.",
     "href": "/projects",
     "label": "View all projects",
-    "href2": "/industries/municipalities",
+    "href2": "/projects/local-road-improvements",
     "image": {
       "_localAsset": "streets-paving.jpg"
     },

@@ -134,7 +134,7 @@
         "breadcrumb": "Municipalities",
         "buttonOne": {
           "label": "Talk to our municipal team",
-          "href": "/#contact"
+          "href": "/contact"
         },
         "buttonTwo": {
           "label": "See our programs",
@@ -291,7 +291,7 @@
         "description": "Tell us what your staff is working on. We'll follow up within one business day.",
         "buttonOne": {
           "label": "Start a conversation",
-          "href": "/#contact"
+          "href": "/contact"
         },
         "buttonTwo": {
           "label": "(815) 939-4921",

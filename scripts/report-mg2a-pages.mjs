@@ -40,7 +40,7 @@ try {
     "\n\n";
   fs.writeFileSync(
     "docs/mg2a-remaining-pages.md",
-    `# MG2A remaining pages\n\nUpdated 2026-11-10. **${remaining.length} routes remain to build**: ${core.length} core/system pages, ${services.length} service pages and ${projects.length} project pages. Recommended-later sitemap destinations are excluded.\n\n` +
+    `# MG2A remaining pages\n\nUpdated ${new Date().toISOString().slice(0, 10)}. **${remaining.length} routes remain to build**: ${core.length} core/system pages, ${services.length} service pages and ${projects.length} project pages. Recommended-later sitemap destinations are excluded.\n\n` +
       group("Core and system pages", core) +
       group("Service pages using the existing modules", services) +
       group("Project pages using the existing template", projects) +

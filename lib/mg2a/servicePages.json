@@ -43,7 +43,7 @@
         ],
         "buttonOne": {
           "label": "Talk to an engineer",
-          "href": "/#contact"
+          "href": "/contact"
         },
         "buttonTwo": {
           "label": "See our services",
@@ -149,7 +149,7 @@
         ],
         "audienceLink": {
           "label": "Industries we serve",
-          "href": "/industries/municipalities"
+          "href": "/industries"
         }
       },
       {
@@ -164,7 +164,7 @@
             "_key": "item0",
             "title": "Preliminary Stormwater Planning",
             "description": "Early sizing of detention and drainage so your concept plan and budget reflect real stormwater needs before you commit to a layout.",
-            "href": "/services/water-resources/stormwater-management-plans#overview",
+            "href": "/services/water-resources/stormwater-management-plans#section-service-content_overview",
             "featured": false,
             "label": "Learn more"
           },
@@ -327,7 +327,7 @@
         "description": "Tell us about your site and we'll scope the right water resources services for your timeline.",
         "buttonOne": {
           "label": "Start a Project",
-          "href": "/#contact"
+          "href": "/contact"
         },
         "buttonTwo": {
           "label": "Order a Survey",
@@ -703,7 +703,7 @@
         ],
         "buttonOne": {
           "label": "Talk to an engineer",
-          "href": "/#contact"
+          "href": "/contact"
         },
         "buttonTwo": {
           "label": "Explore services",
@@ -788,7 +788,7 @@
         "description": "Tell us about your site and we’ll scope the right services for your project.",
         "buttonOne": {
           "label": "Start a Project",
-          "href": "/#contact"
+          "href": "/contact"
         },
         "buttonTwo": {
           "label": "Order a Survey",
