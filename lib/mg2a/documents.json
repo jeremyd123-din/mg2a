@@ -363,7 +363,9 @@
         "text": "IDNR and IEPA permits"
       }
     ],
-    "_id": "mg2a_project-the-courtyards-at-cobblestone"
+    "_id": "mg2a_project-the-courtyards-at-cobblestone",
+    "cardImagePosition": "50% 70%",
+    "cardTone": "water"
   },
   {
     "_type": "mg2a_industry",

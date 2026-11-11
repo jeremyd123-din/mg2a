@@ -11,7 +11,7 @@ import {
   Arrow,
 } from "../ui/ServiceUI";
 import MG2ASection from "../ui/MG2ASection";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
 import InlineText from "../ui/InlineText";
 import InquiryForm from "../ui/InquiryForm";
 import icons from "@/lib/mg2a/industryIcons.json";
@@ -19,17 +19,22 @@ const num = (i) => String(i + 1).padStart(2, "0");
 function Icon({ name }) {
   return icons[stegaClean(name)] ? (
     <span
-      className="block h-10 w-10 [&_svg]:h-full [&_svg]:w-full"
+      className="block [&_svg]:block"
       dangerouslySetInnerHTML={{ __html: icons[stegaClean(name)] }}
     />
   ) : null;
 }
-function HeroBreadcrumb({ data, parent }) {
+function HeroBreadcrumb({
+  data,
+  parent,
+  color = "text-[#9fb0bc]",
+  current = "text-[#f1efea]",
+}) {
   const ancestor = data.breadcrumbParent || parent;
   return (
     <nav
       aria-label="Breadcrumb"
-      className={mono + " flex flex-wrap gap-2.5 text-[11px] text-[#b4c2cc]"}
+      className={mono + " flex flex-wrap gap-2.5 text-[11px] " + color}
     >
       <a href="/">Home</a>
       <span aria-hidden="true">/</span>
@@ -39,7 +44,9 @@ function HeroBreadcrumb({ data, parent }) {
           <span aria-hidden="true">/</span>
         </>
       )}
-      <span aria-current="page">{data.breadcrumb || data.title}</span>
+      <span aria-current="page" className={current}>
+        {data.breadcrumb || data.title}
+      </span>
     </nav>
   );
 }
@@ -67,27 +74,40 @@ export function MG2AProjectHero({ data }) {
     <MG2ASection
       data={data}
       className={
-        "flex flex-col justify-end overflow-hidden bg-[#0e2c42] text-white " +
-        (industry ? "" : "min-h-[560px]")
+        "flex flex-col justify-end overflow-hidden " +
+        (industry
+          ? "bg-[#0b1822] text-[#f1efea]"
+          : "min-h-[560px] bg-[#0e2c42] text-white")
       }
     >
       <img
         src={mediaUrl(data.image)}
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 h-full w-full object-cover object-[50%_40%]"
+        className={
+          "absolute inset-0 h-full w-full object-cover " +
+          (industry ? "object-[60%_55%]" : "object-[50%_40%]")
+        }
       />
       <div
         aria-hidden="true"
         className={
           industry
-            ? "absolute inset-0 bg-[linear-gradient(90deg,rgba(11,24,34,.96),rgba(11,24,34,.80)_60%,rgba(11,24,34,.45))]"
+            ? "absolute inset-0 bg-[linear-gradient(90deg,rgba(11,24,34,.95),rgba(11,24,34,.80)_45%,rgba(11,24,34,.35))]"
             : "absolute inset-0 bg-[linear-gradient(180deg,rgba(11,24,34,.82)_0%,rgba(11,24,34,.6)_30%,rgba(11,24,34,.72)_60%,rgba(11,24,34,.96)_100%)]"
         }
       />
-      <div className={serviceWrap + " relative pt-12 pb-14"}>
+      <div
+        className={
+          serviceWrap +
+          " relative " +
+          (industry ? "pt-14 pb-24" : "pt-12 pb-14")
+        }
+      >
         <HeroBreadcrumb
           data={data}
+          color={industry ? "text-[#b4c2cc]" : "text-[#c2d0da]"}
+          current={industry ? "text-[#f1efea]" : "text-white"}
           parent={
             industry
               ? { label: "Industries", href: "/industries" }
@@ -97,23 +117,31 @@ export function MG2AProjectHero({ data }) {
         <div
           className={
             mono +
-            " text-xs text-[var(--onDark)] " +
-            (industry ? "mt-11" : "mt-40")
+            " text-[12px] text-[var(--onDark)] " +
+            (industry ? "mt-11 flex items-center gap-3.5" : "mt-40")
           }
         >
+          {industry && (
+            <span className="inline-block h-px w-9 bg-[var(--accentHi)]" />
+          )}
           {data.eyebrow}
         </div>
         <h1
           className={
-            "mt-4 font-bold leading-[1.02] tracking-[-.025em] " +
+            "font-bold tracking-[-.025em] " +
             (industry
-              ? "max-w-[760px] text-[clamp(40px,5vw,66px)]"
-              : "max-w-[860px] text-[clamp(40px,5.2vw,72px)]")
+              ? "mt-5 max-w-[760px] text-[clamp(40px,5vw,66px)] leading-[1.03]"
+              : "mt-4 max-w-[860px] text-[clamp(40px,5.2vw,72px)] leading-[1.02]")
           }
         >
           {data.title}
         </h1>
-        <p className="mt-[18px] max-w-[640px] text-[clamp(17px,1.5vw,20px)] leading-[1.55] text-[#d7dee3]">
+        <p
+          className={
+            "text-[clamp(17px,1.5vw,20px)] leading-[1.55] text-[#d7dee3] " +
+            (industry ? "mt-[22px] max-w-[600px]" : "mt-[18px] max-w-[640px]")
+          }
+        >
           {data.description}
         </p>
         {industry && (
@@ -123,8 +151,26 @@ export function MG2AProjectHero({ data }) {
               <ServiceButton link={data.buttonTwo} secondary />
             </div>
             {data.trustStatement && (
-              <div className="mt-14 max-w-[700px] border-t border-white/18 pt-[22px] text-[15px] leading-[1.5] text-[#d7dee3]">
-                <InlineText value={data.trustStatement} />
+              <div className="mt-14 flex max-w-[700px] items-center gap-3.5 border-t border-white/18 pt-[22px]">
+                <svg
+                  aria-hidden="true"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0 stroke-[var(--accentHi)]"
+                >
+                  <path d="M4 11L14 5L24 11" />
+                  <path d="M5 11H23" />
+                  <path d="M8 14V21M12 14V21M16 14V21M20 14V21" />
+                  <path d="M4 23.5H24" />
+                </svg>
+                <p className="text-[15px] leading-[1.5] text-[#d7dee3] [&_strong]:font-semibold [&_strong]:text-white [&_strong]:whitespace-nowrap">
+                  <InlineText value={data.trustStatement} />
+                </p>
               </div>
             )}
           </>
@@ -145,7 +191,7 @@ export function MG2AProjectFacts({ data }) {
             <dt className={mono + " text-[10px] text-[var(--muted)]"}>
               {item.label}
             </dt>
-            <dd className="mt-2 text-base leading-[1.4] font-semibold">
+            <dd className="mt-2 text-[16px] leading-[1.4] font-semibold">
               {item.value}
             </dd>
           </div>
@@ -157,7 +203,9 @@ export function MG2AProjectFacts({ data }) {
 export function MG2AProjectStats({ data }) {
   return (
     <ServiceFrame data={data} className="pt-20 pb-6">
-      <div className={mono + " text-xs text-[var(--accent)]"}>{data.title}</div>
+      <div className={mono + " text-[12px] text-[var(--accent)]"}>
+        {data.title}
+      </div>
       <div className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-6">
         {data.items?.map((item, i) => (
           <div
@@ -170,7 +218,7 @@ export function MG2AProjectStats({ data }) {
             <div className="text-[clamp(48px,5vw,64px)] leading-none font-bold tracking-[-.03em]">
               {item.value}
             </div>
-            <div className="mt-2.5 text-base text-[var(--muted)]">
+            <div className="mt-2.5 text-[16px] text-[var(--muted)]">
               {item.label}
             </div>
           </div>
@@ -197,7 +245,7 @@ export function MG2AProjectStory({ data }) {
                 {data.scope.map((item, i) => (
                   <li
                     key={i}
-                    className="flex gap-4 border-b border-[var(--line)] py-4 text-base"
+                    className="flex gap-4 border-b border-[var(--line)] py-4 text-[16px]"
                   >
                     <span aria-hidden="true" className="text-[var(--accent)]">
                       →
@@ -213,7 +261,7 @@ export function MG2AProjectStory({ data }) {
               <h3 className="mt-10 mb-3.5 text-[22px] font-bold">
                 {data.permitsTitle}
               </h3>
-              <p className="text-base leading-[1.8] text-[var(--muted)]">
+              <p className="text-[16px] leading-[1.8] text-[var(--muted)]">
                 {data.permits}
               </p>
             </>
@@ -243,7 +291,7 @@ export function MG2AProjectStory({ data }) {
             )}
             {data.ctaTitle && (
               <div className="rounded-md bg-[var(--navy)] p-[26px] text-white">
-                <h3 className="text-xl leading-[1.25] font-bold">
+                <h3 className="text-[20px] leading-[1.25] font-bold">
                   {data.ctaTitle}
                 </h3>
                 <p className="mt-2.5 text-[15px] leading-[1.55] text-[#d3dde8]">
@@ -263,7 +311,7 @@ export function MG2AProjectStory({ data }) {
 export function MG2AImageGallery({ data }) {
   return (
     <ServiceFrame data={data} className="pb-24">
-      <div className={mono + " mb-5 text-xs text-[var(--accent)]"}>
+      <div className={mono + " mb-5 text-[12px] text-[var(--accent)]"}>
         {data.title}
       </div>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-5">
@@ -275,7 +323,7 @@ export function MG2AImageGallery({ data }) {
               className="block h-[380px] w-full rounded-md border border-[var(--line)] object-cover"
               style={{ objectPosition: stegaClean(item.position) || "50% 50%" }}
             />
-            <figcaption className="mt-3 text-sm text-[var(--muted)]">
+            <figcaption className="mt-3 text-[14px] text-[var(--muted)]">
               {item.caption}
             </figcaption>
           </figure>
@@ -294,7 +342,18 @@ export function MG2AProjectGrid({ data }) {
         (data.muted ? "border-t border-[var(--line)] bg-[var(--bg2)]" : "")
       }
     >
-      <h2 className={serviceHeading + " mb-8"}>{data.title}</h2>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
+        <h2 className={serviceHeading}>{data.title}</h2>
+        {data.compact && (
+          <a
+            href="/projects"
+            className="flex items-center gap-2 font-semibold text-[var(--accent)]"
+          >
+            All projects
+            <Arrow />
+          </a>
+        )}
+      </div>
       <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-5">
         {projects.map((project) => (
           <a
@@ -305,13 +364,22 @@ export function MG2AProjectGrid({ data }) {
             <img
               src={mediaUrl(project.image)}
               alt={project.alt || ""}
+              style={{ objectPosition: projectCardPosition(project) }}
               className={
                 "block w-full object-cover " +
                 (data.compact ? "h-[200px]" : "h-[260px]")
               }
             />
             <div className="p-[22px]">
-              <div className={mono + " text-[11px] text-[var(--accent)]"}>
+              <div
+                className={
+                  mono +
+                  " text-[11px] " +
+                  (project.cardTone === "water"
+                    ? "text-[var(--water)]"
+                    : "text-[var(--accent)]")
+                }
+              >
                 {project.eyebrow}
               </div>
               <h3 className="mt-2 text-[19px] font-bold">{project.title}</h3>
@@ -344,7 +412,7 @@ export function MG2AIndustryListing({ data }) {
       <div
         className={
           data.compact
-            ? "grid grid-cols-[repeat(auto-fill,minmax(min(100%,240px),1fr))] gap-x-8"
+            ? "grid grid-cols-[repeat(auto-fill,minmax(min(100%,240px),1fr))]"
             : "grid grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))] gap-4"
         }
       >
@@ -353,9 +421,12 @@ export function MG2AIndustryListing({ data }) {
             <a
               key={item._id}
               href={safeHref(item.href)}
-              className="flex min-h-16 items-center gap-3 border-b border-[var(--line)] text-[17px] font-semibold"
+              className="flex min-h-16 items-center justify-between gap-3 pr-4 border-b border-[var(--line)] text-[17px] font-semibold"
             >
-              <h3 className="text-lg font-semibold">{item.label}</h3>
+              {item.label}
+              <span aria-hidden="true" className="text-[var(--accent)]">
+                →
+              </span>
             </a>
           ) : (
             <ServiceCard
@@ -384,7 +455,7 @@ export function MG2ACommunityStrip({ data }) {
         <div className={mono + " text-[11px] text-[var(--muted)]"}>
           {data.title}
         </div>
-        <p className="flex-[1_1_600px] text-base leading-[1.9] font-semibold">
+        <p className="flex-[1_1_600px] text-[16px] leading-[1.9] font-semibold">
           {data.description}
         </p>
       </div>
@@ -395,7 +466,7 @@ export function MG2AIndustrySupport({ data }) {
   return (
     <ServiceFrame data={data} className="py-24">
       <div className="max-w-[680px]">
-        <div className={mono + " text-xs text-[var(--accent)]"}>
+        <div className={mono + " text-[12px] text-[var(--accent)]"}>
           {data.eyebrow}
         </div>
         <h2 className="mt-4 text-[clamp(30px,3.2vw,42px)] leading-[1.08] font-bold tracking-[-.02em]">
@@ -409,7 +480,7 @@ export function MG2AIndustrySupport({ data }) {
             className="rounded-md border border-[var(--line)] bg-[var(--panel)] p-7"
           >
             <Icon name={item.icon} />
-            <h3 className="mt-[18px] text-xl font-bold">{item.title}</h3>
+            <h3 className="mt-[18px] text-[20px] font-bold">{item.title}</h3>
             <p className="mt-2.5 text-[15px] leading-[1.6] text-[var(--muted)]">
               {item.description}
             </p>
@@ -422,7 +493,7 @@ export function MG2AIndustrySupport({ data }) {
 export function MG2AIndustryPrograms({ data }) {
   return (
     <ServiceFrame data={data} className="pb-24">
-      <div className={mono + " text-xs text-[var(--accent)]"}>
+      <div className={mono + " text-[12px] text-[var(--accent)]"}>
         {data.eyebrow}
       </div>
       <h2 className="mt-4 mb-10 text-[clamp(30px,3.2vw,42px)] leading-[1.08] font-bold tracking-[-.02em]">
@@ -441,10 +512,10 @@ export function MG2AIndustryPrograms({ data }) {
           <h3 className="mt-3 text-[26px] leading-[1.2] font-bold">
             {data.featureTitle}
           </h3>
-          <p className="mt-3.5 text-base leading-[1.65] text-[var(--muted)]">
+          <p className="mt-3.5 text-[16px] leading-[1.65] text-[var(--muted)]">
             {data.featureText}
           </p>
-          <dl className="mt-[22px] grid grid-cols-[auto_1fr] gap-x-[18px] gap-y-2.5 text-sm leading-[1.5]">
+          <dl className="mt-[22px] grid grid-cols-[auto_1fr] gap-x-[18px] gap-y-2.5 text-[14px] leading-[1.5]">
             {data.facts?.map((item) => (
               <Fragment key={item._key}>
                 <dt
@@ -466,7 +537,13 @@ export function MG2AIndustryPrograms({ data }) {
           >
             <Icon name={item.icon} />
             <div
-              className={mono + " mt-[18px] text-[11px] text-[var(--water)]"}
+              className={
+                mono +
+                " mt-[18px] text-[11px] " +
+                (stegaClean(item.icon) === "program1"
+                  ? "text-[var(--accent)]"
+                  : "text-[var(--water)]")
+              }
             >
               {item.eyebrow}
             </div>
@@ -491,9 +568,15 @@ export function MG2ATestimonialProject({ data }) {
     >
       <div className="flex flex-wrap items-center gap-12">
         <figure className="flex-[1_1_460px]">
-          <span aria-hidden="true" className="text-6xl text-[var(--accent)]">
-            “
-          </span>
+          <svg
+            aria-hidden="true"
+            width="40"
+            height="32"
+            viewBox="0 0 40 32"
+            className="fill-[var(--accent)]"
+          >
+            <path d="M0 32V18C0 8 6 2 16 0L17 5C11 7 9 11 9 15H16V32ZM23 32V18C23 8 29 2 39 0L40 5C34 7 32 11 32 15H39V32Z" />
+          </svg>
           <blockquote className="mt-5 text-[clamp(20px,2vw,26px)] leading-[1.45] font-medium">
             {data.quote}
           </blockquote>
@@ -515,7 +598,7 @@ export function MG2ATestimonialProject({ data }) {
               <div className={mono + " text-[11px] text-[var(--accent)]"}>
                 {data.eyebrow}
               </div>
-              <h3 className="mt-2.5 text-xl font-bold">{p.title}</h3>
+              <h3 className="mt-2.5 text-[20px] font-bold">{p.title}</h3>
               <p className="mt-2.5 text-[15px] leading-[1.6] text-[var(--muted)]">
                 {data.description}
               </p>
@@ -538,8 +621,10 @@ export function MG2ASurveyForm({ data }) {
             </div>
             <ol className="mt-[18px] flex flex-col gap-[18px]">
               {data.nextSteps?.map((step, i) => (
-                <li key={i} className="flex gap-3.5 text-base leading-[1.5]">
-                  <span className={mono + " pt-[3px] text-xs text-[#ffd2be]"}>
+                <li key={i} className="flex gap-3.5 text-[16px] leading-[1.5]">
+                  <span
+                    className={mono + " pt-[3px] text-[12px] text-[#ffd2be]"}
+                  >
                     {num(i)}
                   </span>
                   {step}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormValue } from "sanity";
 import { Button, Flex, TextInput } from "@sanity/ui";
-import { CopyIcon } from "@sanity/icons";
+import { CopyIcon } from "@sanity/icons/Copy";
 import { sectionAnchorFromPath } from "@/lib/mg2a/sectionAnchors";
 export default function SectionLinkInput(props) {
   const type = useFormValue(["_type"]);

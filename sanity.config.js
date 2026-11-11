@@ -1,5 +1,6 @@
+import { route } from "sanity/router";
 import FormSubmissions from "./sanity/tools/FormSubmissions";
-import { DocumentsIcon } from "@sanity/icons";
+import { DocumentsIcon } from "@sanity/icons/Documents";
 import { servicePageTemplate } from "./lib/mg2a/serviceDefaults";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
@@ -46,6 +47,7 @@ export default defineConfig({
       title: "Form submissions",
       icon: DocumentsIcon,
       component: FormSubmissions,
+      router: route.create("/", [route.create("/:submission")]),
     },
   ],
   schema: {

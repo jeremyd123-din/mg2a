@@ -22,7 +22,14 @@ function Chevron() {
     </svg>
   );
 }
-function MenuLinks({ item, mobile = false, onNavigate }) {
+function currentRoute(pathname, href) {
+  const path = stegaClean(href)?.replace(/\/$/, "");
+  if (!path?.startsWith("/") || path.includes("#") || path.includes("?"))
+    return undefined;
+  if (pathname.replace(/\/$/, "") === path) return "page";
+  return pathname.startsWith(path + "/") ? "location" : undefined;
+}
+function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
   const industries = stegaClean(item.href) === "/industries";
   return (
     <>
@@ -46,6 +53,7 @@ function MenuLinks({ item, mobile = false, onNavigate }) {
           </h2>
         </div>
         <a
+          aria-current={currentRoute(pathname, item.href)}
           href={safeHref(item.href)}
           onClick={onNavigate}
           className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--onDark)]"
@@ -65,6 +73,7 @@ function MenuLinks({ item, mobile = false, onNavigate }) {
             .map((link) => (
               <a
                 key={link._key + link.href}
+                aria-current={currentRoute(pathname, link.href)}
                 href={safeHref(link.href)}
                 onClick={onNavigate}
                 className="flex min-h-14 items-center gap-3 border-b border-white/10 py-3 text-[15px] font-medium hover:text-[var(--onDark)]"
@@ -89,6 +98,7 @@ function MenuLinks({ item, mobile = false, onNavigate }) {
           {item.groups.map((group) => (
             <div key={group._key}>
               <a
+                aria-current={currentRoute(pathname, group.href)}
                 href={safeHref(group.href)}
                 onClick={onNavigate}
                 className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--onDark)] hover:text-white"
@@ -101,6 +111,7 @@ function MenuLinks({ item, mobile = false, onNavigate }) {
                   {group.links.map((link) => (
                     <li key={link._key}>
                       <a
+                        aria-current={currentRoute(pathname, link.href)}
                         href={safeHref(link.href)}
                         onClick={onNavigate}
                         className="block text-sm leading-relaxed text-[#bac8d1] hover:text-white"
@@ -118,7 +129,11 @@ function MenuLinks({ item, mobile = false, onNavigate }) {
     </>
   );
 }
-export default function MG2AHeader({ settings, overlay = false }) {
+export default function MG2AHeader({
+  settings,
+  overlay = false,
+  pathname = "/",
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeKey, setActiveKey] = useState(null);
@@ -220,11 +235,11 @@ export default function MG2AHeader({ settings, overlay = false }) {
       <div
         className={
           "mg-header fixed inset-x-0 top-0 z-40 text-[#f1efea] transition-[background-color,box-shadow] duration-300 motion-reduce:transition-none " +
-          (scrolled || active
-            ? "bg-[#0b1822]/95 shadow-lg backdrop-blur-lg"
-            : overlay
-              ? "bg-transparent"
-              : "bg-[#0b1822]")
+          (!overlay
+            ? "bg-[#0b1822]/97 shadow-[0_1px_0_rgba(255,255,255,.1),0_8px_24px_rgba(0,0,0,.2)]"
+            : scrolled || active
+              ? "bg-[#0b1822]/95 shadow-[0_1px_0_rgba(255,255,255,.1),0_8px_28px_rgba(0,0,0,.28)] backdrop-blur-[8px]"
+              : "bg-transparent")
         }
       >
         <div
@@ -290,7 +305,7 @@ export default function MG2AHeader({ settings, overlay = false }) {
           </a>
           <nav
             aria-label="Primary"
-            className="flex items-center gap-8 text-[15px] font-medium [@media(max-width:980px)]:hidden"
+            className="mg-primary-nav flex items-center gap-8 text-[15px] font-medium [@media(max-width:980px)]:hidden"
           >
             {items.map((item) =>
               hasSubmenu(item) ? (
@@ -300,6 +315,7 @@ export default function MG2AHeader({ settings, overlay = false }) {
                   }}
                   key={item._key}
                   type="button"
+                  aria-current={currentRoute(pathname, item.href)}
                   aria-expanded={activeKey === item._key}
                   aria-controls={menuId(item)}
                   className={
@@ -331,6 +347,7 @@ export default function MG2AHeader({ settings, overlay = false }) {
                 <a
                   key={item._key}
                   href={safeHref(item.href)}
+                  aria-current={currentRoute(pathname, item.href)}
                   className="whitespace-nowrap opacity-[.86] transition-opacity hover:opacity-100 hover:text-[var(--onDark)]"
                   onClick={finish}
                 >
@@ -342,6 +359,7 @@ export default function MG2AHeader({ settings, overlay = false }) {
           <div className="flex shrink-0 items-center gap-3">
             <a
               className="hidden min-h-12 items-center rounded border-[1.5px] border-white/50 px-[22px] text-[15px] font-semibold min-[981px]:inline-flex"
+              aria-current={currentRoute(pathname, settings.secondaryCta?.href)}
               href={safeHref(settings.secondaryCta?.href)}
             >
               {settings.secondaryCta?.label}
@@ -383,10 +401,14 @@ export default function MG2AHeader({ settings, overlay = false }) {
             ref={desktopPanel}
             id={menuId(active)}
             aria-label={`${stegaClean(active.label)} submenu`}
-            className="absolute inset-x-0 top-full max-h-[calc(100dvh-125px)] overflow-y-auto border-y border-white/10 bg-[#0f202c] shadow-2xl [@media(max-width:980px)]:hidden"
+            className="mg-submenu absolute inset-x-0 top-full max-h-[calc(100dvh-125px)] overflow-y-auto border-y border-white/10 bg-[#0f202c] shadow-2xl [@media(max-width:980px)]:hidden"
           >
             <div className="mx-auto max-w-[1280px] px-[clamp(16px,4vw,56px)] py-8">
-              <MenuLinks item={active} onNavigate={finish} />
+              <MenuLinks
+                pathname={pathname}
+                item={active}
+                onNavigate={finish}
+              />
             </div>
           </nav>
         )}
@@ -413,22 +435,31 @@ export default function MG2AHeader({ settings, overlay = false }) {
               ×
             </button>
           </div>
-          <nav aria-label="Mobile primary" className="mt-6">
+          <nav aria-label="Mobile primary" className="mg-primary-nav mt-6">
             {items.map((item) =>
               hasSubmenu(item) ? (
                 <details key={item._key} className="border-b border-white/10">
-                  <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between text-xl font-semibold [&::-webkit-details-marker]:hidden">
+                  <summary
+                    aria-current={currentRoute(pathname, item.href)}
+                    className="flex min-h-16 cursor-pointer list-none items-center justify-between text-xl font-semibold [&::-webkit-details-marker]:hidden"
+                  >
                     {item.label}
                     <Chevron />
                   </summary>
                   <div className="pb-7">
-                    <MenuLinks item={item} mobile onNavigate={finish} />
+                    <MenuLinks
+                      pathname={pathname}
+                      item={item}
+                      mobile
+                      onNavigate={finish}
+                    />
                   </div>
                 </details>
               ) : (
                 <a
                   key={item._key}
                   href={safeHref(item.href)}
+                  aria-current={currentRoute(pathname, item.href)}
                   className="flex min-h-16 items-center border-b border-white/10 text-xl font-semibold"
                   onClick={finish}
                 >
@@ -440,6 +471,7 @@ export default function MG2AHeader({ settings, overlay = false }) {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               className="rounded border border-white/50 px-5 py-3 font-semibold"
+              aria-current={currentRoute(pathname, settings.secondaryCta?.href)}
               href={safeHref(settings.secondaryCta?.href)}
               onClick={finish}
             >

@@ -342,6 +342,7 @@ export const serviceBlocks = [
     description: "Full-width blue banner with a heading and two buttons.",
     type: "object",
     fields: [
+      string("eyebrow", "Eyebrow"),
       string("title", "Heading"),
       text("description", "Description"),
       link("buttonOne", "Button one"),

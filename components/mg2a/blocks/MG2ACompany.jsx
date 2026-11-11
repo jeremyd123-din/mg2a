@@ -12,24 +12,34 @@ import InquiryForm from "../ui/InquiryForm";
 import { mediaUrl, safeHref } from "../ui/helpers";
 const heading =
   "text-[clamp(30px,3.4vw,46px)] leading-[1.06] font-bold tracking-[-.02em]";
-const label = mono + " text-xs text-[var(--accent)]";
-function Heading({ data, small = false }) {
+const label = mono + " text-[12px] text-[var(--accent)]";
+function Heading({
+  data,
+  small = false,
+  className = "",
+  titleClassName,
+  titleGap = "mt-4",
+  eyebrowClassName = "",
+}) {
   return (
-    <>
-      {data.eyebrow && <div className={label}>{data.eyebrow}</div>}
+    <div className={className}>
+      {data.eyebrow && (
+        <div className={label + " " + eyebrowClassName}>{data.eyebrow}</div>
+      )}
       {data.title && (
         <h2
           className={
-            "mt-4 " +
-            (small
-              ? "text-[clamp(28px,3vw,38px)] leading-[1.1] font-bold tracking-[-.02em]"
-              : heading)
+            (data.eyebrow ? titleGap + " " : "") +
+            (titleClassName ||
+              (small
+                ? "text-[clamp(28px,3vw,38px)] leading-[1.1] font-bold tracking-[-.02em]"
+                : heading))
           }
         >
           {data.title}
         </h2>
       )}
-    </>
+    </div>
   );
 }
 function Portrait({ person }) {
@@ -60,8 +70,8 @@ export function MG2ACompanyHero({ data }) {
     <MG2ASection
       data={data}
       className={
-        "overflow-hidden text-white " +
-        (careers ? "bg-[#1b4f72]" : "bg-[#0b1822]")
+        "overflow-hidden " +
+        (careers ? "bg-[#1b4f72] text-white" : "bg-[#0b1822] text-[#f1efea]")
       }
     >
       {!careers && mediaUrl(data.image) && (
@@ -116,27 +126,51 @@ export function MG2ACompanyHero({ data }) {
           <nav
             aria-label="Breadcrumb"
             className={
-              mono + " flex flex-wrap gap-2.5 text-[11px] text-[#b4c2cc]"
+              mono +
+              " flex flex-wrap gap-2.5 text-[11px] " +
+              (careers ? "text-[#c2d3e2]" : "text-[#b4c2cc]")
             }
           >
             <a href="/">Home</a>
             <span>/</span>
-            <span aria-current="page">{data.breadcrumb}</span>
+            <span
+              aria-current="page"
+              className={careers ? "text-white" : "text-[#f1efea]"}
+            >
+              {data.breadcrumb}
+            </span>
           </nav>
-          <div className={mono + " mt-11 text-xs text-[#ffd2be]"}>
+          <div
+            className={
+              mono +
+              (careers
+                ? " mt-11 text-[12px] text-[#ffd2be]"
+                : " mt-14 flex items-center gap-3.5 text-[12px] text-[var(--accentHi)]")
+            }
+          >
+            {!careers && (
+              <span className="inline-block h-px w-9 bg-[var(--accentHi)]" />
+            )}
             {data.eyebrow}
           </div>
           <h1
             className={
-              "mt-5 max-w-[820px] font-bold leading-[1.03] tracking-[-.025em] " +
+              "font-bold tracking-[-.025em] " +
               (careers
-                ? "text-[clamp(40px,5.2vw,72px)]"
-                : "text-[clamp(40px,5vw,68px)]")
+                ? "mt-[18px] max-w-[700px] text-[clamp(40px,5.2vw,72px)] leading-[1.02]"
+                : "mt-5 max-w-[820px] text-[clamp(40px,5vw,68px)] leading-[1.03]")
             }
           >
             {data.title}
           </h1>
-          <p className="mt-[22px] max-w-[620px] text-[clamp(17px,1.5vw,20px)] leading-[1.55] text-[#d7dee3]">
+          <p
+            className={
+              "mt-[22px] text-[clamp(17px,1.5vw,20px)] leading-[1.55] " +
+              (careers
+                ? "max-w-[580px] text-[#dce7f1]"
+                : "max-w-[620px] text-[#d7dee3]")
+            }
+          >
             {data.description}
           </p>
           {(data.buttonOne || data.buttonTwo) && (
@@ -151,13 +185,13 @@ export function MG2ACompanyHero({ data }) {
             <div className={mono + " text-[11px] text-[#c2d3e2]"}>
               {data.asideTitle}
             </div>
-            <ul className="mt-4 space-y-4 text-lg font-semibold">
+            <ul className="mt-4 space-y-3 text-[17px] font-semibold">
               {data.asideItems?.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
             {data.asideNote && (
-              <p className="mt-6 border-t border-white/20 pt-5 text-sm leading-relaxed text-[#dce7f1]">
+              <p className="mt-6 border-t border-white/20 pt-5 text-[14px] leading-relaxed text-[#dce7f1]">
                 {data.asideNote}
               </p>
             )}
@@ -174,7 +208,7 @@ export function MG2ACompanyStory({ data }) {
         <div className="max-w-[460px] flex-[1_1_320px]">
           <Heading data={data} />
         </div>
-        <div className="min-w-0 max-w-[720px] flex-[999_1_480px] text-lg leading-[1.75] [&_p]:mb-5 [&_h3]:mt-7 [&_h3]:text-2xl [&_h3]:font-bold">
+        <div className="min-w-0 max-w-[720px] flex-[999_1_480px] text-[18px] leading-[1.75] [&_p]:mb-5 [&_h3]:mt-7 [&_h3]:text-[24px] [&_h3]:font-bold">
           <RichText value={data.body} />
         </div>
       </div>
@@ -188,7 +222,7 @@ export function MG2ACompanyStory({ data }) {
               <div className="text-[44px] font-bold tracking-[-.02em]">
                 {item.value}
               </div>
-              <div className="mt-1.5 text-sm text-[var(--muted)]">
+              <div className="mt-1.5 text-[14px] text-[var(--muted)]">
                 {item.title}
               </div>
             </div>
@@ -207,13 +241,17 @@ export function MG2ACompanyFeatures({ data }) {
         cards ? "py-24" : "border-y border-[var(--line)] bg-[var(--bg2)] py-20"
       }
     >
-      <Heading data={data} small={!cards} />
+      <Heading
+        data={data}
+        small={!cards}
+        className={cards ? "max-w-[760px]" : ""}
+      />
       <div
         className={
-          "mt-10 grid gap-6 " +
+          "mt-10 grid " +
           (cards
-            ? "grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))]"
-            : "grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))]")
+            ? "grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-4"
+            : "grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-8")
         }
       >
         {data.items?.map((item, i) => (
@@ -226,8 +264,19 @@ export function MG2ACompanyFeatures({ data }) {
             }
           >
             <div className={label}>{String(i + 1).padStart(2, "0")}</div>
-            <h3 className="mt-3.5 text-xl font-bold">{item.title}</h3>
-            <p className="mt-2.5 text-[15px] leading-[1.65] text-[var(--muted)]">
+            <h3
+              className={
+                (cards ? "mt-3.5" : "mt-2.5") + " text-[20px] font-bold"
+              }
+            >
+              {item.title}
+            </h3>
+            <p
+              className={
+                "mt-2.5 text-[15px] text-[var(--muted)] " +
+                (cards ? "leading-[1.6]" : "leading-[1.65]")
+              }
+            >
               {item.description}
             </p>
           </div>
@@ -240,7 +289,7 @@ export function MG2ATeamGrid({ data }) {
   return (
     <ServiceFrame data={data} className="py-24">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-5">
-        <Heading data={data} />
+        <Heading data={data} className="max-w-[640px]" />
         {safeHref(data.link?.href) && (
           <a
             href={safeHref(data.link.href)}
@@ -255,10 +304,12 @@ export function MG2ATeamGrid({ data }) {
         {data.members?.map((person) => (
           <a key={person._id} href={safeHref(person.href)} className="group">
             <Portrait person={person} />
-            <h3 className="mt-3.5 text-lg font-bold group-hover:text-[var(--accent)]">
+            <h3 className="mt-3.5 text-[18px] font-bold group-hover:text-[var(--accent)]">
               {person.title}
             </h3>
-            <p className="mt-1 text-sm text-[var(--muted)]">{person.role}</p>
+            <p className="mt-1 text-[14px] text-[var(--muted)]">
+              {person.role}
+            </p>
           </a>
         ))}
       </div>
@@ -278,7 +329,11 @@ export function MG2AClientList({ data }) {
     >
       <div className="flex flex-wrap gap-x-14 gap-y-8">
         <div className="max-w-[320px] flex-[1_1_260px]">
-          <Heading data={data} small />
+          <Heading
+            data={data}
+            titleGap="mt-3.5"
+            titleClassName="text-[28px] leading-[1.15] font-bold tracking-[-.015em]"
+          />
         </div>
         <div className="grid flex-[999_1_560px] grid-cols-[repeat(auto-fill,minmax(min(200px,100%),1fr))] gap-x-6">
           {data.items?.map((item, i) => (
@@ -304,8 +359,10 @@ export function MG2AOffices({ data }) {
             key={office._key || i}
             className="rounded-md border border-[var(--line)] bg-[var(--panel)] p-8"
           >
-            <div className={label}>{office.name}</div>
-            <address className="mt-3.5 text-lg not-italic leading-[1.6]">
+            <div className={mono + " text-[11px] text-[var(--accent)]"}>
+              {office.name}
+            </div>
+            <address className="mt-3.5 text-[18px] not-italic leading-[1.6]">
               {office.street}
               <br />
               {office.city}
@@ -334,14 +391,14 @@ export function MG2ABenefits({ data }) {
       data={data}
       className="border-y border-[var(--line)] bg-[var(--bg2)] py-20"
     >
-      <div className="flex flex-wrap gap-16">
-        <div className="max-w-[420px] flex-[1_1_300px]">
+      <div className="flex flex-wrap gap-12">
+        <div className="max-w-[380px] flex-[1_1_300px]">
           <Heading data={data} small />
-          <p className="mt-[18px] text-base leading-[1.65] text-[var(--muted)]">
+          <p className="mt-3.5 text-[15px] leading-[1.6] text-[var(--muted)]">
             {data.description}
           </p>
         </div>
-        <ul className="flex-[999_1_480px]">
+        <ul className="grid flex-[999_1_560px] grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-x-8">
           {data.items?.map((item, i) => (
             <li
               key={i}
@@ -397,12 +454,17 @@ export function MG2AGraduateCta({ data }) {
     <ServiceFrame data={data} className="pb-24">
       <div className="flex flex-wrap items-center justify-between gap-7 rounded-md border border-l-4 border-[var(--line)] border-l-[var(--accent)] bg-[var(--panel)] p-[clamp(28px,4vw,48px)]">
         <div className="max-w-[680px]">
-          <Heading data={data} small />
-          <p className="mt-3 text-base leading-[1.6] text-[var(--muted)]">
+          <Heading
+            data={data}
+            titleGap="mt-3"
+            eyebrowClassName="text-[11px]!"
+            titleClassName="text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-bold"
+          />
+          <p className="mt-3 text-[16px] leading-[1.6] text-[var(--muted)]">
             {data.description}
           </p>
         </div>
-        <ServiceButton link={data.link} />
+        <ServiceButton link={data.link} showArrow={false} />
       </div>
     </ServiceFrame>
   );
@@ -429,12 +491,12 @@ export function MG2AMemberProfile({ data }) {
             {person.title}
           </h1>
           {person.summary && (
-            <p className="mt-6 text-xl leading-relaxed text-[var(--muted)]">
+            <p className="mt-6 text-[20px] leading-relaxed text-[var(--muted)]">
               {person.summary}
             </p>
           )}
-          <h2 className="mt-10 text-2xl font-bold">{data.title}</h2>
-          <div className="mt-5 text-lg leading-relaxed [&_p]:mb-5">
+          <h2 className="mt-10 text-[24px] font-bold">{data.title}</h2>
+          <div className="mt-5 text-[18px] leading-relaxed [&_p]:mb-5">
             <RichText value={person.body} />
           </div>
           <div className="mt-7 flex flex-wrap gap-6 text-[var(--accent)]">
@@ -465,7 +527,7 @@ export function MG2AJobApplication({ data }) {
       className="border-t border-[var(--line)] bg-[var(--bg2)] pt-[88px] pb-[104px]"
     >
       {data.closed ? (
-        <p className="text-xl">
+        <p className="text-[20px]">
           This position is no longer accepting applications.{" "}
           <a href="/careers" className="underline text-[var(--accent)]">
             View current openings
@@ -476,7 +538,7 @@ export function MG2AJobApplication({ data }) {
         <div className="flex flex-wrap gap-16">
           <div className="max-w-[420px] flex-[1_1_300px]">
             <Heading data={data} />
-            <p className="mt-5 text-lg leading-relaxed text-[var(--muted)]">
+            <p className="mt-5 text-[18px] leading-relaxed text-[var(--muted)]">
               {data.description}
             </p>
             <p className="mt-5 font-semibold">{data.jobTitle}</p>

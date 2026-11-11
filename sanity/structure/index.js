@@ -1,4 +1,4 @@
-import { DocumentsIcon } from "@sanity/icons";
+import { DocumentsIcon } from "@sanity/icons/Documents";
 export const structure = (S) =>
   S.list()
     .title("MG2A")

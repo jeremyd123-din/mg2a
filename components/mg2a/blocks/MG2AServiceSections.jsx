@@ -8,7 +8,7 @@ import {
   Arrow,
   ServiceButton,
 } from "../ui/ServiceUI";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
 const number = (index) => String(index + 1).padStart(2, "0");
 export function MG2AProjectStage({ data }) {
   return (
@@ -44,7 +44,8 @@ export function MG2AProjectStage({ data }) {
               </div>
               <div
                 className={
-                  "mt-1.5 text-base " + (active ? "font-bold" : "font-semibold")
+                  "mt-1.5 text-[16px] " +
+                  (active ? "font-bold" : "font-semibold")
                 }
               >
                 {stage.title}
@@ -67,7 +68,7 @@ export function MG2APracticeOverview({ data }) {
           }
         >
           {data.eyebrow && (
-            <div className={mono + " text-xs text-[var(--accent)]"}>
+            <div className={mono + " text-[12px] text-[var(--accent)]"}>
               {data.eyebrow}
             </div>
           )}
@@ -91,7 +92,7 @@ export function MG2APracticeOverview({ data }) {
             <div className={mono + " text-[11px] text-[var(--accent)]"}>
               {data.audienceTitle}
             </div>
-            <ul className="mt-4 flex list-none flex-col gap-3.5 p-0 text-base">
+            <ul className="mt-4 flex list-none flex-col gap-3.5 p-0 text-[16px]">
               {data.audiences.map((audience, index) => (
                 <li key={index} className="flex gap-3">
                   <span aria-hidden="true" className="text-[var(--water)]">
@@ -156,7 +157,7 @@ export function MG2AProcessSteps({ data }) {
       }
     >
       {data.eyebrow && (
-        <div className={mono + " text-xs text-[var(--accent)]"}>
+        <div className={mono + " text-[12px] text-[var(--accent)]"}>
           {data.eyebrow}
         </div>
       )}
@@ -185,7 +186,7 @@ export function MG2AProcessSteps({ data }) {
               className={
                 mono +
                 " text-[var(--accent)] " +
-                (columns ? "text-xs" : "w-10 shrink-0 pt-[3px] text-[13px]")
+                (columns ? "text-[12px]" : "w-10 shrink-0 pt-[3px] text-[13px]")
               }
             >
               {number(index)}
@@ -193,7 +194,9 @@ export function MG2AProcessSteps({ data }) {
             <div>
               <h3
                 className={
-                  columns ? "mt-2.5 text-xl font-bold" : "text-lg font-bold"
+                  columns
+                    ? "mt-2.5 text-[20px] font-bold"
+                    : "text-[18px] font-bold"
                 }
               >
                 {step.title}
@@ -243,11 +246,22 @@ export function MG2ARelatedProjects({ data }) {
                 alt={project.alt || ""}
                 className="block h-[260px] w-full object-cover"
                 style={{
-                  objectPosition: stegaClean(item.imagePosition) || "50% 50%",
+                  objectPosition: projectCardPosition(
+                    project,
+                    item.imagePosition,
+                  ),
                 }}
               />
               <div className="p-[26px]">
-                <div className={mono + " text-[11px] text-[var(--accent)]"}>
+                <div
+                  className={
+                    mono +
+                    " text-[11px] " +
+                    (project.cardTone === "water"
+                      ? "text-[var(--water)]"
+                      : "text-[var(--accent)]")
+                  }
+                >
                   {project.eyebrow}
                 </div>
                 <h3 className="mt-2.5 text-[22px] font-bold">
@@ -280,7 +294,7 @@ export function MG2AFaq({ data }) {
       <div className={split ? "flex flex-wrap gap-12" : ""}>
         <div className={split ? "max-w-[380px] flex-[1_1_300px]" : ""}>
           {data.eyebrow && (
-            <div className={mono + " text-xs text-[var(--accent)]"}>
+            <div className={mono + " text-[12px] text-[var(--accent)]"}>
               {data.eyebrow}
             </div>
           )}
@@ -288,7 +302,7 @@ export function MG2AFaq({ data }) {
             {data.title}
           </h2>
           {data.description && (
-            <p className="mt-4 text-base leading-[1.6] text-[var(--muted)]">
+            <p className="mt-4 text-[16px] leading-[1.6] text-[var(--muted)]">
               {data.description}
             </p>
           )}
@@ -305,16 +319,16 @@ export function MG2AFaq({ data }) {
               key={item._key}
               className="group border-b border-[var(--line)]"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-5 py-[22px] text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-5 py-[22px] text-[18px] font-semibold [&::-webkit-details-marker]:hidden">
                 {item.question}
                 <span
                   aria-hidden="true"
-                  className="text-2xl text-[var(--accent)] transition-transform group-open:rotate-45 motion-reduce:transition-none"
+                  className="text-[24px] text-[var(--accent)] transition-transform group-open:rotate-45 motion-reduce:transition-none"
                 >
                   +
                 </span>
               </summary>
-              <p className="mb-[22px] text-base leading-[1.65] text-[var(--muted)]">
+              <p className="mb-[22px] text-[16px] leading-[1.65] text-[var(--muted)]">
                 {item.answer}
               </p>
             </details>
@@ -329,10 +343,20 @@ export function MG2ACtaBanner({ data }) {
     <ServiceFrame data={data} className="bg-[var(--navy)] py-[72px] text-white">
       <div className="flex flex-wrap items-center justify-between gap-8">
         <div className="max-w-[640px]">
-          <h2 className="text-[clamp(28px,3.2vw,42px)] leading-[1.1] font-bold tracking-[-.02em]">
+          {data.eyebrow && (
+            <div className={mono + " text-[12px] text-[var(--accentHi)]"}>
+              {data.eyebrow}
+            </div>
+          )}
+          <h2
+            className={
+              (data.eyebrow ? "mt-3.5 " : "") +
+              "text-[clamp(28px,3.2vw,42px)] leading-[1.1] font-bold tracking-[-.02em]"
+            }
+          >
             {data.title}
           </h2>
-          <p className="mt-3.5 text-lg leading-[1.55] text-[#d3dde8]">
+          <p className="mt-3.5 text-[18px] leading-[1.55] text-[#d3dde8]">
             {data.description}
           </p>
         </div>
@@ -352,7 +376,7 @@ export function MG2AChecklist({ data }) {
         {data.items?.map((item, index) => (
           <li
             key={index}
-            className="flex gap-3.5 rounded-md border border-[var(--line)] bg-[var(--panel)] px-5 py-[18px] text-base leading-[1.5]"
+            className="flex gap-3.5 rounded-md border border-[var(--line)] bg-[var(--panel)] px-5 py-[18px] text-[16px] leading-[1.5]"
           >
             <span aria-hidden="true" className="font-bold text-[var(--water)]">
               ✓
@@ -375,7 +399,7 @@ export function MG2ADeliverables({ data }) {
               {number(index)}
             </div>
             <h3 className="mt-2 text-[17px] font-bold">{item.title}</h3>
-            <p className="mt-2 text-sm leading-[1.6] text-[var(--muted)]">
+            <p className="mt-2 text-[14px] leading-[1.6] text-[var(--muted)]">
               {item.description}
             </p>
           </div>
@@ -399,10 +423,18 @@ export function MG2ARelatedServices({ data }) {
             href={safeHref(item.href)}
             className="rounded-md border border-[var(--line)] bg-[var(--panel)] p-5 transition-transform hover:-translate-y-[3px] motion-reduce:transition-none"
           >
-            <div className={mono + " text-[10px] text-[var(--water)]"}>
+            <div
+              className={
+                mono +
+                " text-[10px] " +
+                (stegaClean(item.href)?.startsWith("/services/water-resources")
+                  ? "text-[var(--water)]"
+                  : "text-[var(--accent)]")
+              }
+            >
               {item.eyebrow}
             </div>
-            <h3 className="mt-2 text-base font-bold">{item.title}</h3>
+            <h3 className="mt-2 text-[16px] font-bold">{item.title}</h3>
           </a>
         ))}
       </div>

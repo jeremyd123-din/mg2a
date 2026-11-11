@@ -1,4 +1,4 @@
-import { EyeOpenIcon } from "@sanity/icons";
+import { EyeOpenIcon } from "@sanity/icons/EyeOpen";
 import { baseUrl } from "@/lib/constants";
 
 export function viewPageAction({ type, draft, published }) {

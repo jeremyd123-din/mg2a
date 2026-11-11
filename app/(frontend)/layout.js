@@ -86,7 +86,11 @@ export default async function RootLayout({ children }) {
         {legacySettings?.gtm_id && (
           <GoogleTagManager gtmId={stegaClean(legacySettings.gtm_id)} />
         )}
-        <MG2AHeader settings={settings} overlay={pathname === "/"} />
+        <MG2AHeader
+          pathname={pathname}
+          settings={settings}
+          overlay={pathname === "/"}
+        />
         <main
           id="main-content"
           data-mg2a-page={page ? pageIdentity(page) : undefined}

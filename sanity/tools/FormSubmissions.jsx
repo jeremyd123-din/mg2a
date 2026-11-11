@@ -1,6 +1,11 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useClient, useCurrentUser } from "sanity";
+import { useRouter } from "sanity/router";
+import {
+  selectedSubmission,
+  submissionShareUrl,
+} from "@/lib/forms/submissionLinks";
 import {
   Badge,
   Box,
@@ -15,12 +20,11 @@ import {
   Text,
   TextInput,
 } from "@sanity/ui";
-import {
-  SearchIcon,
-  RefreshIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-} from "@sanity/icons";
+import { SearchIcon } from "@sanity/icons/Search";
+import { RefreshIcon } from "@sanity/icons/Refresh";
+import { ArrowLeftIcon } from "@sanity/icons/ArrowLeft";
+import { ArrowRightIcon } from "@sanity/icons/ArrowRight";
+import { CopyIcon } from "@sanity/icons/Copy";
 import { submissionIdentity } from "@/lib/forms/submissionIdentity";
 import {
   submissionsQuery,
@@ -122,10 +126,11 @@ export function SubmissionsTable({ items = [], onOpen }) {
     </Card>
   );
 }
-function SubmissionDetail({ id, client, onClose, onUpdated }) {
+export function SubmissionDetail({ id, client, onClose, onUpdated }) {
   const [record, setRecord] = useState(null),
     [error, setError] = useState(""),
-    [saving, setSaving] = useState(false);
+    [saving, setSaving] = useState(false),
+    [copyStatus, setCopyStatus] = useState("");
   useEffect(() => {
     let active = true;
     client
@@ -149,6 +154,16 @@ function SubmissionDetail({ id, client, onClose, onUpdated }) {
       active = false;
     };
   }, [id, client]);
+  async function copyUrl() {
+    try {
+      await navigator.clipboard.writeText(
+        submissionShareUrl(window.location.href),
+      );
+      setCopyStatus("Copied");
+    } catch {
+      setCopyStatus("Unable to copy. Copy the URL from your address bar.");
+    }
+  }
   async function changeStatus(status) {
     setSaving(true);
     setError("");
@@ -194,6 +209,19 @@ function SubmissionDetail({ id, client, onClose, onUpdated }) {
           )}
           {record && (
             <>
+              <Flex gap={3} align="center" wrap="wrap">
+                <Button
+                  icon={CopyIcon}
+                  text={copyStatus === "Copied" ? "Copied" : "Copy URL"}
+                  mode="ghost"
+                  onClick={copyUrl}
+                />
+                <Text size={1} muted role="status">
+                  {copyStatus !== "Copied"
+                    ? copyStatus
+                    : "Link copied. Sanity sign-in is required to view this entry."}
+                </Text>
+              </Flex>
               <Flex
                 wrap="wrap"
                 gap={4}
@@ -258,6 +286,12 @@ function SubmissionDetail({ id, client, onClose, onUpdated }) {
   );
 }
 export default function FormSubmissions() {
+  const router = useRouter();
+  const selected = selectedSubmission(router.state);
+  const openSubmission = useCallback(
+    (id) => router.navigate({ ...router.state, submission: id || undefined }),
+    [router],
+  );
   const baseClient = useClient({ apiVersion: "2025-02-19" }),
     user = useCurrentUser();
   const client = useMemo(
@@ -269,8 +303,7 @@ export default function FormSubmissions() {
     [formId, setFormId] = useState(""),
     [status, setStatus] = useState(""),
     [page, setPage] = useState(0),
-    [refresh, setRefresh] = useState(0),
-    [selected, setSelected] = useState(null);
+    [refresh, setRefresh] = useState(0);
   const [result, setResult] = useState({ items: [], forms: [], total: 0 }),
     [loading, setLoading] = useState(true),
     [error, setError] = useState("");
@@ -408,7 +441,10 @@ export default function FormSubmissions() {
             !error && (
               <>
                 {result.items.length ? (
-                  <SubmissionsTable items={result.items} onOpen={setSelected} />
+                  <SubmissionsTable
+                    items={result.items}
+                    onOpen={openSubmission}
+                  />
                 ) : (
                   <Card border padding={5} radius={2}>
                     <Stack space={3}>
@@ -461,7 +497,7 @@ export default function FormSubmissions() {
           key={selected}
           id={selected}
           client={client}
-          onClose={() => setSelected(null)}
+          onClose={() => openSubmission(null)}
           onUpdated={reload}
         />
       )}

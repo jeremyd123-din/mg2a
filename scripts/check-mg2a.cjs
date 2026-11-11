@@ -120,6 +120,93 @@ async function main() {
     !multiMarkup.includes('name="types" value=""'),
     "Empty multiple selections must serialize as an empty array",
   );
+  const { activeSectionId } = load("lib/mg2a/scrollSpy.js");
+  assert.equal(
+    activeSectionId(
+      [
+        { id: "overview", top: -500 },
+        { id: "included", top: 50 },
+        { id: "faq", top: 800 },
+      ],
+      108,
+    ),
+    "included",
+  );
+  assert.equal(
+    activeSectionId(
+      [
+        { id: "overview", top: 10 },
+        { id: "faq", top: 800 },
+      ],
+      108,
+      true,
+    ),
+    "faq",
+  );
+  assert.equal(activeSectionId([], 108), null);
+  const navData = {
+    _type: "mg2a_serviceContent",
+    _key: "auto-nav",
+    title: "On this page",
+    sections: [
+      {
+        _type: "mg2a_checklist",
+        _key: "first",
+        title: "First editable section",
+        items: [],
+      },
+      {
+        _type: "mg2a_deliverables",
+        _key: "second",
+        title: "Second editable section",
+        items: [],
+      },
+    ],
+  };
+  const autoNav = renderCompany(
+    ReactCompany.createElement(registry.mg2a_serviceContent, { data: navData }),
+  );
+  assert(autoNav.includes('href="#section-auto-nav_first"'));
+  const changedNav = renderCompany(
+    ReactCompany.createElement(registry.mg2a_serviceContent, {
+      data: {
+        ...navData,
+        sections: [
+          { ...navData.sections[1], title: "Renamed section" },
+          navData.sections[0],
+        ],
+      },
+    }),
+  );
+  assert(
+    changedNav.indexOf(">Renamed section</a>") <
+      changedNav.indexOf(">First editable section</a>"),
+  );
+  const { isSubmissionId, selectedSubmission, submissionShareUrl } = load(
+    "lib/forms/submissionLinks.js",
+  );
+  const { route } = require("sanity/router");
+  const submissionRouter = route.create("/", [route.create("/:submission")]);
+  const sharedId = "submissions.12345678-1234-4234-8234-123456789abc";
+  assert(isSubmissionId(sharedId));
+  assert(!isSubmissionId("../../page"));
+  assert.equal(
+    selectedSubmission(
+      submissionRouter.decode(
+        submissionRouter.encode({ submission: sharedId }),
+      ),
+    ),
+    sharedId,
+  );
+  assert.equal(selectedSubmission({}), null);
+  assert.equal(
+    submissionShareUrl(
+      "https://mg2a.com/studio/form-submissions/" +
+        sharedId +
+        "?search=private#state",
+    ),
+    "https://mg2a.com/studio/form-submissions/" + sharedId,
+  );
   const { primaryNavigation, serviceGroups, industryLinks, launchRoutes } =
     load("lib/mg2a/navigation.js");
   assert.deepEqual(

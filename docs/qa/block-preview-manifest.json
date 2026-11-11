@@ -1,0 +1,296 @@
+[
+  {
+    "type": "mg2a_companyHero",
+    "path": "/about",
+    "height": 599.6171875,
+    "capturedHeight": 599.6171875
+  },
+  {
+    "type": "mg2a_companyStory",
+    "path": "/about",
+    "height": 559,
+    "capturedHeight": 559
+  },
+  {
+    "type": "mg2a_companyFeatures",
+    "path": "/about",
+    "height": 397.546875,
+    "capturedHeight": 397.546875
+  },
+  {
+    "type": "mg2a_teamGrid",
+    "path": "/about",
+    "height": 884.7578125,
+    "capturedHeight": 884.7578125
+  },
+  {
+    "type": "mg2a_clientList",
+    "path": "/about",
+    "height": 332,
+    "capturedHeight": 332
+  },
+  {
+    "type": "mg2a_offices",
+    "path": "/about",
+    "height": 492.390625,
+    "capturedHeight": 492.390625
+  },
+  {
+    "type": "mg2a_ctaBanner",
+    "path": "/about",
+    "height": 262.09375,
+    "capturedHeight": 262.09375
+  },
+  {
+    "type": "mg2a_hero",
+    "path": "/",
+    "height": 928.03125,
+    "capturedHeight": 928.03125
+  },
+  {
+    "type": "mg2a_quickPaths",
+    "path": "/",
+    "height": 182,
+    "capturedHeight": 182
+  },
+  {
+    "type": "mg2a_clients",
+    "path": "/",
+    "height": 106.5,
+    "capturedHeight": 106.5
+  },
+  {
+    "type": "mg2a_serviceCategories",
+    "path": "/",
+    "height": 1113.34375,
+    "capturedHeight": 1113.34375
+  },
+  {
+    "type": "mg2a_projectLifecycle",
+    "path": "/",
+    "height": 435.796875,
+    "capturedHeight": 435.796875
+  },
+  {
+    "type": "mg2a_featuredProjects",
+    "path": "/",
+    "height": 1505.046875,
+    "capturedHeight": 1505.046875
+  },
+  {
+    "type": "mg2a_industries",
+    "path": "/",
+    "height": 541.84375,
+    "capturedHeight": 541.84375
+  },
+  {
+    "type": "mg2a_whyMG2A",
+    "path": "/",
+    "height": 795,
+    "capturedHeight": 795
+  },
+  {
+    "type": "mg2a_careers",
+    "path": "/",
+    "height": 515.390625,
+    "capturedHeight": 515.390625
+  },
+  {
+    "type": "mg2a_contactForm",
+    "path": "/",
+    "height": 644.5,
+    "capturedHeight": 644.5
+  },
+  {
+    "type": "mg2a_serviceHero",
+    "path": "/services/water-resources",
+    "height": 552.5,
+    "capturedHeight": 552.5
+  },
+  {
+    "type": "mg2a_projectStage",
+    "path": "/services/water-resources",
+    "height": 172.5,
+    "capturedHeight": 172.5
+  },
+  {
+    "type": "mg2a_practiceOverview",
+    "path": "/services/water-resources",
+    "height": 559.3828125,
+    "capturedHeight": 559.3828125
+  },
+  {
+    "type": "mg2a_serviceCards",
+    "path": "/services/water-resources",
+    "height": 579.09375,
+    "capturedHeight": 579.09375
+  },
+  {
+    "type": "mg2a_processSteps",
+    "path": "/services/water-resources",
+    "height": 453.046875,
+    "capturedHeight": 453.046875
+  },
+  {
+    "type": "mg2a_relatedProjects",
+    "path": "/services/water-resources",
+    "height": 716.296875,
+    "capturedHeight": 716.296875
+  },
+  {
+    "type": "mg2a_faq",
+    "path": "/services/water-resources",
+    "height": 462,
+    "capturedHeight": 462
+  },
+  {
+    "type": "mg2a_serviceContent",
+    "path": "/services/water-resources/stormwater-management-plans",
+    "height": 2305.1484375,
+    "capturedHeight": 1800
+  },
+  {
+    "type": "mg2a_checklist",
+    "path": "/services/water-resources/stormwater-management-plans",
+    "height": 309.59375,
+    "capturedHeight": 309.59375
+  },
+  {
+    "type": "mg2a_deliverables",
+    "path": "/services/water-resources/stormwater-management-plans",
+    "height": 430.5859375,
+    "capturedHeight": 430.5859375
+  },
+  {
+    "type": "mg2a_relatedServices",
+    "path": "/services/water-resources/stormwater-management-plans",
+    "height": 192,
+    "capturedHeight": 192
+  },
+  {
+    "type": "mg2a_scopeForm",
+    "path": "/services/water-resources/stormwater-management-plans",
+    "height": 622.5,
+    "capturedHeight": 622.5
+  },
+  {
+    "type": "mg2a_projectHero",
+    "path": "/industries/municipalities",
+    "height": 686.453125,
+    "capturedHeight": 686.453125
+  },
+  {
+    "type": "mg2a_communityStrip",
+    "path": "/industries/municipalities",
+    "height": 141.796875,
+    "capturedHeight": 141.796875
+  },
+  {
+    "type": "mg2a_industrySupport",
+    "path": "/industries/municipalities",
+    "height": 619.71875,
+    "capturedHeight": 619.71875
+  },
+  {
+    "type": "mg2a_industryPrograms",
+    "path": "/industries/municipalities",
+    "height": 917.2578125,
+    "capturedHeight": 917.2578125
+  },
+  {
+    "type": "mg2a_testimonialProject",
+    "path": "/industries/municipalities",
+    "height": 552,
+    "capturedHeight": 552
+  },
+  {
+    "type": "mg2a_industryListing",
+    "path": "/industries/municipalities",
+    "height": 253.5,
+    "capturedHeight": 253.5
+  },
+  {
+    "type": "mg2a_projectFacts",
+    "path": "/projects/bradley-commons",
+    "height": 152.6953125,
+    "capturedHeight": 152.6953125
+  },
+  {
+    "type": "mg2a_projectStats",
+    "path": "/projects/bradley-commons",
+    "height": 259.5,
+    "capturedHeight": 259.5
+  },
+  {
+    "type": "mg2a_projectStory",
+    "path": "/projects/bradley-commons",
+    "height": 893.78125,
+    "capturedHeight": 893.78125
+  },
+  {
+    "type": "mg2a_imageGallery",
+    "path": "/projects/bradley-commons",
+    "height": 539.5,
+    "capturedHeight": 539.5
+  },
+  {
+    "type": "mg2a_projectGrid",
+    "path": "/projects/bradley-commons",
+    "height": 560.296875,
+    "capturedHeight": 560.296875
+  },
+  {
+    "type": "mg2a_benefits",
+    "path": "/careers",
+    "height": 273.796875,
+    "capturedHeight": 273.796875
+  },
+  {
+    "type": "mg2a_jobList",
+    "path": "/careers",
+    "height": 532.7578125,
+    "capturedHeight": 532.7578125
+  },
+  {
+    "type": "mg2a_graduateCta",
+    "path": "/careers",
+    "height": 321.984375,
+    "capturedHeight": 321.984375
+  },
+  {
+    "type": "mg2a_pageHero",
+    "path": "/order-a-survey",
+    "height": 318.4765625,
+    "capturedHeight": 318.4765625
+  },
+  {
+    "type": "mg2a_surveyForm",
+    "path": "/order-a-survey",
+    "height": 1268,
+    "capturedHeight": 1268
+  },
+  {
+    "type": "mg2a_projectGrid",
+    "path": "/projects",
+    "height": 1224.796875,
+    "capturedHeight": 1224.796875
+  },
+  {
+    "type": "mg2a_memberProfile",
+    "path": "/about/jacob-gingerich",
+    "height": 616,
+    "capturedHeight": 616
+  },
+  {
+    "type": "mg2a_jobApplication",
+    "path": "/careers/project-engineer-pe",
+    "height": 763,
+    "capturedHeight": 763
+  },
+  {
+    "type": "mg2a_projectHero",
+    "path": "/projects/bradley-commons",
+    "height": 560,
+    "capturedHeight": 560
+  }
+]

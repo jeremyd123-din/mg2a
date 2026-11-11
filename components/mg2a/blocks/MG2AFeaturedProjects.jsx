@@ -1,5 +1,5 @@
 import MG2ASection from "../ui/MG2ASection";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
 export default function MG2AFeaturedProjects({ data }) {
   return (
     <MG2ASection data={data} id="projects" className="py-[104px]">
@@ -33,7 +33,7 @@ export default function MG2AFeaturedProjects({ data }) {
         </div>
         <a
           href={safeHref(data.href2)}
-          className="proj [&_img]:[transition:transform_0.6s] [&_svg]:[transition:transform_0.6s] [&:hover_.projmedia]:[transform:scale(1.03)] [#projects_&:not(.feat):nth-child(2)_.projmedia]:object-[50%_50%] [#projects_&:not(.feat):nth-child(3)_.projmedia]:object-[50%_70%] [#projects_&:not(.feat):nth-child(2)_>_div:first-child]:[background:#1f2a24] [#projects_&:not(.feat):nth-child(3)_.mono:first-child]:[color:var(--water)] feat [@media(max-width:700px)]:pt-[210px] relative flex flex-col justify-end min-h-[500px] rounded-[6px] overflow-hidden [background:#0f202c] [color:#ffffff]"
+          className="proj [&_img]:[transition:transform_0.6s] [&_svg]:[transition:transform_0.6s] [&:hover_.projmedia]:[transform:scale(1.03)] feat [@media(max-width:700px)]:pt-[210px] relative flex flex-col justify-end min-h-[500px] rounded-[6px] overflow-hidden [background:#0f202c] [color:#ffffff]"
         >
           <img
             className="projmedia [transition:transform_0.6s] motion-reduce:[transition:none] feat-img [@media(max-width:700px)]:h-[280px]! [@media(max-width:700px)]:[bottom:auto]! absolute inset-[0] w-[100%] h-[100%] object-cover object-[50%_60%]"
@@ -72,7 +72,7 @@ export default function MG2AFeaturedProjects({ data }) {
             <a
               key={item._key || item._id || itemIndex}
               href={safeHref(item.href)}
-              className="proj [&_img]:[transition:transform_0.6s] [&_svg]:[transition:transform_0.6s] [&:hover_.projmedia]:[transform:scale(1.03)] [#projects_&:not(.feat):nth-child(2)_.projmedia]:object-[50%_50%] [#projects_&:not(.feat):nth-child(3)_.projmedia]:object-[50%_70%] [#projects_&:not(.feat):nth-child(2)_>_div:first-child]:[background:#1f2a24] [#projects_&:not(.feat):nth-child(3)_.mono:first-child]:[color:var(--water)] flex flex-col [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] overflow-hidden"
+              className="proj [&_img]:[transition:transform_0.6s] [&_svg]:[transition:transform_0.6s] [&:hover_.projmedia]:[transform:scale(1.03)] flex flex-col [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] overflow-hidden"
             >
               <div className="relative h-[240px] overflow-hidden [background:#0e2c42]">
                 <img
@@ -80,10 +80,18 @@ export default function MG2AFeaturedProjects({ data }) {
                   src={mediaUrl(item.image)}
                   alt={item.alt}
                   loading="lazy"
+                  style={{ objectPosition: projectCardPosition(item) }}
                 />
               </div>
               <div className="flex flex-col flex-[1] p-[26px]">
-                <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[11px] [color:var(--accent)]">
+                <div
+                  className={
+                    "mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[11px] " +
+                    (item.cardTone === "water"
+                      ? "text-[var(--water)]"
+                      : "text-[var(--accent)]")
+                  }
+                >
                   {item.eyebrow}
                 </div>
                 <h3 className="m-[10px_0_0] text-[22px] leading-[1.2] font-bold">

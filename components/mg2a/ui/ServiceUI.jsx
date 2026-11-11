@@ -29,7 +29,12 @@ export function Arrow() {
     </svg>
   );
 }
-export function ServiceButton({ link, secondary = false, banner = false }) {
+export function ServiceButton({
+  link,
+  secondary = false,
+  banner = false,
+  showArrow = true,
+}) {
   if (!link?.label || !safeHref(link.href)) return null;
   return (
     <a
@@ -44,7 +49,7 @@ export function ServiceButton({ link, secondary = false, banner = false }) {
       }
     >
       {link.label}
-      {!secondary && !banner && <Arrow />}
+      {showArrow && !secondary && !banner && <Arrow />}
     </a>
   );
 }

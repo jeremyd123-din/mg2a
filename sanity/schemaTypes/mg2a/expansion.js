@@ -332,6 +332,23 @@ export function projectEditorFields() {
         ),
     },
     { name: "order", title: "Display order", type: "number", initialValue: 0 },
+    s("cardImagePosition", "Card image focus", {
+      options: {
+        list: [
+          { title: "Centered", value: "50% 50%" },
+          { title: "Lower", value: "50% 70%" },
+          { title: "Upper", value: "50% 30%" },
+        ],
+      },
+    }),
+    s("cardTone", "Card label color", {
+      options: {
+        list: [
+          { title: "Orange", value: "accent" },
+          { title: "Blue", value: "water" },
+        ],
+      },
+    }),
     s("meta_title", "SEO title"),
     t("meta_description", "SEO description"),
     {

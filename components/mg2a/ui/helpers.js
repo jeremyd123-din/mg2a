@@ -23,3 +23,6 @@ export function safeHref(value) {
     ? href
     : undefined;
 }
+
+export const projectCardPosition = (project, override) =>
+  stegaClean(override || project?.cardImagePosition || "50% 50%");

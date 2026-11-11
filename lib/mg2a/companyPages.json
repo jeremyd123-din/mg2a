@@ -144,7 +144,7 @@
           "Nucor Steel",
           "IKO",
           "Peddinghaus",
-          "Kohl’s",
+          "Kohl\u2019s",
           "Menards",
           "Curwick Home Builders",
           "Jennings Realty",
@@ -165,7 +165,8 @@
         "buttonOne": {
           "label": "See open positions",
           "href": "/careers"
-        }
+        },
+        "eyebrow": "Careers"
       }
     ]
   },

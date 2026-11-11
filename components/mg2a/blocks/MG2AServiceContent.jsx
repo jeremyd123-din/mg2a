@@ -1,9 +1,9 @@
+import OnThisPageNav from "../ui/OnThisPageNav";
 import { createDataAttribute } from "next-sanity";
 import MG2ASection from "../ui/MG2ASection";
 import PageBuilder from "@/components/wrappers/PageBuilder";
-import { sectionId, serviceWrap, mono } from "../ui/ServiceUI";
+import { sectionId, serviceWrap } from "../ui/ServiceUI";
 import { blockIdentity } from "@/lib/mg2a/blockStyles";
-import { safeHref } from "../ui/helpers";
 export default function MG2AServiceContent({ data, editorContext }) {
   const sections = data.sections || [];
   const links = sections
@@ -34,28 +34,7 @@ export default function MG2AServiceContent({ data, editorContext }) {
     <MG2ASection data={data} className="pt-20 pb-10">
       <div className={serviceWrap + " flex flex-wrap gap-16"}>
         <aside className="flex-[0_0_220px] [@media(max-width:980px)]:hidden">
-          <nav
-            aria-label={data.title || "On this page"}
-            className="sticky top-[108px]"
-          >
-            <div className={mono + " mb-3 text-[10px] text-[var(--muted)]"}>
-              {data.title}
-            </div>
-            {links.map((link, index) => (
-              <a
-                key={link.href + index}
-                href={safeHref(link.href)}
-                className={
-                  "block border-l-2 px-[18px] py-[9px] text-sm leading-[1.4] hover:opacity-100 " +
-                  (index === 0
-                    ? "border-[var(--accent)] font-semibold"
-                    : "border-[var(--line)] opacity-70")
-                }
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
+          <OnThisPageNav title={data.title} links={links} />
         </aside>
         <div
           className="min-w-0 max-w-[860px] flex-[999_1_600px]"

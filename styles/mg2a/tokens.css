@@ -72,3 +72,18 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
 }
+
+.mg-primary-nav [aria-current],
+.mg-submenu [aria-current] {
+  color: var(--accentHi);
+  opacity: 1;
+  box-shadow: inset 0 -2px 0 currentColor;
+}
+.mg-header .mg-primary-nav [aria-current] {
+  padding-block: 6px;
+}
+.mg-header a.rounded[aria-current],
+#mg-mobile-nav a.rounded[aria-current] {
+  border-color: var(--accentHi);
+  color: var(--accentHi);
+}
