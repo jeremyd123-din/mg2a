@@ -58,7 +58,7 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
           onClick={onNavigate}
           className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--onDark)]"
         >
-          {industries ? "All industries" : "All services"}{" "}
+          <span className="mg-nav-label">{industries ? "All industries" : "All services"}</span>
           <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -78,7 +78,7 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
                 onClick={onNavigate}
                 className="flex min-h-14 items-center gap-3 border-b border-white/10 py-3 text-[15px] font-medium hover:text-[var(--onDark)]"
               >
-                {link.label}
+                <span className="mg-nav-label">{link.label}</span>
                 <span
                   aria-hidden="true"
                   className="shrink-0 text-[var(--onDark)]"
@@ -103,7 +103,7 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
                 onClick={onNavigate}
                 className="inline-flex items-center gap-2 text-[15px] font-semibold text-[var(--onDark)] hover:text-white"
               >
-                {group.label}
+                <span className="mg-nav-label">{group.label}</span>
                 <span aria-hidden="true">→</span>
               </a>
               {!!group.links?.length && (
@@ -116,7 +116,7 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
                         onClick={onNavigate}
                         className="block text-sm leading-relaxed text-[#bac8d1] hover:text-white"
                       >
-                        {link.label}
+                        <span className="mg-nav-label">{link.label}</span>
                       </a>
                     </li>
                   ))}
@@ -340,7 +340,7 @@ export default function MG2AHeader({
                     }
                   }}
                 >
-                  {item.label}
+                  <span className="mg-nav-label">{item.label}</span>
                   <Chevron />
                 </button>
               ) : (
@@ -351,7 +351,7 @@ export default function MG2AHeader({
                   className="whitespace-nowrap opacity-[.86] transition-opacity hover:opacity-100 hover:text-[var(--onDark)]"
                   onClick={finish}
                 >
-                  {item.label}
+                  <span className="mg-nav-label">{item.label}</span>
                 </a>
               ),
             )}
@@ -443,7 +443,7 @@ export default function MG2AHeader({
                     aria-current={currentRoute(pathname, item.href)}
                     className="flex min-h-16 cursor-pointer list-none items-center justify-between text-xl font-semibold [&::-webkit-details-marker]:hidden"
                   >
-                    {item.label}
+                    <span className="mg-nav-label">{item.label}</span>
                     <Chevron />
                   </summary>
                   <div className="pb-7">
@@ -463,7 +463,7 @@ export default function MG2AHeader({
                   className="flex min-h-16 items-center border-b border-white/10 text-xl font-semibold"
                   onClick={finish}
                 >
-                  {item.label}
+                  <span className="mg-nav-label">{item.label}</span>
                 </a>
               ),
             )}
