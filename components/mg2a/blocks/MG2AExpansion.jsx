@@ -207,13 +207,10 @@ export function MG2AProjectStats({ data }) {
         {data.title}
       </div>
       <div className="mt-7 grid grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] gap-6">
-        {data.items?.map((item, i) => (
+        {data.items?.map((item) => (
           <div
             key={item._key}
-            className={
-              "border-t-2 pt-[18px] " +
-              (i < 2 ? "border-[var(--accent)]" : "border-[var(--water)]")
-            }
+            className="border-t-2 border-[var(--accent)] pt-[18px]"
           >
             <div className="text-[clamp(48px,5vw,64px)] leading-none font-bold tracking-[-.03em]">
               {item.value}
