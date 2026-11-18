@@ -1,0 +1,53 @@
+[
+  {
+    "name": "name",
+    "type": "text",
+    "label": "Full name",
+    "required": true
+  },
+  {
+    "name": "email",
+    "type": "email",
+    "label": "Email",
+    "required": true
+  },
+  {
+    "name": "phone",
+    "type": "tel",
+    "label": "Phone"
+  },
+  {
+    "name": "license",
+    "type": "select",
+    "label": "License or status",
+    "options": [
+      "PE",
+      "EIT",
+      "PLS",
+      "SIT",
+      "Student or recent graduate",
+      "Other"
+    ]
+  },
+  {
+    "name": "linkedin",
+    "type": "url",
+    "label": "LinkedIn (optional)",
+    "placeholder": "https://"
+  },
+  {
+    "name": "resume",
+    "type": "file",
+    "label": "Resume (PDF or Word)",
+    "accept": "resume",
+    "required": true,
+    "width": 100,
+    "multiple": true
+  },
+  {
+    "name": "message",
+    "type": "textarea",
+    "label": "Anything else we should know?",
+    "width": 100
+  }
+]

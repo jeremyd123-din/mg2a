@@ -31,31 +31,12 @@ try {
     }
     return v;
   }
-  const fields = [
-    { name: "name", type: "text", label: "Full name", required: true },
-    { name: "email", type: "email", label: "Email", required: true },
-    { name: "phone", type: "tel", label: "Phone" },
-    {
-      name: "linkedin",
-      type: "url",
-      label: "LinkedIn (optional)",
-      placeholder: "https://",
-    },
-    {
-      name: "resume",
-      type: "file",
-      label: "Resume (PDF or Word)",
-      accept: "resume",
-      required: true,
-      width: 100,
-    },
-    {
-      name: "message",
-      type: "textarea",
-      label: "Anything else we should know?",
-      width: 100,
-    },
-  ];
+  const fields = JSON.parse(
+    fs.readFileSync(
+      new URL("../lib/forms/jobApplicationFields.json", import.meta.url),
+      "utf8",
+    ),
+  );
   await client.createIfNotExists({
     _id: "mg2a-job-application",
     _type: "form",
