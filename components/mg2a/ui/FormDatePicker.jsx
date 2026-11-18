@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
-import { DayPicker } from "react-day-picker";
+import { DayPicker, getDefaultClassNames } from "react-day-picker";
+
+const calendarClasses = getDefaultClassNames();
 
 function dateValue(date) {
   if (!date) return "";
@@ -72,10 +74,13 @@ export default function FormDatePicker({ field, id }) {
             showOutsideDays
             className="[--rdp-accent-color:var(--accent)] [--rdp-day-width:clamp(34px,11vw,40px)] [--rdp-day-height:40px] [--rdp-day_button-width:var(--rdp-day-width)] [--rdp-day_button-height:40px]"
             classNames={{
-              month_caption: "font-semibold",
+              month_caption:
+                calendarClasses.month_caption +
+                " items-center pr-20 font-semibold",
               day_button:
-                "hover:bg-[var(--bg2)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]",
-              selected: "font-semibold",
+                calendarClasses.day_button +
+                " hover:bg-[var(--bg2)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]",
+              selected: calendarClasses.selected + " font-semibold",
             }}
           />
           {date && !field.required && (
