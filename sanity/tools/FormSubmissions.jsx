@@ -16,7 +16,6 @@ import {
   Heading,
   Select,
   Spinner,
-  Stack,
   Text,
   TextInput,
 } from "@sanity/ui";
@@ -192,8 +191,14 @@ export function SubmissionDetail({ id, client, onClose, onUpdated }) {
       onClose={onClose}
       onClickOutside={onClose}
     >
-      <Box padding={4}>
-        <Stack space={4}>
+      <Box padding={[3, 4, 5]}>
+        <Box
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr)",
+            gap: 24,
+          }}
+        >
           {error && (
             <Card padding={3} tone="critical" radius={2}>
               <Text size={1} role="alert">
@@ -228,7 +233,7 @@ export function SubmissionDetail({ id, client, onClose, onUpdated }) {
                 align="flex-end"
                 justify="space-between"
               >
-                <Stack space={3}>
+                <Box style={{ display: "grid", gap: 12, minWidth: 0 }}>
                   <Heading size={1}>
                     {record.form_title || "Form submission"}
                   </Heading>
@@ -236,12 +241,18 @@ export function SubmissionDetail({ id, client, onClose, onUpdated }) {
                     {received(record.submitted_at)}
                   </Text>
                   {record.page_url && (
-                    <Text size={1} muted>
+                    <Text size={1} muted style={{ overflowWrap: "anywhere" }}>
                       Page: {record.page_url}
                     </Text>
                   )}
-                </Stack>
-                <Stack space={2}>
+                </Box>
+                <Box
+                  style={{
+                    display: "grid",
+                    gap: 8,
+                    minWidth: "min(100%, 160px)",
+                  }}
+                >
                   <Text size={1} weight="medium">
                     Status
                   </Text>
@@ -259,16 +270,16 @@ export function SubmissionDetail({ id, client, onClose, onUpdated }) {
                       </option>
                     ))}
                   </Select>
-                </Stack>
+                </Box>
               </Flex>
-              <Stack space={3}>
+              <Box style={{ display: "grid", gap: 12 }}>
                 <Heading size={1}>Responses</Heading>
                 <SubmissionResponsesInput value={record.fields} />
-              </Stack>
-              <Stack space={3}>
+              </Box>
+              <Box style={{ display: "grid", gap: 12 }}>
                 <Heading size={1}>Documents</Heading>
                 <SubmissionAttachmentsInput value={record.attachments} />
-              </Stack>
+              </Box>
               <Text size={1} muted>
                 Email notification:{" "}
                 {{
@@ -280,7 +291,7 @@ export function SubmissionDetail({ id, client, onClose, onUpdated }) {
               </Text>
             </>
           )}
-        </Stack>
+        </Box>
       </Box>
     </Dialog>
   );
@@ -359,15 +370,21 @@ export default function FormSubmissions() {
   return (
     <Card style={{ height: "100%", overflow: "auto" }}>
       <Box padding={[3, 4, 5]} style={{ maxWidth: 1600, margin: "0 auto" }}>
-        <Stack space={4}>
+        <Box
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr)",
+            gap: 24,
+          }}
+        >
           <Flex wrap="wrap" gap={3} align="center" justify="space-between">
-            <Stack space={3}>
+            <Box style={{ display: "grid", gap: 12 }}>
               <Heading size={3}>Form submissions</Heading>
               <Text size={1} muted>
                 Search entries, review responses and download submitted
                 documents.
               </Text>
-            </Stack>
+            </Box>
             <Button
               icon={RefreshIcon}
               text="Refresh"
@@ -377,7 +394,7 @@ export default function FormSubmissions() {
             />
           </Flex>
           <Flex wrap="wrap" gap={3} align="center">
-            <Box flex={1} style={{ minWidth: 220 }}>
+            <Box style={{ flex: "1 1 220px", minWidth: "min(100%, 220px)" }}>
               <TextInput
                 aria-label="Search submissions"
                 icon={SearchIcon}
@@ -386,7 +403,7 @@ export default function FormSubmissions() {
                 onChange={(event) => setSearch(event.currentTarget.value)}
               />
             </Box>
-            <Box style={{ minWidth: 200 }}>
+            <Box style={{ flex: "0 1 200px", minWidth: "min(100%, 200px)" }}>
               <Select
                 aria-label="Filter by form"
                 value={formId}
@@ -403,7 +420,7 @@ export default function FormSubmissions() {
                 ))}
               </Select>
             </Box>
-            <Box style={{ minWidth: 160 }}>
+            <Box style={{ flex: "0 1 160px", minWidth: "min(100%, 160px)" }}>
               <Select
                 aria-label="Filter by status"
                 value={status}
@@ -439,7 +456,13 @@ export default function FormSubmissions() {
             </Flex>
           ) : (
             !error && (
-              <>
+              <Box
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "minmax(0, 1fr)",
+                  gap: 16,
+                }}
+              >
                 {result.items.length ? (
                   <SubmissionsTable
                     items={result.items}
@@ -447,7 +470,7 @@ export default function FormSubmissions() {
                   />
                 ) : (
                   <Card border padding={5} radius={2}>
-                    <Stack space={3}>
+                    <Box style={{ display: "grid", gap: 12 }}>
                       <Heading size={1}>
                         {debounced || formId || status
                           ? "No matching submissions"
@@ -458,7 +481,7 @@ export default function FormSubmissions() {
                           ? "Try another search or clear the filters."
                           : "New form submissions will appear here."}
                       </Text>
-                    </Stack>
+                    </Box>
                   </Card>
                 )}
                 <Flex
@@ -487,10 +510,10 @@ export default function FormSubmissions() {
                     />
                   </Flex>
                 </Flex>
-              </>
+              </Box>
             )
           )}
-        </Stack>
+        </Box>
       </Box>
       {selected && (
         <SubmissionDetail
