@@ -43,14 +43,11 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
           <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[.14em] text-[var(--onDark)]">
             {industries ? "Who we work with" : "Our expertise"}
           </p>
-          <h2
-            className={
-              "mt-2 font-semibold tracking-tight " +
-              (mobile ? "text-xl" : "text-2xl")
-            }
-          >
-            {item.label}
-          </h2>
+          {!mobile && (
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+              {item.label}
+            </h2>
+          )}
         </div>
         <a
           aria-current={currentRoute(pathname, item.href)}
