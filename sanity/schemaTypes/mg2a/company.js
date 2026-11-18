@@ -247,6 +247,14 @@ export function profileFields(kind) {
     s("meta_title", "SEO title"),
     t("meta_description", "SEO description"),
     {
+      name: "og_image",
+      title: "Social share image",
+      description:
+        "Leave blank to generate a branded image from the page title.",
+      type: "image",
+      options: { hotspot: true },
+    },
+    {
       name: "seo_no_index",
       title: "Do not index this page",
       type: "boolean",

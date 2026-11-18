@@ -1,4 +1,5 @@
 @import "./tokens.css";
+@import "react-day-picker/style.css" layer(components);
 @reference "tailwindcss";
 
 @layer base {

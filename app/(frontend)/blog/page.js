@@ -3,7 +3,6 @@ import { paginatedItemsPerPage } from "@/lib/constants";
 import { getPaginationContext } from "@/lib/helpers";
 import { getMetaData } from "@/lib/seo";
 import { getPosts, getPostsCount } from "@/sanity/utils/queries";
-import { notFound } from "next/navigation";
 import { generateBlogMetaData } from "@/lib/constants";
 
 export default async function BlogArchive() {
@@ -35,8 +34,6 @@ export default async function BlogArchive() {
 
 export const generateMetadata = async () => {
   const staticMetaData = generateBlogMetaData();
-  const data = await getPosts(0, paginatedItemsPerPage);
-  if (!data || !data.length) return {};
   const { lastPaginatedPage } = await getPaginationContext(
     getPostsCount(),
     paginatedItemsPerPage,

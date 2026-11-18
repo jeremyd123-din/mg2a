@@ -9,6 +9,7 @@ import {
   MAX_UPLOAD_BYTES,
 } from "@/lib/forms/uploadLimits";
 import FormCombobox from "./FormCombobox";
+import FormDatePicker from "./FormDatePicker";
 import { parseFields, validateValues } from "@/lib/forms/definition";
 export function FieldLabel({ field }) {
   return (
@@ -245,6 +246,22 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             />
           </div>
         );
+      if (field.type === "date")
+        return (
+          <div
+            key={field.name}
+            className={"flex min-w-0 flex-col gap-2 " + wide}
+          >
+            <label htmlFor={fieldId}>
+              <FieldLabel field={field} />
+            </label>
+            <FormDatePicker
+              key={`${resetKey}-${field.name}`}
+              field={field}
+              id={fieldId}
+            />
+          </div>
+        );
       return (
         <label key={field.name} htmlFor={fieldId} className={wide}>
           <FieldLabel field={field} />
@@ -282,7 +299,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
             ? "border-0! bg-transparent! p-0! gap-[18px]! flex-[999_1_460px]! "
             : "") +
         columns +
-        " mg-inquiry flex-[999_1_480px] min-w-[0] grid gap-[20px] p-[36px] [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [&_label]:flex [&_label]:flex-col [&_label]:gap-[8px] [&_label]:text-[14px] [&_label]:font-semibold [&_input]:min-h-[48px] [&_input]:min-w-[0] [&_input]:w-[100%] [&_input]:p-[0_14px] [&_input]:font-[400] [&_input]:[color:var(--ink)] [&_input]:[background:var(--bg)] [&_input]:[border:1px_solid_var(--line)] [&_input]:rounded-[4px] [&_select]:min-h-[48px] [&_select]:min-w-[0] [&_select]:w-[100%] [&_select]:p-[0_14px] [&_select]:font-[400] [&_select]:[color:var(--ink)] [&_select]:[background:var(--bg)] [&_select]:[border:1px_solid_var(--line)] [&_select]:rounded-[4px] [&_textarea]:min-h-[48px] [&_textarea]:min-w-[0] [&_textarea]:w-[100%] [&_textarea]:p-[12px_14px] [&_textarea]:font-[400] [&_textarea]:[color:var(--ink)] [&_textarea]:[background:var(--bg)] [&_textarea]:[border:1px_solid_var(--line)] [&_textarea]:rounded-[4px] [&_textarea]:[resize:vertical]"
+        " mg-inquiry flex-[999_1_480px] min-w-[0] grid gap-[20px] p-6 sm:p-9 [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [&_label]:flex [&_label]:flex-col [&_label]:gap-[8px] [&_label]:text-[14px] [&_label]:font-semibold [&_input]:min-h-[48px] [&_input]:min-w-[0] [&_input]:w-[100%] [&_input]:p-[0_14px] [&_input]:font-[400] [&_input]:[color:var(--ink)] [&_input]:[background:var(--bg)] [&_input]:[border:1px_solid_var(--line)] [&_input]:rounded-[4px] [&_select]:min-h-[48px] [&_select]:min-w-[0] [&_select]:w-[100%] [&_select]:p-[0_14px] [&_select]:font-[400] [&_select]:[color:var(--ink)] [&_select]:[background:var(--bg)] [&_select]:[border:1px_solid_var(--line)] [&_select]:rounded-[4px] [&_textarea]:min-h-[48px] [&_textarea]:min-w-[0] [&_textarea]:w-[100%] [&_textarea]:p-[12px_14px] [&_textarea]:font-[400] [&_textarea]:[color:var(--ink)] [&_textarea]:[background:var(--bg)] [&_textarea]:[border:1px_solid_var(--line)] [&_textarea]:rounded-[4px] [&_textarea]:[resize:vertical]"
       }
       onSubmit={submit}
     >
