@@ -68,7 +68,6 @@ try {
       code: JSON.stringify(fields, null, 2),
     },
     button_title: "Send application",
-    note: "Your application is sent to MG2A for review.",
     thankyou_message:
       "Thank you for applying. We have received your application and will be in touch if your experience matches the role.",
     error_message: "We could not save your application. Please try again.",
