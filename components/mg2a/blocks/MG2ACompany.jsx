@@ -374,6 +374,8 @@ export function MG2AOffices({ data }) {
                   "https://www.google.com/maps/search/?api=1&query=" +
                   encodeURIComponent(office.street + ", " + office.city)
                 }
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-[var(--accent)]"
               >
                 Get directions →

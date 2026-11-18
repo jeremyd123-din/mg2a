@@ -61,7 +61,7 @@ export default function FormDatePicker({ field, id }) {
           align="start"
           sideOffset={5}
           collisionPadding={8}
-          className="z-[60] max-h-[var(--radix-popover-content-available-height)] max-w-[var(--radix-popover-content-available-width)] overflow-auto rounded-md border border-[var(--line)] bg-[var(--panel)] p-2 font-[family-name:var(--font-sans)] text-sm text-[var(--ink)] shadow-lg"
+          className="z-[60] max-h-[var(--radix-popover-content-available-height)] max-w-[var(--radix-popover-content-available-width)] overflow-auto rounded-md border border-[var(--line)] bg-[var(--panel)] p-3 font-[family-name:var(--font-sans)] text-sm text-[var(--ink)] shadow-lg"
         >
           {/* Calendar + Popover composition from the shadcn/ui date picker. */}
           <DayPicker
@@ -72,11 +72,17 @@ export default function FormDatePicker({ field, id }) {
             required={field.required}
             autoFocus
             showOutsideDays
-            className="[--rdp-accent-color:var(--accent)] [--rdp-day-width:clamp(34px,11vw,40px)] [--rdp-day-height:40px] [--rdp-day_button-width:var(--rdp-day-width)] [--rdp-day_button-height:40px]"
+            className="[--rdp-accent-color:var(--accent)] [--rdp-day-width:clamp(32px,10.5vw,36px)] [--rdp-day-height:var(--rdp-day-width)] [--rdp-day_button-width:var(--rdp-day-width)] [--rdp-day_button-height:var(--rdp-day-width)] [--rdp-day_button-border-radius:0.375rem] [--rdp-nav-height:var(--rdp-day-width)] [--rdp-nav_button-width:var(--rdp-day-width)] [--rdp-nav_button-height:var(--rdp-day-width)]"
             classNames={{
+              month: calendarClasses.month + " flex flex-col gap-2",
+              nav:
+                calendarClasses.nav +
+                " pointer-events-none inset-x-0 justify-between [&>button]:pointer-events-auto [&>button]:rounded-md [&>button:hover]:bg-[var(--bg2)] [&_svg]:size-4",
               month_caption:
                 calendarClasses.month_caption +
-                " items-center pr-20 font-semibold",
+                " items-center justify-center px-[var(--rdp-day-width)]",
+              caption_label:
+                calendarClasses.caption_label + " text-sm font-medium",
               day_button:
                 calendarClasses.day_button +
                 " hover:bg-[var(--bg2)] focus-visible:outline-2 focus-visible:outline-[var(--accent)]",
