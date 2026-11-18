@@ -728,7 +728,7 @@
             "title": "Survey",
             "description": "Boundary, topographic, and ALTA/NSPS surveys that give every project an accurate starting point.",
             "href": "/services/survey",
-            "label": "View services"
+            "label": "View all 9 survey services"
           },
           {
             "_type": "serviceCard",
@@ -736,7 +736,7 @@
             "title": "Design",
             "description": "Site plans, subdivision plats, and engineering plans, from concept sketch to final approval set.",
             "href": "/services/design",
-            "label": "View services"
+            "label": "View all 15 design services"
           },
           {
             "_type": "serviceCard",
@@ -744,7 +744,7 @@
             "title": "Water Resources",
             "description": "Stormwater planning and floodplain analysis that protect the site and satisfy reviewers.",
             "href": "/services/water-resources",
-            "label": "View services"
+            "label": "Explore water resources"
           },
           {
             "_type": "serviceCard",
@@ -752,7 +752,7 @@
             "title": "Permitting",
             "description": "NPDES, SWPPP, and FEMA map revisions handled from application through approval.",
             "href": "/services/permitting",
-            "label": "View services"
+            "label": "Explore permitting"
           },
           {
             "_type": "serviceCard",
@@ -760,7 +760,7 @@
             "title": "Construction",
             "description": "Staking, observation, and bidding support that keep the build matched to the plan.",
             "href": "/services/construction",
-            "label": "View services"
+            "label": "Explore construction services"
           },
           {
             "_type": "serviceCard",
@@ -768,7 +768,7 @@
             "title": "Documentation",
             "description": "Record drawings, flood elevation certificates, and certifications that close the project out cleanly.",
             "href": "/services/documentation",
-            "label": "View services"
+            "label": "Explore documentation"
           },
           {
             "_type": "serviceCard",
@@ -776,7 +776,7 @@
             "title": "Cost Estimation",
             "description": "Opinions of probable cost at every phase, so budgets hold from planning through bidding.",
             "href": "/services/cost-estimation",
-            "label": "View services"
+            "label": "Explore cost estimation"
           }
         ]
       },

@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import nextEnv from "@next/env";
 import { createClient } from "@sanity/client";
 import { serviceGroups } from "../lib/mg2a/navigation.js";
@@ -123,6 +124,13 @@ const pages = [
     ],
   ),
 ];
+const serviceLabels = new Map(
+  JSON.parse(
+    readFileSync(new URL("../lib/mg2a/documents.json", import.meta.url)),
+  )
+    .filter((doc) => doc._type === "mg2a_serviceCategory")
+    .map((doc) => [doc.title, doc.text]),
+);
 const planned = new Set(
   serviceGroups.flatMap((g) => [g.href, ...g.links.map((l) => l.href)]),
 );
@@ -191,10 +199,19 @@ function edits(doc, built) {
           target = value.startsWith(water + "/")
             ? water + "#services-list"
             : listings;
-        if (obj._type === "serviceCard")
-          set("label", survey ? "Order a survey" : "Discuss this service");
-        if (obj._type === "mg2a_serviceCategory")
-          set("text", survey ? "Order a survey" : "Explore services");
+      }
+      if (obj._type === "serviceCard" && key === "href") {
+        const label =
+          doc.slug?.current === "services"
+            ? serviceLabels.get(obj.title)
+            : doc.slug?.current === "services/water-resources"
+              ? "Learn more"
+              : undefined;
+        if (label && obj.label !== label) set("label", label);
+      }
+      if (obj._type === "mg2a_serviceCategory" && key === "href") {
+        const label = serviceLabels.get(obj.title);
+        if (label && obj.text !== label) set("text", label);
       }
       if (target !== value) set(key, target);
     }

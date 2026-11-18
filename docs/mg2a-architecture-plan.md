@@ -247,3 +247,7 @@ Across these phases, compare desktop and mobile output to the supplied frontend 
 - Existing URLs requiring redirects and the final external G2X destination.
 
 These decisions do not prevent using Janoova as the starting foundation. They determine the final schemas, templates and integration details.
+
+### Service links to revisit at launch
+
+When each remaining service page goes live, replace temporary destinations in Sanity with the published route. Check the header mega menu and footer in Site Settings, the homepage service cards and Design quick path, the Services overview cards, and the Water Resources cards and related service links. Temporary destinations include `/services#services-list`, `/services/water-resources#services-list`, `/contact`, and `/order-a-survey`. Keep genuine inquiry and survey-order buttons pointed at their forms. Test the links from the published pages after updating them.

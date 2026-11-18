@@ -253,15 +253,7 @@ export function MG2ARelatedProjects({ data }) {
                 }}
               />
               <div className="p-[26px]">
-                <div
-                  className={
-                    mono +
-                    " text-[11px] " +
-                    (project.cardTone === "water"
-                      ? "text-[var(--water)]"
-                      : "text-[var(--accent)]")
-                  }
-                >
+                <div className={mono + " text-[11px] text-[var(--accent)]"}>
                   {project.eyebrow}
                 </div>
                 <h3 className="mt-2.5 text-[22px] font-bold">
