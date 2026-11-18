@@ -104,6 +104,7 @@ const pages = [
       block("mg2a_offices", "offices", {
         eyebrow: "Visit or call",
         title: "Our offices",
+        spacing: { paddingTop: 0, mobilePaddingTop: 0 },
       }),
       block("mg2a_ctaBanner", "survey", {
         title: "Need a land survey?",
