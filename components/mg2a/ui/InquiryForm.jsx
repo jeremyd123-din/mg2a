@@ -1,5 +1,5 @@
 "use client";
-import { safeHref } from "./helpers";
+import { buttonLabel, safeHref } from "./helpers";
 
 import { useState, useId, useRef } from "react";
 import { stegaClean } from "next-sanity";
@@ -350,7 +350,7 @@ export default function InquiryForm({ data, appearance = "panel" }) {
           disabled={status === "sending"}
           aria-busy={status === "sending"}
         >
-          {status === "sending" ? "Sending…" : definition.button_title}
+          {status === "sending" ? "Sending…" : buttonLabel(definition.button_title)}
           <SubmitIcon sending={status === "sending"} />
         </button>
       </div>

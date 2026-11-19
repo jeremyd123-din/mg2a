@@ -1,5 +1,5 @@
 import MG2ASection from "../ui/MG2ASection";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { buttonLabel, mediaUrl, safeHref } from "../ui/helpers";
 import ServiceIcon from "../ui/ServiceIcon";
 export default function MG2AServiceCategories({ data }) {
   return (
@@ -81,7 +81,7 @@ export default function MG2AServiceCategories({ data }) {
                     </ul>
                   </div>
                   <span className="flex items-center gap-[8px] font-semibold text-[15px]">
-                    {item.text}
+                    {buttonLabel(item.text)}
                     <svg
                       aria-hidden="true"
                       width="16"
@@ -110,7 +110,7 @@ export default function MG2AServiceCategories({ data }) {
                 {data.title2}
               </h3>
               <span className="flex items-center gap-[8px] mt-[20px] font-semibold text-[15px]">
-                {data.text}
+                {buttonLabel(data.text)}
                 <svg
                   aria-hidden="true"
                   width="16"

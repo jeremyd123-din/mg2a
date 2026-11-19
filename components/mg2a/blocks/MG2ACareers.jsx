@@ -1,5 +1,5 @@
 import MG2ASection from "../ui/MG2ASection";
-import { safeHref } from "../ui/helpers";
+import { buttonLabel, safeHref } from "../ui/helpers";
 export default function MG2ACareers({ data }) {
   return (
     <MG2ASection
@@ -20,13 +20,13 @@ export default function MG2ACareers({ data }) {
               className="btn inline-flex items-center gap-[10px] min-h-[48px] p-[0_22px] rounded-[4px] font-semibold text-[15px] [transition:transform_0.2s,_background-color_0.2s] [&:hover]:[transform:translateY(-1px)] motion-reduce:[transition:none] mg-white-button [background:white] [color:#1b4f72]"
               href={safeHref(data.primaryCta?.href)}
             >
-              {data.primaryCta?.label}
+              {buttonLabel(data.primaryCta?.label)}
             </a>
             <a
               className="btn inline-flex items-center gap-[10px] min-h-[48px] p-[0_22px] rounded-[4px] font-semibold text-[15px] [transition:transform_0.2s,_background-color_0.2s] [&:hover]:[transform:translateY(-1px)] motion-reduce:[transition:none] mg-outline [border:1.5px_solid_#f1efea80] [color:#f1efea]"
               href={safeHref(data.secondaryCta?.href)}
             >
-              {data.secondaryCta?.label}
+              {buttonLabel(data.secondaryCta?.label)}
             </a>
           </div>
         </div>

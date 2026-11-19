@@ -1,5 +1,34 @@
 import { stegaClean } from "next-sanity";
 
+const lowercaseTitleWords = new Set([
+  "a", "an", "and", "as", "at", "but", "by", "for", "in", "nor", "of",
+  "on", "or", "so", "the", "to", "up", "via", "with", "yet",
+]);
+const titleWord = /[\p{L}\p{N}]+(?:[’'][\p{L}\p{N}]+)*/gu;
+
+export function buttonLabel(label) {
+  if (label == null) return label;
+  const words = [...label.matchAll(titleWord)];
+  const first = words[0]?.index;
+  const last = words.at(-1)?.index;
+
+  // Preserve acronyms, internal capitals, and Sanity's invisible edit markers.
+  return label.replace(titleWord, (word, index) => {
+    const lower = word.toLowerCase();
+    if (
+      index !== first &&
+      index !== last &&
+      lowercaseTitleWords.has(lower) &&
+      (word.length === 1 || word !== word.toUpperCase())
+    ) {
+      return lower;
+    }
+    return /\p{Lu}/u.test(word.slice(1))
+      ? word
+      : word[0].toUpperCase() + word.slice(1);
+  });
+}
+
 export function mediaUrl(value) {
   if (!value) return undefined;
   if (typeof value === "string") return value;

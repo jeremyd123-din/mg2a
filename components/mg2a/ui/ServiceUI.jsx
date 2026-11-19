@@ -2,7 +2,7 @@ import { PortableText } from "@portabletext/react";
 import { stegaClean } from "next-sanity";
 import MG2ASection from "./MG2ASection";
 import { sectionAnchor } from "@/lib/mg2a/sectionAnchors";
-import { safeHref } from "./helpers";
+import { buttonLabel, safeHref } from "./helpers";
 export const serviceWrap =
   "mx-auto w-full max-w-[1280px] px-[clamp(16px,4vw,56px)]";
 export const mono =
@@ -48,7 +48,7 @@ export function ServiceButton({
             : "bg-[var(--btn)] text-white")
       }
     >
-      {link.label}
+      {buttonLabel(link.label)}
       {showArrow && !secondary && !banner && <Arrow />}
     </a>
   );

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { stegaClean } from "next-sanity";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { buttonLabel, mediaUrl, safeHref } from "../ui/helpers";
 const hasSubmenu = (item) =>
   ["/services", "/industries"].includes(stegaClean(item.href)) &&
   item.groups?.length > 0;
@@ -75,7 +75,7 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
                 onClick={onNavigate}
                 className="flex min-h-14 items-center gap-3 border-b border-white/10 py-3 text-[15px] font-medium hover:text-[var(--onDark)]"
               >
-                <span className="mg-nav-label">{link.label}</span>
+                <span>{link.label}</span>
                 <span
                   aria-hidden="true"
                   className="shrink-0 text-[var(--onDark)]"
@@ -113,7 +113,7 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
                         onClick={onNavigate}
                         className="block text-sm leading-relaxed text-[#bac8d1] hover:text-white"
                       >
-                        <span className="mg-nav-label">{link.label}</span>
+                        {link.label}
                       </a>
                     </li>
                   ))}
@@ -359,13 +359,13 @@ export default function MG2AHeader({
               aria-current={currentRoute(pathname, settings.secondaryCta?.href)}
               href={safeHref(settings.secondaryCta?.href)}
             >
-              {settings.secondaryCta?.label}
+              {buttonLabel(settings.secondaryCta?.label)}
             </a>
             <a
               className="inline-flex min-h-12 items-center rounded bg-[var(--btn)] px-[22px] text-[15px] font-semibold text-white [@media(max-width:420px)]:px-3 [@media(max-width:420px)]:text-[13px]"
               href={safeHref(settings.primaryCta?.href)}
             >
-              {settings.primaryCta?.label}
+              {buttonLabel(settings.primaryCta?.label)}
             </a>
             <button
               ref={toggle}
@@ -472,14 +472,14 @@ export default function MG2AHeader({
               href={safeHref(settings.secondaryCta?.href)}
               onClick={finish}
             >
-              {settings.secondaryCta?.label}
+              {buttonLabel(settings.secondaryCta?.label)}
             </a>
             <a
               className="rounded bg-[var(--btn)] px-5 py-3 font-semibold text-white"
               href={safeHref(settings.primaryCta?.href)}
               onClick={finish}
             >
-              {settings.primaryCta?.label}
+              {buttonLabel(settings.primaryCta?.label)}
             </a>
           </div>
           <div className="mt-8 space-y-4 text-sm text-[#bac8d1]">

@@ -1,5 +1,5 @@
 import MG2ASection from "../ui/MG2ASection";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { buttonLabel, mediaUrl, safeHref } from "../ui/helpers";
 export default function MG2AQuickPaths({ data }) {
   return (
     <MG2ASection
@@ -25,7 +25,7 @@ export default function MG2AQuickPaths({ data }) {
                 {item.text2}
               </span>
               <span className="flex items-center gap-[8px] mt-[6px] font-semibold text-[15px] [color:var(--accent)]">
-                {item.text3}
+                {buttonLabel(item.text3)}
                 <svg
                   aria-hidden="true"
                   width="16"

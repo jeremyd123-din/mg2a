@@ -1,6 +1,6 @@
 import MG2ASection from "../ui/MG2ASection";
 import InlineText from "../ui/InlineText";
-import { mediaUrl, safeHref } from "../ui/helpers";
+import { buttonLabel, mediaUrl, safeHref } from "../ui/helpers";
 import HeroVideo from "../ui/HeroVideo";
 export default function MG2AHero({ data }) {
   return (
@@ -47,7 +47,7 @@ export default function MG2AHero({ data }) {
             href={safeHref(data.buttonOne?.href)}
             className="btn inline-flex items-center gap-[10px] min-h-[48px] p-[0_22px] rounded-[4px] font-semibold text-[15px] [transition:transform_0.2s,_background-color_0.2s] [&:hover]:[transform:translateY(-1px)] motion-reduce:[transition:none] [background:var(--btn)] [color:#ffffff]"
           >
-            {data.buttonOne?.label}
+            {buttonLabel(data.buttonOne?.label)}
             <svg
               aria-hidden="true"
               width="16"
@@ -64,7 +64,7 @@ export default function MG2AHero({ data }) {
             href={safeHref(data.buttonTwo?.href)}
             className="btn inline-flex items-center gap-[10px] min-h-[48px] p-[0_22px] rounded-[4px] font-semibold text-[15px] [transition:transform_0.2s,_background-color_0.2s] [&:hover]:[transform:translateY(-1px)] motion-reduce:[transition:none] [border:1.5px_solid_rgba(241,_239,_234,_0.5)] [color:#f1efea]"
           >
-            {data.buttonTwo?.label}
+            {buttonLabel(data.buttonTwo?.label)}
           </a>
         </div>
         <div className="flex items-center gap-[14px] mt-[56px] pt-[22px] max-w-[700px] [border-top:1px_solid_rgba(255,_255,_255,_0.16)]">

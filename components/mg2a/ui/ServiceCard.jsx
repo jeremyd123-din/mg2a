@@ -1,5 +1,5 @@
 import { mono, Arrow } from "./ServiceUI";
-import { safeHref } from "./helpers";
+import { buttonLabel, safeHref } from "./helpers";
 export default function ServiceCard({ item, index }) {
   return (
     <a
@@ -35,7 +35,7 @@ export default function ServiceCard({ item, index }) {
           (item.featured ? "" : "text-[var(--accent)]")
         }
       >
-        {item.label || "Learn more"}
+        {buttonLabel(item.label || "Learn more")}
         <Arrow />
       </span>
     </a>

@@ -34,11 +34,11 @@ export default function FormDatePicker({ field, id }) {
         <button
           id={id}
           type="button"
-          aria-label={`${field.label}: ${display || "Pick a date"}`}
+          aria-label={`${field.label}: ${display || "Pick a Date"}`}
           className="flex min-h-12 w-full min-w-0 items-center justify-between gap-2 rounded border border-[var(--line)] bg-[var(--bg)] px-3.5 py-3 text-left text-sm font-normal text-[var(--ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--navy)]"
         >
           <span className="min-w-0">
-            {display || field.placeholder || "Pick a date"}
+            {display || field.placeholder || "Pick a Date"}
           </span>
           <svg
             aria-hidden="true"
@@ -95,7 +95,7 @@ export default function FormDatePicker({ field, id }) {
               onClick={() => select(undefined)}
               className="mt-1 w-full rounded border-t border-[var(--line)] px-3 py-2 text-center text-[var(--accent)] hover:bg-[var(--bg2)]"
             >
-              Clear date
+              Clear Date
             </button>
           )}
         </Popover.Content>
