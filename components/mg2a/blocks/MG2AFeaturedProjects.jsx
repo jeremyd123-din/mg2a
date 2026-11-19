@@ -1,5 +1,5 @@
 import MG2ASection from "../ui/MG2ASection";
-import { mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
+import { buttonLabel, mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
 export default function MG2AFeaturedProjects({ data }) {
   return (
     <MG2ASection data={data} id="projects" className="py-[104px]">
@@ -17,7 +17,7 @@ export default function MG2AFeaturedProjects({ data }) {
             href={safeHref(data.href)}
             className="flex items-center gap-[8px] font-semibold [color:var(--accent)]"
           >
-            {data.label}
+            {buttonLabel(data.label)}
             <svg
               aria-hidden="true"
               width="16"

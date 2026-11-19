@@ -8,7 +8,7 @@ import {
   Arrow,
   ServiceButton,
 } from "../ui/ServiceUI";
-import { mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
+import { buttonLabel, mediaUrl, safeHref, projectCardPosition } from "../ui/helpers";
 const number = (index) => String(index + 1).padStart(2, "0");
 export function MG2AProjectStage({ data }) {
   return (
@@ -226,7 +226,7 @@ export function MG2ARelatedProjects({ data }) {
             href={safeHref(data.allProjectsLink.href)}
             className="flex items-center gap-2 font-semibold text-[var(--accent)]"
           >
-            {data.allProjectsLink.label}
+            {buttonLabel(data.allProjectsLink.label)}
             <Arrow />
           </a>
         )}

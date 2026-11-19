@@ -25,7 +25,7 @@ export default function MG2AServiceCategories({ data }) {
             href={safeHref(data.href)}
             className="flex items-center gap-[8px] font-semibold [color:var(--accent)]"
           >
-            {data.label}
+            {buttonLabel(data.label)}
             <svg
               aria-hidden="true"
               width="16"

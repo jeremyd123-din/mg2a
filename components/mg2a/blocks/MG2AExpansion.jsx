@@ -346,7 +346,7 @@ export function MG2AProjectGrid({ data }) {
             href="/projects"
             className="flex items-center gap-2 font-semibold text-[var(--accent)]"
           >
-            All projects
+            All Projects
             <Arrow />
           </a>
         )}

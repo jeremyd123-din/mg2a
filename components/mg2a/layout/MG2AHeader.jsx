@@ -55,7 +55,9 @@ function MenuLinks({ item, mobile = false, onNavigate, pathname }) {
           onClick={onNavigate}
           className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--onDark)]"
         >
-          <span className="mg-nav-label">{industries ? "All industries" : "All services"}</span>
+          <span className="mg-nav-label">
+            {industries ? "All Industries" : "All Services"}
+          </span>
           <span aria-hidden="true">→</span>
         </a>
       </div>
