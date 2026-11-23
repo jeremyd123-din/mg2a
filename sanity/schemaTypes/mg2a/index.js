@@ -448,6 +448,14 @@ export const mg2aDocuments = [
         options: { list: ["new", "current"] },
       }),
       {
+        name: "disableHeroAnimations",
+        title: "Disable hero animations",
+        description: "Skip the fade and blur entrance on all page heroes.",
+        type: "boolean",
+        group: "brand",
+        initialValue: false,
+      },
+      {
         name: "disable_indexing",
         title: "Disable search indexing",
         type: "boolean",

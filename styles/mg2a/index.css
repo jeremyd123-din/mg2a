@@ -30,3 +30,46 @@
     @apply outline-2 outline-offset-[3px] outline-[#E64A19];
   }
 }
+
+@keyframes mg2a-hero-reveal {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    translate: 0 8px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-hero-motion="on"] {
+    --hero-reveal-lead-in: 100ms;
+    --hero-reveal-stagger: 55ms;
+  }
+
+  [data-hero-motion="on"] :is([data-hero-reveal] > *, [data-hero-reveal-item]) {
+    animation: mg2a-hero-reveal 540ms cubic-bezier(0.25, 0.65, 0.35, 1) backwards;
+    animation-delay: calc(
+      var(--hero-reveal-lead-in) + var(--hero-reveal-stagger) * var(--hero-reveal-step, 0)
+    );
+  }
+
+  [data-hero-motion="on"] [data-hero-reveal] > :nth-child(2) {
+    --hero-reveal-step: 1;
+  }
+
+  [data-hero-motion="on"] [data-hero-reveal] > :nth-child(3) {
+    --hero-reveal-step: 2;
+  }
+
+  [data-hero-motion="on"] :is([data-hero-reveal] > :nth-child(4), [data-hero-reveal-item]) {
+    --hero-reveal-step: 3;
+  }
+
+  [data-hero-motion="on"] [data-hero-reveal] > :nth-child(n + 5) {
+    --hero-reveal-step: 4;
+  }
+
+  [data-hero-motion="on"] :is([data-hero-reveal] > *, [data-hero-reveal-item]):focus-within {
+    animation-duration: 0s;
+    animation-delay: 0s;
+  }
+}

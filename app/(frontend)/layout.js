@@ -63,6 +63,7 @@ export default async function RootLayout({ children }) {
       data-theme={theme}
       data-orange={stegaClean(settings.orange) || "orange"}
       data-flip={stegaClean(settings.flip) || "new"}
+      data-hero-motion={settings.disableHeroAnimations === true ? "off" : "on"}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

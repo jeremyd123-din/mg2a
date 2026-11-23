@@ -31,7 +31,10 @@ export default function MG2AHero({ data }) {
         className="hdr-space h-[125px] [@media(max-width:980px)]:h-[84px]"
         aria-hidden="true"
       ></div>
-      <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)] mg-hero-content relative pt-[clamp(56px,_9vw,_120px)] pb-[180px]">
+      <div
+        data-hero-reveal=""
+        className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)] mg-hero-content relative pt-[clamp(56px,_9vw,_120px)] pb-[180px]"
+      >
         <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[12px] [color:var(--accentHi)] flex items-center gap-[14px]">
           <span className="[display:inline-block] w-[36px] h-[1px] [background:var(--accentHi)]"></span>
           {data.eyebrow}

@@ -42,9 +42,12 @@ function Heading({
     </div>
   );
 }
-function Portrait({ person }) {
+function Portrait({ person, revealHero = false }) {
   return (
-    <div className="flex aspect-[4/5] items-end justify-center overflow-hidden rounded-md border border-[var(--line)] bg-[var(--panel)]">
+    <div
+      data-hero-reveal-item={revealHero ? "" : undefined}
+      className="flex aspect-[4/5] items-end justify-center overflow-hidden rounded-md border border-[var(--line)] bg-[var(--panel)]"
+    >
       {mediaUrl(person.image) ? (
         <img
           src={mediaUrl(person.image)}
@@ -122,7 +125,7 @@ export function MG2ACompanyHero({ data }) {
           (careers ? "pb-[88px]" : "pb-28")
         }
       >
-        <div className="min-w-0 flex-[999_1_520px]">
+        <div data-hero-reveal="" className="min-w-0 flex-[999_1_520px]">
           <nav
             aria-label="Breadcrumb"
             className={
@@ -181,7 +184,10 @@ export function MG2ACompanyHero({ data }) {
           )}
         </div>
         {careers && (
-          <aside className="flex-[1_1_300px] rounded-md border border-white/20 bg-white/[.08] p-7">
+          <aside
+            data-hero-reveal-item=""
+            className="flex-[1_1_300px] rounded-md border border-white/20 bg-white/[.08] p-7"
+          >
             <div className={mono + " text-[11px] text-[#c2d3e2]"}>
               {data.asideTitle}
             </div>
@@ -476,6 +482,7 @@ export function MG2AMemberProfile({ data }) {
   return (
     <ServiceFrame data={data} className="py-20">
       <nav
+        data-hero-reveal-item=""
         aria-label="Breadcrumb"
         className={label + " mb-10 flex flex-wrap gap-2.5"}
       >
@@ -486,17 +493,19 @@ export function MG2AMemberProfile({ data }) {
         <span aria-current="page">{person.title}</span>
       </nav>
       <div className="grid items-start gap-12 md:grid-cols-[minmax(220px,320px)_1fr]">
-        <Portrait person={person} />
+        <Portrait person={person} revealHero />
         <div>
-          <p className={label}>{person.role}</p>
-          <h1 className="mt-4 text-[clamp(36px,5vw,60px)] font-bold leading-[1.05] tracking-[-.025em]">
-            {person.title}
-          </h1>
-          {person.summary && (
-            <p className="mt-6 text-[20px] leading-relaxed text-[var(--muted)]">
-              {person.summary}
-            </p>
-          )}
+          <div data-hero-reveal="">
+            <p className={label}>{person.role}</p>
+            <h1 className="mt-4 text-[clamp(36px,5vw,60px)] font-bold leading-[1.05] tracking-[-.025em]">
+              {person.title}
+            </h1>
+            {person.summary && (
+              <p className="mt-6 text-[20px] leading-relaxed text-[var(--muted)]">
+                {person.summary}
+              </p>
+            )}
+          </div>
           <h2 className="mt-10 text-[24px] font-bold">{data.title}</h2>
           <div className="mt-5 text-[18px] leading-relaxed [&_p]:mb-5">
             <RichText value={person.body} />

@@ -59,6 +59,7 @@ export function ServiceFrame({
   className = "",
   articleClass = "pt-16",
   wrap = true,
+  revealHero = false,
 }) {
   return (
     <MG2ASection
@@ -66,7 +67,10 @@ export function ServiceFrame({
       id={sectionId(data)}
       className={data._article ? articleClass : className}
     >
-      <div className={wrap && !data._article ? serviceWrap : undefined}>
+      <div
+        className={wrap && !data._article ? serviceWrap : undefined}
+        data-hero-reveal={revealHero ? "" : undefined}
+      >
         {children}
       </div>
     </MG2ASection>

@@ -19,6 +19,7 @@ export default function MG2AServiceHero({ data }) {
         }
       >
         <div
+          data-hero-reveal=""
           className={
             visual ? "min-w-0 flex-[1_1_480px]" : "min-w-0 flex-[999_1_560px]"
           }
@@ -82,7 +83,10 @@ export default function MG2AServiceHero({ data }) {
           </div>
         </div>
         {visual && data.image ? (
-          <figure className="m-0 min-w-0 flex-[1_1_420px]">
+          <figure
+            data-hero-reveal-item=""
+            className="m-0 min-w-0 flex-[1_1_420px]"
+          >
             <div className="h-[400px] overflow-hidden rounded-md border border-white/12 bg-[#0e2c42]">
               <img
                 src={mediaUrl(data.image)}
@@ -96,7 +100,10 @@ export default function MG2AServiceHero({ data }) {
           </figure>
         ) : (
           !!data.facts?.length && (
-            <dl className="m-0 grid flex-[1_1_300px] grid-cols-[auto_1fr] gap-x-5 gap-y-3.5 rounded-md border border-white/12 bg-white/5 px-7 py-[26px] text-[15px]">
+            <dl
+              data-hero-reveal-item=""
+              className="m-0 grid flex-[1_1_300px] grid-cols-[auto_1fr] gap-x-5 gap-y-3.5 rounded-md border border-white/12 bg-white/5 px-7 py-[26px] text-[15px]"
+            >
               {data.facts.map((fact) => (
                 <Fragment key={fact._key}>
                   <dt className={mono + " pt-[3px] text-[10px] text-[#9fb0bc]"}>

@@ -54,6 +54,7 @@ export function MG2APageHero({ data }) {
   return (
     <ServiceFrame
       data={data}
+      revealHero
       className="bg-[#0b1822] text-[#f1efea] pt-14 pb-16"
     >
       <HeroBreadcrumb data={data} />
@@ -98,6 +99,7 @@ export function MG2AProjectHero({ data }) {
         }
       />
       <div
+        data-hero-reveal=""
         className={
           serviceWrap +
           " relative " +

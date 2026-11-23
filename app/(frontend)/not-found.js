@@ -2,7 +2,10 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <section className="min-h-[calc(100svh-125px)] bg-[#0b1822] pb-[120px] pt-[clamp(96px,14vw,176px)] text-[#eef2f4]">
-      <div className="mx-auto max-w-[1280px] px-[clamp(16px,4vw,56px)]">
+      <div
+        data-hero-reveal=""
+        className="mx-auto max-w-[1280px] px-[clamp(16px,4vw,56px)]"
+      >
         <p className="text-sm font-semibold uppercase tracking-widest text-[var(--onDark)]">
           404
         </p>

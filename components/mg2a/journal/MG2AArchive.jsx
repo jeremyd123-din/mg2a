@@ -8,17 +8,19 @@ export default function MG2AArchive({
 }) {
   return (
     <section className="mx-auto max-w-[1280px] px-[clamp(16px,4vw,56px)] py-24">
-      <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[.14em] text-[var(--accent)]">
-        MG2A · Developer’s Journal
-      </p>
-      <h1 className="mt-4 max-w-3xl text-5xl font-bold tracking-tight">
-        {heroData.heading || "Developer’s Journal"}
-      </h1>
-      {heroData.description && (
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
-          {heroData.description}
+      <header data-hero-reveal="">
+        <p className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[.14em] text-[var(--accent)]">
+          MG2A · Developer’s Journal
         </p>
-      )}
+        <h1 className="mt-4 max-w-3xl text-5xl font-bold tracking-tight">
+          {heroData.heading || "Developer’s Journal"}
+        </h1>
+        {heroData.description && (
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
+            {heroData.description}
+          </p>
+        )}
+      </header>
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {bodyData.map((post) => (
           <article
