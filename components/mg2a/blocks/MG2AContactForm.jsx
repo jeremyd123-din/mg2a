@@ -8,7 +8,7 @@ export default function MG2AContactForm({ data }) {
       id="contact"
       className="mg-section [&_.mg-offices_.mono]:text-[11px] py-[104px] [&_h2]:m-[16px_0_0] [&_h2]:text-[clamp(32px,_3.6vw,_48px)] [&_h2]:leading-[1.06] [&_h2]:font-bold [&_h2]:tracking-[-0.02em] [&_p]:m-[18px_0_0] [&_p]:text-[17px] [&_p]:leading-[1.6] [&_p]:[color:var(--muted)] [&_.mono]:text-[12px]"
     >
-      <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)] mg-contact-layout flex flex-wrap gap-[56px]">
+      <div data-home-reveal-group="" className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)] mg-contact-layout flex flex-wrap gap-[56px]">
         <div className="mg-contact-copy flex-[1_1_360px] max-w-[460px]">
           <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] mg-accent [color:var(--accent)]">
             {data.eyebrow}

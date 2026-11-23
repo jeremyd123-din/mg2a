@@ -1,15 +1,19 @@
 import { pageStyles } from "@/lib/mg2a/scopedStyles";
 import PageBuilder from "@/components/wrappers/PageBuilder";
+import HomepageMotion from "@/components/mg2a/ui/HomepageMotion";
 import { getMetaData } from "@/lib/seo";
-import { getPageBySlug } from "@/sanity/utils/queries";
+import { getMG2ASettings, getPageBySlug } from "@/sanity/utils/queries";
 import { notFound } from "next/navigation";
 import { draftMode } from "next/headers";
 
 const homepagePath = "index";
 
 export default async function Page() {
-  const { isEnabled: isPreview } = await draftMode();
-  const data = await getPageBySlug(homepagePath);
+  const [{ isEnabled: isPreview }, data, settings] = await Promise.all([
+    draftMode(),
+    getPageBySlug(homepagePath),
+    getMG2ASettings(),
+  ]);
   if (!data) {
     return notFound();
   }
@@ -25,6 +29,7 @@ export default async function Page() {
           docType={isPreview ? data._type : undefined}
         />
       ))}
+      {settings?.enableHomepageAnimations === true && <HomepageMotion />}
     </>
   );
 }

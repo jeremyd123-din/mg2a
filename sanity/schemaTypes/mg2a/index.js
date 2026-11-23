@@ -456,6 +456,15 @@ export const mg2aDocuments = [
         initialValue: false,
       },
       {
+        name: "enableHomepageAnimations",
+        title: "Enable homepage scroll animations",
+        description:
+          "Reveal homepage sections as visitors scroll. The hero has its own setting.",
+        type: "boolean",
+        group: "brand",
+        initialValue: false,
+      },
+      {
         name: "disable_indexing",
         title: "Disable search indexing",
         type: "boolean",

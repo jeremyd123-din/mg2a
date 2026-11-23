@@ -9,7 +9,7 @@ export default function MG2AServiceCategories({ data }) {
       className="mg-services p-[96px_0_104px]"
     >
       <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)]">
-        <div className="flex flex-wrap justify-between items-end gap-[24px] mb-[48px]">
+        <div data-home-reveal="" className="flex flex-wrap justify-between items-end gap-[24px] mb-[48px]">
           <div className="max-w-[640px]">
             <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[12px] [color:var(--accent)]">
               {data.eyebrow}
@@ -39,7 +39,7 @@ export default function MG2AServiceCategories({ data }) {
             </svg>
           </a>
         </div>
-        <div className="mg-services-grid grid [grid-template-columns:repeat(auto-fill,_minmax(260px,_1fr))] gap-[16px]">
+        <div data-home-reveal-group="" className="mg-services-grid grid [grid-template-columns:repeat(auto-fill,_minmax(260px,_1fr))] gap-[16px]">
           {(data.categories || []).filter(Boolean).map((item, itemIndex) => (
             <div
               key={item._key || item._id || itemIndex}

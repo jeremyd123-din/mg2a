@@ -8,7 +8,7 @@ export default function MG2AIndustries({ data }) {
       className="py-[96px] [background:var(--bg2)] [border-top:1px_solid_var(--line)]"
     >
       <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)] flex flex-wrap gap-[48px]">
-        <div className="flex-[1_1_320px] max-w-[420px]">
+        <div data-home-reveal="" className="flex-[1_1_320px] max-w-[420px]">
           <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[12px] [color:var(--accent)]">
             {data.eyebrow}
           </div>
@@ -19,7 +19,7 @@ export default function MG2AIndustries({ data }) {
             {data.description}
           </p>
         </div>
-        <div className="mg-industries-grid gap-x-[32px] flex-[999_1_560px] min-w-[0] grid [grid-template-columns:repeat(auto-fill,_minmax(240px,_1fr))] [border-top:1px_solid_var(--line)]">
+        <div data-home-reveal-group="" className="mg-industries-grid gap-x-[32px] flex-[999_1_560px] min-w-[0] grid [grid-template-columns:repeat(auto-fill,_minmax(240px,_1fr))] [border-top:1px_solid_var(--line)]">
           {(data.industries || []).filter(Boolean).map((item, itemIndex) => (
             <a
               key={item._key || item._id || itemIndex}

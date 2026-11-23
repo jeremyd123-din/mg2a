@@ -4,7 +4,7 @@ export default function MG2AFeaturedProjects({ data }) {
   return (
     <MG2ASection data={data} id="projects" className="py-[104px]">
       <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)]">
-        <div className="flex flex-wrap justify-between items-end gap-[24px] mb-[48px]">
+        <div data-home-reveal="" className="flex flex-wrap justify-between items-end gap-[24px] mb-[48px]">
           <div className="max-w-[640px]">
             <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[12px] [color:var(--accent)]">
               {data.eyebrow}
@@ -32,6 +32,7 @@ export default function MG2AFeaturedProjects({ data }) {
           </a>
         </div>
         <a
+          data-home-reveal=""
           href={safeHref(data.href2)}
           className="proj [&_img]:[transition:transform_0.6s] [&_svg]:[transition:transform_0.6s] [&:hover_.projmedia]:[transform:scale(1.03)] feat [@media(max-width:700px)]:pt-[210px] relative flex flex-col justify-end min-h-[500px] rounded-[6px] overflow-hidden [background:#0f202c] [color:#ffffff]"
         >
@@ -67,7 +68,7 @@ export default function MG2AFeaturedProjects({ data }) {
             </div>
           </div>
         </a>
-        <div className="grid [grid-template-columns:repeat(auto-fit,_minmax(300px,_1fr))] gap-[20px] mt-[20px]">
+        <div data-home-reveal-group="" className="grid [grid-template-columns:repeat(auto-fit,_minmax(300px,_1fr))] gap-[20px] mt-[20px]">
           {(data.projects || []).filter(Boolean).map((item, itemIndex) => (
             <a
               key={item._key || item._id || itemIndex}

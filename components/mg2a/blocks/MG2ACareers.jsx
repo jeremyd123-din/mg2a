@@ -9,7 +9,7 @@ export default function MG2ACareers({ data }) {
       className="mg-careers [&_.mg-job_.mono]:text-[11px] [&_.mg-job-heading.mono]:text-[11px] [&_h2]:m-[16px_0_0] [&_h2]:text-[clamp(32px,_3.6vw,_50px)] [&_h2]:leading-[1.05] [&_h2]:font-bold [&_h2]:tracking-[-0.02em] [background:var(--navy)] [color:#fff] [&_.mono]:text-[12px] [&_p]:m-[20px_0_0] [&_p]:max-w-[520px] [&_p]:text-[18px] [&_p]:leading-[1.6] [&_p]:[color:#d3dde8] [&_.mg-outline]:[color:#fff] [&_.mg-outline]:[border-color:rgba(255,_255,_255,_0.55)] [&_.mg-job-heading]:text-[11px]"
     >
       <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)] mg-two-columns flex flex-wrap gap-[56px] pt-[96px] pb-[96px] [&_>_div]:flex-[1_1_420px]">
-        <div>
+        <div data-home-reveal-group="">
           <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] mg-dark-accent [color:var(--onDark)]">
             {data.eyebrow}
           </div>
@@ -30,7 +30,7 @@ export default function MG2ACareers({ data }) {
             </a>
           </div>
         </div>
-        <div>
+        <div data-home-reveal-group="">
           <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] mg-job-heading [color:#afc1d6] pb-[14px] [border-bottom:1px_solid_#ffffff2e]">
             {data.jobsTitle}
           </div>

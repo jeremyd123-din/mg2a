@@ -8,13 +8,13 @@ export default function MG2AProjectLifecycle({ data }) {
       className="py-[88px] [background:var(--bg2)] [border-top:1px_solid_var(--line)] [border-bottom:1px_solid_var(--line)]"
     >
       <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)]">
-        <div className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[12px] [color:var(--accent)]">
+        <div data-home-reveal="" className="mono [font-family:var(--font-mono)] tracking-[0.14em] [text-transform:uppercase] text-[12px] [color:var(--accent)]">
           {data.eyebrow}
         </div>
-        <h2 className="m-[16px_0_48px] max-w-[720px] text-[clamp(28px,_3vw,_40px)] leading-[1.1] font-bold tracking-[-0.02em]">
+        <h2 data-home-reveal="" className="m-[16px_0_48px] max-w-[720px] text-[clamp(28px,_3vw,_40px)] leading-[1.1] font-bold tracking-[-0.02em]">
           {data.title}
         </h2>
-        <ol className="mg-lifecycle-stages [&_>_li:not(:first-child)]:[border-top-color:var(--line)] [&_>_li:not(:first-child)_>_.mono]:[color:var(--muted)] m-[0] p-[0] list-none grid [grid-template-columns:repeat(auto-fit,_minmax(200px,_1fr))] gap-[0]">
+        <ol data-home-reveal-group="" className="mg-lifecycle-stages [&_>_li:not(:first-child)]:[border-top-color:var(--line)] [&_>_li:not(:first-child)_>_.mono]:[color:var(--muted)] m-[0] p-[0] list-none grid [grid-template-columns:repeat(auto-fit,_minmax(200px,_1fr))] gap-[0]">
           {(data.stages || []).filter(Boolean).map((item, itemIndex) => (
             <li
               key={item._key || item._id || itemIndex}

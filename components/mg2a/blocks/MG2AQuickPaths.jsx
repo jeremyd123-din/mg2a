@@ -8,7 +8,7 @@ export default function MG2AQuickPaths({ data }) {
       className="relative mt-[-112px]"
     >
       <div className="wrap max-w-[1280px] mx-auto pl-[clamp(16px,_4vw,_56px)] pr-[clamp(16px,_4vw,_56px)]">
-        <div className="mg-quick-paths-grid [&_>_a:last-child]:[border-right:0] grid [grid-template-columns:repeat(auto-fit,_minmax(260px,_1fr))] [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [box-shadow:0_24px_60px_rgba(0,_0,_0,_0.28)]">
+        <div data-home-reveal-group="" className="mg-quick-paths-grid [&_>_a:last-child]:[border-right:0] grid [grid-template-columns:repeat(auto-fit,_minmax(260px,_1fr))] [background:var(--panel)] [border:1px_solid_var(--line)] rounded-[6px] [box-shadow:0_24px_60px_rgba(0,_0,_0,_0.28)]">
           {(data.paths || []).filter(Boolean).map((item, itemIndex) => (
             <a
               key={item._key || item._id || itemIndex}
