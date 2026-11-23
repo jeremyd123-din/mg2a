@@ -397,7 +397,7 @@ export function MG2AProjectGrid({ data }) {
 }
 export function MG2AIndustryListing({ data }) {
   return (
-    <ServiceFrame data={data} className={data.compact ? "pb-24" : "py-24"}>
+    <ServiceFrame data={data} className="py-24">
       <h2
         className={
           data.compact
@@ -491,7 +491,7 @@ export function MG2AIndustrySupport({ data }) {
 }
 export function MG2AIndustryPrograms({ data }) {
   return (
-    <ServiceFrame data={data} className="pb-24">
+    <ServiceFrame data={data} id="programs" className="pb-24">
       <div className={mono + " text-[12px] text-[var(--accent)]"}>
         {data.eyebrow}
       </div>

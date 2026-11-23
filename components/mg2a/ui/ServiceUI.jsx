@@ -55,6 +55,7 @@ export function ServiceButton({
 }
 export function ServiceFrame({
   data,
+  id,
   children,
   className = "",
   articleClass = "pt-16",
@@ -64,7 +65,7 @@ export function ServiceFrame({
   return (
     <MG2ASection
       data={data}
-      id={sectionId(data)}
+      id={id || sectionId(data)}
       className={data._article ? articleClass : className}
     >
       <div
