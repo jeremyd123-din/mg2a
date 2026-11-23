@@ -10,8 +10,6 @@ export default function GalleryLayout({ children }) {
       className="scroll-pt-[84px] scroll-smooth motion-reduce:scroll-auto"
       lang="en"
       data-theme="dark"
-      data-orange="orange"
-      data-flip="new"
     >
       <head>
         <link

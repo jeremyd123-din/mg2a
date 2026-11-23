@@ -437,23 +437,20 @@ export const mg2aDocuments = [
           group: "footer",
         }),
       ),
-      string("orange", "Orange accent", {
-        group: "brand",
-        initialValue: "orange",
-        options: { list: ["orange", "earth"] },
-      }),
-      string("flip", "Flip card blue", {
-        group: "brand",
-        initialValue: "new",
-        options: { list: ["new", "current"] },
-      }),
+      string("orange", "Orange accent", { hidden: true }),
+      string("flip", "Flip card blue", { hidden: true }),
       {
         name: "disableHeroAnimations",
-        title: "Disable hero animations",
-        description: "Skip the fade and blur entrance on all page heroes.",
+        type: "boolean",
+        hidden: true,
+      },
+      {
+        name: "enableHeroAnimations",
+        title: "Enable hero animations",
+        description: "Fade page hero content into focus as each page opens.",
         type: "boolean",
         group: "brand",
-        initialValue: false,
+        initialValue: true,
       },
       {
         name: "enableHomepageAnimations",

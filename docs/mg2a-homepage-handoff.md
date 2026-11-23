@@ -1,6 +1,6 @@
 # MG2A homepage development
 
-The November 5 developer handoff is the visual specification. It supersedes the earlier theme plan: home defaults dark, other pages light; header and footer stay navy; visitors do not see a theme toggle. Page theme, orange accent and flip-card blue are CMS settings. No website deployment has been performed.
+The November 5 developer handoff is the visual specification. It supersedes the earlier theme plan: home defaults dark, other pages light; header and footer stay navy; visitors do not see a theme toggle. Editors can set the page theme in the CMS. The orange accent and flip-card blue are fixed brand colors.
 
 ## Editor workflow
 

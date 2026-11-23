@@ -40,6 +40,8 @@ export default async function RootLayout({ children }) {
     getPageBySlug(slug),
   ]);
   const settings = globalSettings || { ...defaults, offices };
+  const heroAnimationsEnabled =
+    settings.enableHeroAnimations ?? (settings.disableHeroAnimations !== true);
   const theme =
     stegaClean(page?.default_theme) || (pathname === "/" ? "dark" : "light");
   const structuredData = {
@@ -61,9 +63,7 @@ export default async function RootLayout({ children }) {
       className="bg-[#0b1822] scroll-pt-[84px] scroll-smooth motion-reduce:scroll-auto"
       lang="en"
       data-theme={theme}
-      data-orange={stegaClean(settings.orange) || "orange"}
-      data-flip={stegaClean(settings.flip) || "new"}
-      data-hero-motion={settings.disableHeroAnimations === true ? "off" : "on"}
+      data-hero-motion={heroAnimationsEnabled ? "on" : "off"}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
